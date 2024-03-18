@@ -206,8 +206,10 @@ const resetFields = () => {
   existedUsername.value = false
 }
 
+import anyAscii from 'any-ascii'
+
 const getUsername = (name, phoneNumber) => {
-  const lastName = name.split(' ').pop().toLowerCase()
+  const lastName = anyAscii(name.split(' ').pop().toLowerCase())
   const lastFourDigits = phoneNumber.slice(-4)
   return `${lastName}${lastFourDigits}`
 }

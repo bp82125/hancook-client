@@ -1,8 +1,9 @@
 import { ref as storageRef, deleteObject } from 'firebase/storage'
 import { useFirebaseStorage, useStorageFile } from 'vuefire'
+import { storage } from '@/plugins/firebase'
 
 export const uploadImage = async (image, imageName) => {
-  const storage = useFirebaseStorage()
+  // const storage = useFirebaseStorage()
   const fileRef = storageRef(storage, `dish/${imageName}`)
   const { url, refresh, upload } = useStorageFile(fileRef)
   await upload(image)
