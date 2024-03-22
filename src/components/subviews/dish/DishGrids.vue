@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-50 rounded-lg p-8 mb-5">
+  <div class="bg-slate-50 rounded-lg p-8 mb-5 shadow-lg">
     <div class="flex items-center justify-between mb-3">
       <h1 class="font-medium text-2xl">{{ dishType.dishTypeName }}</h1>
       <div class="flex gap-x-2">

@@ -1,8 +1,8 @@
 <template>
-  <div class="px-5 flex justify-end items-center">
+  <div class="flex justify-end items-center">
     <button
-      data-modal-target="createDishTypeModal"
-      data-modal-toggle="createDishTypeModal"
+      data-modal-target="createTableModal"
+      data-modal-toggle="createTableModal"
       class="flex items-center gap-2 bg-blue-500 p-3 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg
@@ -20,11 +20,11 @@
           d="M5 12h14m-7 7V5"
         />
       </svg>
-      <div class="text-white">Thêm loại món ăn</div>
+      <div class="text-white">Thêm bàn</div>
     </button>
 
     <div
-      id="createDishTypeModal"
+      id="createTableModal"
       tabindex="-1"
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
@@ -36,11 +36,11 @@
           <div
             class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
           >
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Thêm loại món ăn</h3>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Thêm bàn</h3>
             <button
               type="button"
               class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-hide="createDishTypeModal"
+              data-modal-hide="createTableModal"
             >
               <svg
                 class="w-3 h-3"
@@ -67,21 +67,21 @@
                 <label
                   for="name"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Tên loại món ăn</label
+                  >Tên bàn</label
                 >
                 <input
-                  v-model="dishTypeName"
+                  v-model="tableName"
                   type="text"
                   name="name"
-                  id="dishTypeName"
+                  id="tableName"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                  placeholder="Vd: Đồ ăn kèm"
+                  placeholder="Vd: Bàn số 1"
                   required
                 />
               </div>
 
               <button
-                data-modal-hide="createDishTypeModal"
+                data-modal-hide="createTableModal"
                 type="submit"
                 class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -98,20 +98,20 @@
 <script setup>
 import { initModals } from 'flowbite'
 import { onMounted } from 'vue'
-import { useDishTypeStore } from '@/stores/dishTypeStore'
+import { useTableStore } from '@/stores/tableStore'
 import { ref } from 'vue'
 
 onMounted(() => {
   initModals()
 })
 
-const dishTypeStore = useDishTypeStore()
-const dishTypeName = ref('')
+const tableStore = useTableStore()
+const tableName = ref('')
 
 const submitForm = async () => {
-  const response = await dishTypeStore.createDishType({ dishTypeName: dishTypeName.value })
+  const response = await tableStore.createTable({ name: tableName.value })
   console.log(response)
 
-  dishTypeName.value = ''
+  tableName.value = ''
 }
 </script>

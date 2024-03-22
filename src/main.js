@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-
+import 'vue-search-select/dist/VueSearchSelect.css'
 import { VueFire } from 'vuefire'
 import { firebaseApp } from '@/plugins/firebase'
 

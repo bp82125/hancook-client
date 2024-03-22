@@ -114,7 +114,7 @@ import { onMounted } from 'vue'
 import { initModals } from 'flowbite'
 import { useOrderStore } from '@/stores/orderStore'
 
-const orderStore = useOrderStore
+const orderStore = useOrderStore()
 
 onMounted(() => {
   initModals()

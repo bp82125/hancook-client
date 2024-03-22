@@ -1,7 +1,9 @@
-<script setup></script>
-
 <template>
-  <main>
-    <h1>Đây là trang quản lý bàn trong quán</h1>
+  <main class="w-full">
+    <TableComponent></TableComponent>
   </main>
 </template>
+
+<script setup>
+import TableComponent from '@/components/subviews/table/TableComponent.vue'
+</script>

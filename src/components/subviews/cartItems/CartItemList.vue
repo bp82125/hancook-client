@@ -1,10 +1,10 @@
 <template>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-8 px-8 py-4 border bg-white">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 px-8 py-4 border bg-white">
     <table class="table-auto w-full text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase">
         <tr>
           <th scope="col" class="px-6 py-3 w-36"></th>
-          <th scope="col" class="px-6 py-3 text-start w-auto">Món ăn</th>
+          <th scope="col" class="px-6 py-3 text-center w-auto">Món ăn</th>
           <th scope="col" class="px-6 py-3">Số lượng</th>
           <th scope="col" class="px-6 py-3 min-w-36 text-end">Giá</th>
           <th scope="col" class="px-9 py-3 w-32 text-start">Ghi chú</th>
@@ -98,7 +98,7 @@
           </td>
           <td class="px-6 py-4 text-center">
             <button
-              @click="cartItemStore.removeItem(item.dish.id)"
+              @click="orderStore.removeItem(item.dish.id)"
               type="button"
               class="px-6 py-2 text-sm font-medium text-red-500 bg-transparent rounded-lg hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300"
             >
@@ -150,13 +150,5 @@ const formatPrice = (price) => {
 
 const getTotalPrice = (item) => {
   return item.dish.price * item.quantity
-}
-
-const getTotal = () => {
-  if (items.value.length <= 0) {
-    return 0
-  } else {
-    return items.value.reduce((acc, item) => acc + getTotalPrice(item), 0)
-  }
 }
 </script>

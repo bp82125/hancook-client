@@ -1,10 +1,11 @@
 import axios from 'axios'
 import Cookies from 'vue-cookies'
 import router from '@/router/index'
+import axiosInstance from '@/plugins/axios'
 
 export function signOut() {
   Cookies.remove('accessToken')
-  Cookies.remove('accountInfo')
+  Cookies.remove('employeeInfo')
 
   router.push({ name: 'dashboard' })
 }
@@ -33,7 +34,12 @@ export async function login(username, password) {
         secure: true,
         httpOnly: true
       })
-      Cookies.set('accountInfo', accountInfo, {
+
+      const employeeId = accountInfo.employeeId
+      const employeeResponse = await axiosInstance.get(`/employees/${employeeId}`)
+      const employeeInfo = employeeResponse.data.data
+
+      Cookies.set('employeeInfo', employeeInfo, {
         expires: '2h',
         secure: true,
         httpOnly: true

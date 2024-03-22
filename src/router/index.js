@@ -64,12 +64,6 @@ const routes = [
         ]
       },
       {
-        path: '/dashboard/customer',
-        name: 'customer',
-
-        component: () => import('../views/subviews/CustomerView.vue')
-      },
-      {
         path: '/dashboard/table',
         name: 'table',
 
