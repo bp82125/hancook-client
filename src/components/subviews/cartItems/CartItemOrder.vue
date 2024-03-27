@@ -18,11 +18,11 @@
 
 <script setup>
 import { ref, computed, onUnmounted } from 'vue'
-import { useOrderStore } from '@/stores/orderStore'
+import { useCartItemStore } from '@/stores/cartItemStore'
 import { useUserStore } from '@/stores/userStore'
 import { errorMessages } from 'vue/compiler-sfc'
 
-const orderStore = useOrderStore()
+const cartItemStore = useCartItemStore()
 const userStore = useUserStore()
 
 const errorMessage = ref('')
@@ -32,7 +32,7 @@ onUnmounted(() => {
 })
 
 const details = computed(() => {
-  return orderStore.order.details
+  return cartItemStore.order.details
 })
 
 const formatPrice = (price) => {
@@ -53,17 +53,18 @@ const getTotal = () => {
 
 const submitForm = async () => {
   await userStore.fetchUser()
-  orderStore.order.employeeId = userStore.user.id
+  cartItemStore.order.employeeId = userStore.user.id
 
-  if (!orderStore.order.tableId) {
+  if (!cartItemStore.order.tableId) {
     errorMessage.value = 'Bạn chưa chọn bàn để đặt đơn món'
     return
   }
-  if (orderStore.order.details.length <= 0) {
+  if (cartItemStore.order.details.length <= 0) {
     errorMessage.value = 'Bạn chưa chọn món ăn nào để đặt đơn'
     return
   }
   errorMessages.value = ''
-  orderStore.createOrder()
+  cartItemStore.createOrder()
 }
 </script>
+@/stores/cartStore

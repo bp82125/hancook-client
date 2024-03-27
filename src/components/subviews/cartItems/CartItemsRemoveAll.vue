@@ -89,7 +89,7 @@
           class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
         >
           <button
-            @click="orderStore.clearAll()"
+            @click="cartItemStore.clearAll()"
             data-modal-hide="removeAllModal"
             type="button"
             class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
@@ -112,11 +112,12 @@
 <script setup>
 import { onMounted } from 'vue'
 import { initModals } from 'flowbite'
-import { useOrderStore } from '@/stores/orderStore'
+import { useCartItemStore } from '@/stores/cartItemStore'
 
-const orderStore = useOrderStore()
+const cartItemStore = useCartItemStore()
 
 onMounted(() => {
   initModals()
 })
 </script>
+@/stores/cartStore

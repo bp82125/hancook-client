@@ -6,11 +6,12 @@
 </template>
 
 <script setup>
-import { useOrderStore } from '@/stores/orderStore'
+import { useCartItemStore } from '@/stores/cartItemStore'
 import { computed } from 'vue'
 
-const orderStore = useOrderStore()
+const cartItemStore = useCartItemStore()
 const orderDetails = computed(() => {
-  return orderStore.order.details
+  return cartItemStore.order.details
 })
 </script>
+@/stores/cartStore

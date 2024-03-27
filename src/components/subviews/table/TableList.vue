@@ -68,7 +68,7 @@
         >
           <button
             :disabled="table.state === 'available'"
-            @click="$emit('showOrder', table)"
+            @click="showOrder(table)"
             class="text-white mx-1 bg-gray-800 hover:bg-gray-600 focus:ring-4 disabled:bg-gray-300 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2 text-center"
           >
             <h1 class="text-sm">Xem</h1>
@@ -127,8 +127,12 @@
 import { computed, onMounted } from 'vue'
 import { useTableStore } from '@/stores/tableStore'
 import { initFlowbite } from 'flowbite'
+import { useRouter } from 'vue-router'
+import { useOrderStore } from '@/stores/orderStore'
 
 const tableStore = useTableStore()
+const orderStore = useOrderStore()
+const router = useRouter()
 
 onMounted(() => {
   tableStore.fetchTable()
@@ -138,4 +142,9 @@ onMounted(() => {
 const tables = computed(() => {
   return tableStore.tables
 })
+
+const showOrder = async (table) => {
+  await orderStore.fetchOrder(table.id)
+  router.push({ name: 'order' })
+}
 </script>

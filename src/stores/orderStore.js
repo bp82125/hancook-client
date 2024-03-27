@@ -1,85 +1,62 @@
 import { defineStore } from 'pinia'
-import { useUserStore } from '@/stores/userStore'
 import axiosInstance from '@/plugins/axios'
-
-const userStore = useUserStore()
 
 export const useOrderStore = defineStore({
   id: 'order',
   state: () => ({
     order: {
-      employeeId: null,
-      tableId: null,
-      details: []
+      id: null,
+      employee: null,
+      table: null,
+      details: [],
+      placedTime: null
     }
   }),
   actions: {
-    async createOrder() {
-      try {
-        const { employeeId, tableId } = this.order
-        const orderData = {
-          employeeId,
-          tableId
-        }
-        const orderResponse = await axiosInstance.post('/orders', orderData)
-        console.log('Order created:', orderResponse.data)
-
-        const orderId = orderResponse.data.data.id
-        const orderDetailsData = this.order.details.map((detail) => ({
-          orderId,
-          dishId: detail.dish.id,
-          quantity: detail.quantity,
-          note: detail.note
-        }))
-
-        for (const detailData of orderDetailsData) {
-          const detailResponse = await axiosInstance.post(
-            `/orders/${orderId}/details/${detailData.dishId}`,
-            detailData
-          )
-          console.log('Order detail created:', detailResponse.data.data)
-        }
-
-        this.clearAll()
-      } catch (error) {
-        console.error('Error creating order:', error)
-        throw error
-      }
-    },
-
-    async addToOrder(orderDetail) {
-      const existingItemIndex = this.order.details.findIndex(
-        (item) => item.dish.id === orderDetail.dish.id
-      )
-
-      if (existingItemIndex !== -1) {
-        this.order.details[existingItemIndex].quantity += orderDetail.quantity
-        this.order.details[existingItemIndex].note += ' ' + orderDetail.note
-      } else {
-        this.order.details.push(orderDetail)
-      }
-    },
-    async clearAll() {
-      this.$reset()
-    },
-    async removeItem(id) {
-      const indexToRemove = this.order.details.findIndex((item) => item.dish.id === id)
-      if (indexToRemove !== -1) {
-        this.order.details.splice(indexToRemove, 1)
-      }
-    },
-
-    async getOrder(tableId) {
+    async fetchOrder(tableId) {
       try {
         const response = await axiosInstance.get(`/tables/${tableId}/orders`)
-        return response.data.data
+        const order = response.data.data
+
+        this.order.id = order.id
+        this.order.employee = order.employee
+        this.order.table = order.table
+        this.order.details = order.details
+        this.order.placedTime = order.placedTime
       } catch (error) {
-        console.error('Error creating order:', error)
-        throw error
+        console.error('Error fetching order:', error)
+      }
+    },
+
+    async deleteDetail(tableId, dishId) {
+      try {
+        console.log(`/tables/orders/${this.order.id}/details/${dishId}`)
+        // const response = await axiosInstance.delete(
+        //   `/tables/orders/${this.order.id}/details/${dishId}`
+        // )
+        // this.fetchOrder(this.order.table.id)
+      } catch (error) {
+        console.error('Error deleting order detail:', error)
+      }
+    },
+
+    async updateDetail(tableId, detail) {
+      try {
+        const endpoint = `/tables/orders/${this.order.id}/details/${detail.dish.id}`
+        const request = {
+          quantity: detail.quantity,
+          note: detail.quantity
+        }
+        const response = await axiosInstance.put(
+          `/tables/orders/${this.order.id}/details/${detail.dish.id}`,
+          request
+        )
+        this.fetchOrder(this.order.table.id)
+
+        console.log(test)
+      } catch (error) {
+        console.error('Error deleting order detail:', error)
       }
     }
-  },
-  initialize() {
-    userStore.fetchUser()
   }
 })

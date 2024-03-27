@@ -13,29 +13,29 @@
       </thead>
       <tbody class="divide-y-2">
         <tr
-          v-for="item in items"
-          :key="item.dish.id"
+          v-for="detail in details"
+          :key="detail.dish.id"
           class="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
           <th scope="row" class="px-6 py-4">
-            <img :src="item.dish.imagePath" class="w-24 h-24 rounded-lg object-cover" />
+            <img :src="detail.dish.imagePath" class="w-24 h-24 rounded-lg object-cover" />
           </th>
           <td class="px-6 py-4">
             <div>
               <h2 class="font-semibold text-xl text-gray-900">
-                {{ item.dish.dishName }}
+                {{ detail.dish.dishName }}
               </h2>
               <h2 class="font-thin text-md text-gray-600">
-                {{ item.dish.dishType.dishTypeName }}
+                {{ detail.dish.dishType.dishTypeName }}
               </h2>
             </div>
           </td>
           <td class="px-6 py-4">
-            <div class="flex flex-row space-x-1 items-center justify-center" role="group">
+            <div class="flex flex-row space-x-1 details-center justify-center" role="group">
               <button
-                @click="decreaseQuantity(item)"
+                @click="decreaseQuantity(detail)"
                 type="button"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-900 bg-transparent hover:rounded-lg hover:bg-gray-900 hover:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+                class="inline-flex details-center px-3 py-2 text-sm font-medium text-gray-900 bg-transparent hover:rounded-lg hover:bg-gray-900 hover:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
               >
                 <svg
                   class="w-4 h-4"
@@ -55,15 +55,15 @@
               </button>
 
               <input
-                v-model="item.quantity"
+                v-model="detail.quantity"
                 type="number"
                 class="px-4 py-2 w-14 border-0 text-sm text-center font-medium text-gray-900 bg-transparent hover:bg-gray-900 rounded-lg hover:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
 
               <button
-                @click="increaseQuantity(item)"
+                @click="increaseQuantity(detail)"
                 type="button"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-900 bg-transparent hover:bg-gray-900 hover:rounded-lg hover:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+                class="inline-flex details-center px-3 py-2 text-sm font-medium text-gray-900 bg-transparent hover:bg-gray-900 hover:rounded-lg hover:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
               >
                 <svg
                   class="w-4 h-4"
@@ -84,26 +84,35 @@
             </div>
           </td>
           <td class="px-6 py-4 text-end font-semibold text-gray-900">
-            {{ formatPrice(getTotalPrice(item)) }}
+            {{ formatPrice(getTotalPrice(detail)) }}
           </td>
 
           <td class="px-6 py-4">
             <textarea
-              v-model="item.note"
+              v-model="detail.note"
               rows="3"
               placeholder="
-              ..."
+                ..."
               class="align-text-top resize-none py-2 border-0 text-sm text-gray-700 bg-transparent hover:bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </td>
-          <td class="px-6 py-4 text-center">
-            <button
-              @click="cartItemStore.removeItem(item.dish.id)"
-              type="button"
-              class="px-6 py-2 text-sm font-medium text-red-500 bg-transparent rounded-lg hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300"
-            >
-              Xoá
-            </button>
+          <td class="py-4 text-center">
+            <div class="flex gap-2">
+              <button
+                @click="orderStore.updateDetail(detail)"
+                type="button"
+                class="px-6 py-2 text-sm font-medium bg-blue-500 rounded-lg hover:bg-blue-700 text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
+              >
+                Lưu
+              </button>
+              <button
+                @click="orderStore.deleteDetail(detail.dish.id)"
+                type="button"
+                class="px-6 py-2 text-sm font-medium bg-red-500 rounded-lg hover:bg-red-700 text-white focus:ring-4 focus:outline-none focus:ring-red-300"
+              >
+                Xoá
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -113,13 +122,13 @@
 
 <script setup>
 import { ref, watch, computed } from 'vue'
-import { useCartItemStore } from '@/stores/cartItemStore'
+import { useOrderStore } from '@/stores/orderStore'
 
 const quantity = ref(1)
-const cartItemStore = useCartItemStore()
+const orderStore = useOrderStore()
 
-const items = computed(() => {
-  return cartItemStore.order.details
+const details = computed(() => {
+  return orderStore.order.details
 })
 
 watch(quantity, (newValue, oldValue) => {
@@ -131,16 +140,15 @@ watch(quantity, (newValue, oldValue) => {
   }
 })
 
-const increaseQuantity = (item) => {
-  if (item.quantity < 999) {
-    item.quantity++
+const increaseQuantity = (detail) => {
+  if (detail.quantity < 999) {
+    detail.quantity++
   }
 }
 
-// Function to decrease quantity
-const decreaseQuantity = (item) => {
-  if (item.quantity > 1) {
-    item.quantity--
+const decreaseQuantity = (detail) => {
+  if (detail.quantity > 1) {
+    detail.quantity--
   }
 }
 
@@ -148,8 +156,8 @@ const formatPrice = (price) => {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)
 }
 
-const getTotalPrice = (item) => {
-  return item.dish.price * item.quantity
+const getTotalPrice = (detail) => {
+  return detail.dish.price * detail.quantity
 }
 </script>
 @/stores/cartStore
