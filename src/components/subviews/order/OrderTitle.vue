@@ -53,7 +53,7 @@
         <div v-if="order.employee">
           <h1 class="font-medium text-lg">Nhân viên</h1>
           <div class="flex gap-2">
-            <h1 class="text-gray-400 text-md">Họ tên:</h1>
+            <h1 class="text-gray-400 text-md">Họ và tên:</h1>
             <h1 class="text-md">{{ order.employee.name }}</h1>
           </div>
           <div class="flex gap-2">
