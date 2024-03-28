@@ -70,9 +70,9 @@ const routes = [
         component: () => import('../views/subviews/TableView.vue')
       },
       {
-        path: '/dashboard/table/order',
+        path: '/dashboard/table/:tableId/order',
         name: 'order',
-
+        
         component: () => import('../views/subviews/OrderView.vue')
       },
       {

@@ -33,7 +33,7 @@ export const useCartItemStore = defineStore({
 
         for (const detailData of orderDetailsData) {
           const detailResponse = await axiosInstance.post(
-            `/orders/${orderId}/details/${detailData.dishId}`,
+            `tables/orders/${orderId}/details/${detailData.dishId}`,
             detailData
           )
           console.log('Order detail created:', detailResponse.data.data)

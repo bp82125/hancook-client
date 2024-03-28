@@ -6,7 +6,18 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import OrderDetailList from './OrderDetailList.vue'
 import OrderTitle from './OrderTitle.vue'
+import { useOrderStore } from '@/stores/orderStore'
+
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const tableId = ref(route.params.tableId)
+const orderStore = useOrderStore()
+
+onMounted(() => {
+  orderStore.fetchOrder(tableId.value)
+})
 </script>

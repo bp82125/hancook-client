@@ -106,7 +106,7 @@
                 Lưu
               </button>
               <button
-                @click="orderStore.deleteDetail(detail.dish.id)"
+                @click="orderStore.deleteDetail(detail)"
                 type="button"
                 class="px-6 py-2 text-sm font-medium bg-red-500 rounded-lg hover:bg-red-700 text-white focus:ring-4 focus:outline-none focus:ring-red-300"
               >

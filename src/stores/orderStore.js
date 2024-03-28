@@ -28,32 +28,27 @@ export const useOrderStore = defineStore({
       }
     },
 
-    async deleteDetail(tableId, dishId) {
+    async deleteDetail(detail) {
       try {
-        console.log(`/tables/orders/${this.order.id}/details/${dishId}`)
-        // const response = await axiosInstance.delete(
-        //   `/tables/orders/${this.order.id}/details/${dishId}`
-        // )
-        // this.fetchOrder(this.order.table.id)
+        const endpoint = `/tables/orders/${this.order.id}/details/${detail.dish.id}`
+        const response = await axiosInstance.delete(endpoint)
+        console.log(response)
+        this.fetchOrder(this.order.table.id)
       } catch (error) {
         console.error('Error deleting order detail:', error)
       }
     },
 
-    async updateDetail(tableId, detail) {
+    async updateDetail(detail) {
       try {
         const endpoint = `/tables/orders/${this.order.id}/details/${detail.dish.id}`
         const request = {
           quantity: detail.quantity,
-          note: detail.quantity
+          note: detail.note
         }
-        const response = await axiosInstance.put(
-          `/tables/orders/${this.order.id}/details/${detail.dish.id}`,
-          request
-        )
+        console.log(endpoint)
+        const response = await axiosInstance.put(endpoint, request)
         this.fetchOrder(this.order.table.id)
-
-        console.log(test)
       } catch (error) {
         console.error('Error deleting order detail:', error)
       }

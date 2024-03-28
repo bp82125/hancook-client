@@ -128,10 +128,8 @@ import { computed, onMounted } from 'vue'
 import { useTableStore } from '@/stores/tableStore'
 import { initFlowbite } from 'flowbite'
 import { useRouter } from 'vue-router'
-import { useOrderStore } from '@/stores/orderStore'
 
 const tableStore = useTableStore()
-const orderStore = useOrderStore()
 const router = useRouter()
 
 onMounted(() => {
@@ -144,7 +142,6 @@ const tables = computed(() => {
 })
 
 const showOrder = async (table) => {
-  await orderStore.fetchOrder(table.id)
-  router.push({ name: 'order' })
+  router.push({ name: 'order', params: { tableId: table.id } })
 }
 </script>
