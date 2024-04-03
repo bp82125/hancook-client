@@ -7,8 +7,8 @@ import { useUserStore } from '@/stores/userStore'
 const userStore = useUserStore()
 
 onMounted(() => {
-  userStore.fetchUser()
   initFlowbite()
+  userStore.fetchUser()
 })
 
 const user = computed(() => {

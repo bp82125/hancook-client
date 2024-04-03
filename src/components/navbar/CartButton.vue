@@ -70,7 +70,7 @@
 
 <script setup>
 import CartComponent from './CartComponent.vue'
-import { useOrderStore } from '@/stores/orderStore'
+import { useCartItemStore } from '@/stores/cartItemStore'
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Dropdown } from 'flowbite'
@@ -85,10 +85,10 @@ onMounted(() => {
 })
 
 const router = useRouter()
-const orderStore = useOrderStore()
+const cartItemStore = useCartItemStore()
 
 const items = computed(() => {
-  return orderStore.order.details
+  return cartItemStore.order.details
 })
 
 const showCart = () => {
@@ -96,3 +96,4 @@ const showCart = () => {
   dropdown.toggle()
 }
 </script>
+@/stores/cartStore

@@ -1,8 +1,8 @@
 <script setup>
-import { useOrderStore } from '@/stores/orderStore'
+import { useCartItemStore } from '@/stores/cartItemStore'
 defineProps(['item'])
 
-const orderStore = useOrderStore()
+const cartItemStore = useCartItemStore()
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)
@@ -31,8 +31,8 @@ const formatPrice = (price) => {
         </div>
       </div>
     </div>
-    <div class="flex items center">
-      <button @click="orderStore.removeItem(item.dish.id)" type="button" class="p-4 ms-6">
+    <div class="flex items-center">
+      <button @click="cartItemStore.removeItem(item.dish.id)" type="button" class="ms-4">
         <svg
           class="w-[18px] h-[18px] text-gray-400 hover:text-gray-700 dark:text-white"
           aria-hidden="true"
@@ -52,3 +52,4 @@ const formatPrice = (price) => {
     </div>
   </div>
 </template>
+@/stores/cartStore

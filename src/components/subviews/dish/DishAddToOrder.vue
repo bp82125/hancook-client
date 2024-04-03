@@ -152,13 +152,13 @@
 import { ref, onMounted, computed, watchEffect, watch } from 'vue'
 import { Modal } from 'flowbite'
 import { useModalStore } from '@/stores/modalStore'
-import { useOrderStore } from '@/stores/orderStore'
+import { useCartItemStore } from '@/stores/cartItemStore'
 /**********                  data         *********** */
 const quantity = ref(1)
 const note = ref('')
 const dishData = ref()
 
-const orderStore = useOrderStore()
+const cartItemStore = useCartItemStore()
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)
@@ -221,8 +221,9 @@ const submitForm = async () => {
     note: note.value
   }
 
-  orderStore.addToOrder(item)
+  cartItemStore.addToOrder(item)
   closeModal()
 }
 /**********             form        *********** */
 </script>
+@/stores/cartStore

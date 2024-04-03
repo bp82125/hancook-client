@@ -95,7 +95,7 @@ const submitForm = async () => {
       @click="openModal"
       id="createDishButton"
       type="button"
-      class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg
         class="w-[18px] h-[18px] text-white dark:text-white"
@@ -112,6 +112,7 @@ const submitForm = async () => {
           d="M5 12h14m-7 7V5"
         />
       </svg>
+      <div class="text-white">Thêm món ăn</div>
     </button>
 
     <div

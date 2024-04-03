@@ -1,13 +1,13 @@
 <template>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-8 px-8 py-4 border bg-white">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 px-8 py-4 border bg-white">
     <table class="table-auto w-full text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase">
         <tr>
           <th scope="col" class="px-6 py-3 w-36"></th>
-          <th scope="col" class="px-6 py-3 text-start w-auto">Món ăn</th>
+          <th scope="col" class="px-6 py-3 text-center w-auto">Món ăn</th>
           <th scope="col" class="px-6 py-3">Số lượng</th>
           <th scope="col" class="px-6 py-3 min-w-36 text-end">Giá</th>
-          <th scope="col" class="px-9 py-3 w-32 text-start">Ghi chú</th>
+          <th scope="col" class="px-9 py-3 w-32 text-center">Ghi chú</th>
           <th scope="col" class="px-6 py-3 w-8"></th>
         </tr>
       </thead>
@@ -113,13 +113,13 @@
 
 <script setup>
 import { ref, watch, computed } from 'vue'
-import { useOrderStore } from '@/stores/orderStore'
+import { useCartItemStore } from '@/stores/cartItemStore'
 
 const quantity = ref(1)
-const orderStore = useOrderStore()
+const cartItemStore = useCartItemStore()
 
 const items = computed(() => {
-  return orderStore.order.details
+  return cartItemStore.order.details
 })
 
 watch(quantity, (newValue, oldValue) => {
@@ -151,12 +151,5 @@ const formatPrice = (price) => {
 const getTotalPrice = (item) => {
   return item.dish.price * item.quantity
 }
-
-const getTotal = () => {
-  if (items.value.length <= 0) {
-    return 0
-  } else {
-    return items.value.reduce((acc, item) => acc + getTotalPrice(item), 0)
-  }
-}
 </script>
+@/stores/cartStore

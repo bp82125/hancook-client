@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-x-auto p-8 rounded-lg shadow-lg bg-white my-5">
-    <div class="flex justify-between mb-8">
+    <div class="flex justify-between">
       <ExpenseSearchBar></ExpenseSearchBar>
     </div>
     <div>

@@ -64,16 +64,16 @@ const routes = [
         ]
       },
       {
-        path: '/dashboard/customer',
-        name: 'customer',
-
-        component: () => import('../views/subviews/CustomerView.vue')
-      },
-      {
         path: '/dashboard/table',
         name: 'table',
 
         component: () => import('../views/subviews/TableView.vue')
+      },
+      {
+        path: '/dashboard/table/:tableId/order',
+        name: 'order',
+        
+        component: () => import('../views/subviews/OrderView.vue')
       },
       {
         path: '/dashboard/profile',

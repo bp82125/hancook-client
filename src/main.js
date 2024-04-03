@@ -4,12 +4,12 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-
+import 'vue-search-select/dist/VueSearchSelect.css'
+import 'vue-select/dist/vue-select.css'
 import { VueFire } from 'vuefire'
 import { firebaseApp } from '@/plugins/firebase'
 
 import VueLazyLoad from 'vue3-lazyload'
-
 import 'flowbite'
 
 const app = createApp(App)

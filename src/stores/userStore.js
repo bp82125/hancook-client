@@ -1,25 +1,24 @@
 import { defineStore } from 'pinia'
 import Cookies from 'vue-cookies'
-import axiosInstance from '@/plugins/axios'
 
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
-    user: {
-      name: 'Administrator',
-      position: {
-        positionName: 'Quản trị'
-      },
-      phoneNumber: '0123456789'
-    }
+    user: null
   }),
   actions: {
     async fetchUser() {
-      const accountInfo = Cookies.get('accountInfo')
-
-      if (accountInfo.employeeId) {
-        const response = await axiosInstance.get(`/employees/${accountInfo.employeeId}`)
-        this.user = response.data.data
+      try {
+        const employeeInfo = Cookies.get('employeeInfo')
+        if (employeeInfo) {
+          this.user = employeeInfo
+          return employeeInfo
+        } else {
+          throw new Error('User info not found in cookies')
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error.message)
+        throw error
       }
     }
   }
