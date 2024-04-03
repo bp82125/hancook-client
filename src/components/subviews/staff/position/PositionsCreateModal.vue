@@ -1,9 +1,9 @@
 <template>
   <div>
     <button
-      id="defaultModalButton"
-      data-modal-target="defaultModal"
-      data-modal-toggle="defaultModal"
+      id="positionCreateModalButton"
+      data-modal-target="positionCreateModal"
+      data-modal-toggle="positionCreateModal"
       type="button"
       class="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
@@ -26,7 +26,7 @@
     </button>
 
     <div
-      id="defaultModal"
+      id="positionCreateModal"
       tabindex="-1"
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
@@ -42,7 +42,7 @@
             <button
               type="button"
               class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="defaultModal"
+              data-modal-toggle="positionCreateModal"
             >
               <svg
                 aria-hidden="true"
@@ -100,7 +100,7 @@
             </div>
 
             <button
-              data-modal-toggle="defaultModal"
+              data-modal-toggle="positionCreateModal"
               class="mt-4 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Thêm chức vụ
@@ -130,7 +130,7 @@ const submitForm = async () => {
 
     name.value = ''
     salary.value = ''
-    document.getElementById('defaultModal').hidden = true
+    document.getElementById('positionCreateModal').hidden = true
 
     console.log(response)
   } catch (error) {

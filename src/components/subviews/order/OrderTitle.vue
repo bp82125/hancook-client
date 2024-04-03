@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row gap-2 justify-center">
+      <div class="flex flex-row gap-2 px-4 justify-end">
         <div>
           <svg
             class="w-[36px] h-[36px] text-gray-800 dark:text-white"

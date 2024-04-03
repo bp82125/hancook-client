@@ -1,14 +1,14 @@
 <template>
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4 px-8 py-4 border bg-white">
     <table class="table-auto w-full text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase">
+      <thead class="text-xs text-gray-700">
         <tr>
-          <th scope="col" class="px-6 py-3 w-36"></th>
-          <th scope="col" class="px-6 py-3 text-center w-auto">Món ăn</th>
-          <th scope="col" class="px-6 py-3">Số lượng</th>
-          <th scope="col" class="px-6 py-3 min-w-36 text-end">Giá</th>
-          <th scope="col" class="px-9 py-3 w-32 text-center">Ghi chú</th>
-          <th scope="col" class="px-6 py-3 w-8"></th>
+          <th scope="col" class="px-6 py-3 w-36 uppercase"></th>
+          <th scope="col" class="px-6 py-3 text-center w-auto uppercase">Món ăn</th>
+          <th scope="col" class="py-3 uppercase">Số lượng</th>
+          <th scope="col" class="px-6 py-3 min-w-36 text-end uppercase">Giá</th>
+          <th scope="col" class="px-9 py-3 w-32 text-center uppercase">Ghi chú</th>
+          <th scope="col" class="py-3"><OrderAddDish></OrderAddDish></th>
         </tr>
       </thead>
       <tbody class="divide-y-2">
@@ -30,8 +30,8 @@
               </h2>
             </div>
           </td>
-          <td class="px-6 py-4">
-            <div class="flex flex-row space-x-1 details-center justify-center" role="group">
+          <td class="py-4">
+            <div class="flex flex-row space-x-1 items-center justify-center" role="group">
               <button
                 @click="decreaseQuantity(detail)"
                 type="button"
@@ -97,7 +97,7 @@
             />
           </td>
           <td class="py-4 text-center">
-            <div class="flex gap-2">
+            <div class="flex justify-around">
               <button
                 @click="orderStore.updateDetail(detail)"
                 type="button"
@@ -115,6 +115,24 @@
             </div>
           </td>
         </tr>
+        <tr
+          class="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+        >
+          <th scope="row" class="px-6 py-4"></th>
+          <td class="px-6 py-4"></td>
+          <td class="py-4"></td>
+          <td class="px-6 py-4"></td>
+          <td class="px-6 py-4"></td>
+          <td class="py-4">
+            <button
+              @click="orderStore.updateAllDetails()"
+              class="block w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button"
+            >
+              Lưu tất cả
+            </button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -123,6 +141,7 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
 import { useOrderStore } from '@/stores/orderStore'
+import OrderAddDish from './OrderAddDish.vue'
 
 const quantity = ref(1)
 const orderStore = useOrderStore()
@@ -160,4 +179,3 @@ const getTotalPrice = (detail) => {
   return detail.dish.price * detail.quantity
 }
 </script>
-@/stores/cartStore

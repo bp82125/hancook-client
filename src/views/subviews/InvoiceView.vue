@@ -1,7 +1,9 @@
 <template>
-  <main>
-    <h1>Đây là trang hoá đơn</h1>
+  <main class="w-full">
+    <InvoiceComponent></InvoiceComponent>
   </main>
 </template>
 
-<style></style>
+<script setup>
+import InvoiceComponent from '@/components/subviews/invoice/InvoiceComponent.vue'
+</script>

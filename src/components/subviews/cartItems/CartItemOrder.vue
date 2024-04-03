@@ -21,6 +21,9 @@ import { ref, computed, onUnmounted } from 'vue'
 import { useCartItemStore } from '@/stores/cartItemStore'
 import { useUserStore } from '@/stores/userStore'
 import { errorMessages } from 'vue/compiler-sfc'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const cartItemStore = useCartItemStore()
 const userStore = useUserStore()
@@ -65,6 +68,7 @@ const submitForm = async () => {
   }
   errorMessages.value = ''
   cartItemStore.createOrder()
+  router.push({ name: 'dish' })
 }
 </script>
 @/stores/cartStore
