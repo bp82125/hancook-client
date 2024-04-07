@@ -2,7 +2,7 @@
   <button
     id="cart-button"
     type="button"
-    class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100"
+    class="p-2 mr-1 text-gray-500 rounded-full hover:text-gray-900 hover:bg-gray-100"
   >
     <span class="sr-only">View cart items</span>
     <svg

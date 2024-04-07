@@ -8,6 +8,7 @@
         <th scope="col" class="px-6 py-5 text-center rounded-e-lg">Tên chi tiêu</th>
         <th scope="col" class="pe-6 py-5 text-center">Số tiền chi</th>
         <th scope="col" class="px-6 py-5 text-center rounded-e-lg">Chi tiết</th>
+        <th scope="col" class="px-6 py-5 text-center rounded-e-lg">Người lập</th>
         <th scope="col" class="py-5 text-center rounded-e-lg">Thời gian lập</th>
         <th scope="col" class="py-5"></th>
       </tr>
@@ -30,9 +31,13 @@
         <td class="pe-6 py-4 text-center">
           {{ formatAmount(expense.amount) }}
         </td>
-        <td class="px-6 py-4 text-center">
+        <td class="px-6 py-4 text-center truncate">
           {{ expense.note }}
         </td>
+        <td class="px-6 py-4 text-center">
+          {{ expense.employee.name }}
+        </td>
+
         <td class="px-6 py-4 text-center">
           {{ formatDateTime(expense.dateTime) }}
         </td>
@@ -40,7 +45,7 @@
         <!-- Edit button column -->
         <td class="py-3 text-center">
           <button
-            @click="$emit('updatePosition', position)"
+            @click="$emit('updateExpense', expense)"
             class="text-white mx-1 bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             <svg
@@ -60,7 +65,7 @@
             </svg>
           </button>
           <button
-            @click="$emit('deletePosition', position)"
+            @click="$emit('deleteExpense', expense)"
             class="text-white mx-1 bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
           >
             <svg

@@ -22,12 +22,6 @@ const routes = [
         alias: '/dashboard/'
       },
       {
-        path: '/dashboard/schedule',
-        name: 'schedule',
-
-        component: () => import('../views/subviews/ScheduleView.vue')
-      },
-      {
         path: '/dashboard/dish',
         name: 'dish',
 
@@ -38,6 +32,12 @@ const routes = [
         name: 'invoice',
 
         component: () => import('../views/subviews/InvoiceView.vue')
+      },
+      {
+        path: '/dashboard/invoice/:invoiceId/detail',
+        name: 'invoiceDetail',
+
+        component: () => import('../views/subviews/InvoiceDetailView.vue')
       },
       {
         path: '/dashboard/staff',
@@ -72,7 +72,7 @@ const routes = [
       {
         path: '/dashboard/table/:tableId/order',
         name: 'order',
-        
+
         component: () => import('../views/subviews/OrderView.vue')
       },
       {

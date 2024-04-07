@@ -8,7 +8,7 @@
         <th scope="col" class="px-6 py-5 text-center rounded-e-lg">Mã hóa đơn</th>
         <th scope="col" class="pe-6 py-5 text-center">Nhân viên lập</th>
         <th scope="col" class="px-6 py-5 text-center rounded-e-lg">Bàn</th>
-        <th scope="col" class="pe-6 py-5 text-center">Tổng tiền</th>
+        <th scope="col" class="px-6 py-5 text-center">Tổng tiền</th>
         <th scope="col" class="py-5 text-center rounded-e-lg">Thời gian lập</th>
         <th scope="col" class="py-5"></th>
       </tr>
@@ -24,17 +24,17 @@
         </td>
         <th
           scope="row"
-          class="px-6 py-4 font-normal text-gray-900 whitespace-nowrap dark:text-white"
+          class="truncate px-6 py-4 font-normal text-gray-900 whitespace-nowrap dark:text-white"
         >
           {{ invoice.id }}
         </th>
-        <td class="pe-6 py-4 text-center">
+        <td class="px-6 py-4 text-center">
           {{ invoice.employee.name }}
         </td>
         <td class="px-6 py-4 text-center">
           {{ invoice.table.name }}
         </td>
-        <td class="pe-6 py-4 text-center">
+        <td class="px-6 py-4 text-center">
           {{ formatAmount(invoice.totalPrice) }}
         </td>
         <td class="px-6 py-4 text-center">
@@ -44,7 +44,7 @@
         <!-- Edit button column -->
         <td class="py-3 text-center">
           <button
-            @click="$emit('deletePosition', position)"
+            @click="showDetail(invoice)"
             class="text-white mx-1 bg-gray-800 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
           >
             Xem chi tiết
@@ -57,6 +57,7 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useInvoiceStore } from '@/stores/invoiceStore'
 import { initFlowbite } from 'flowbite'
 import { format } from 'date-fns'
@@ -86,5 +87,10 @@ const formatDateTime = (dateTime) => {
 
   // Format the parsed dateTime
   return format(parsedDateTime, 'dd/MM/yyyy - HH:mm')
+}
+
+const router = useRouter()
+const showDetail = async (invoice) => {
+  router.push({ name: 'invoiceDetail', params: { invoiceId: invoice.id } })
 }
 </script>

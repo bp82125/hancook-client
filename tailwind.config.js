@@ -11,5 +11,5 @@ export default {
   theme: {
     extend: {}
   },
-  plugins: [FlowbitePlugin, 'prettier-plugin-tailwindcss']
+  plugins: [FlowbitePlugin, 'prettier-plugin-tailwindcss', 'flowbite-typography']
 }

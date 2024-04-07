@@ -67,18 +67,6 @@
         </li>
 
         <li>
-          <SidebarComponent path="/dashboard/schedule" name="LỊCH TRỰC">
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.2"
-              d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1H5a1 1 0 0 0-1 1v12c0 .6.4 1 1 1Zm3-7h0v0h0v0Zm4 0h0v0h0v0Zm4 0h0v0h0v0Zm-8 4h0v0h0v0Zm4 0h0v0h0v0Zm4 0h0v0h0v0Z"
-            />
-          </SidebarComponent>
-        </li>
-
-        <li>
           <SidebarComponent path="/dashboard/staff" name="NHÂN VIÊN">
             <path
               stroke="currentColor"

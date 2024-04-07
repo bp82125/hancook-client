@@ -101,9 +101,11 @@
 <script setup>
 import { onMounted } from 'vue'
 import { Modal } from 'flowbite'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useOrderStore } from '@/stores/orderStore'
+import { useUserStore } from '@/stores/userStore'
+const userStore = useUserStore()
 
 let modal
 
@@ -120,6 +122,12 @@ onMounted(() => {
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
   }
+
+  userStore.fetchUser()
+})
+
+const user = computed(() => {
+  return userStore.user
 })
 
 const showModal = () => {
@@ -143,6 +151,7 @@ const submitForm = async () => {
   } else {
     paymentNotEnough.value = false
     const data = {
+      employeeId: user.value.id,
       customerPayment: payment.value
     }
     await orderStore.payOrder(data)
