@@ -45,7 +45,7 @@ export async function login(username, password) {
         httpOnly: true
       })
 
-      router.push({ name: 'dashboard' })
+      router.push({ name: 'home' })
       return true
     }
     return false

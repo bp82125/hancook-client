@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-auto p-8 rounded-lg shadow-lg bg-white">
+  <div class="overflow-x-auto p-8 rounded-lg shadow-lg bg-white m-2">
     <InvoiceList></InvoiceList>
   </div>
 </template>

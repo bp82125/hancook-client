@@ -12,6 +12,9 @@ export const useTableStore = defineStore({
       try {
         const response = await axiosInstance.get('/tables')
         this.tables = response.data.data
+        this.tables = this.tables.sort(
+          (a, b) => parseInt(a.name.split(' ').pop()) - parseInt(b.name.split(' ').pop())
+        )
       } catch (error) {
         console.error('Failed to fetch tables:', error)
         signOut()

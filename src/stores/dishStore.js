@@ -8,6 +8,17 @@ export const useDishStore = defineStore({
     dishes: []
   }),
   actions: {
+    async searchDish(name) {
+      try {
+        await this.fetchDishes()
+        this.dishes = this.dishes.filter((dish) =>
+          dish.dishName.toLowerCase().includes(name.toLowerCase())
+        )
+      } catch (error) {
+        console.error('Failed to search dishes:', error)
+      }
+    },
+
     async fetchDishes() {
       try {
         const response = await axiosInstance.get('/dishes')

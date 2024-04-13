@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-x-auto p-2">
-    <div class="flex justify-between mb-8 bg-white p-5 rounded-lg w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8 bg-white p-5 rounded-lg w-full">
       <DishSearchBarVue></DishSearchBarVue>
       <DishCreateModalVue></DishCreateModalVue>
     </div>

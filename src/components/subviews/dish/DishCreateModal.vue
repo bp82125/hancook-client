@@ -90,12 +90,12 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div>
+  <div class="flex justify-end">
     <button
       @click="openModal"
       id="createDishButton"
       type="button"
-      class="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="flex justify-center items-center w-full md:max-w-40 gap-2 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg
         class="w-[18px] h-[18px] text-white dark:text-white"

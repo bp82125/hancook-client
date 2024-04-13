@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div class="mt-5 grid grid-cols-2 md:grid-cols-4 gap-4 gap-y-6">
+    <div class="dishGrids mt-5 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 gap-y-6">
       <DishCard :dish="dish" v-for="dish in dishes" :key="dish.id"></DishCard>
     </div>
   </div>
@@ -68,3 +68,11 @@ const dishes = computed(() => {
   })
 })
 </script>
+
+<style scoped>
+@media (max-width: 432px) {
+  .dishGrids {
+    @apply grid-cols-1;
+  }
+}
+</style>

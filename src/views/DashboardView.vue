@@ -9,7 +9,7 @@ import SidebarMain from '@/components/sidebar/SidebarMain.vue'
   <div class="min-h-screen flex flex-col bg-gray-200">
     <NavigationBar></NavigationBar>
     <SidebarMain></SidebarMain>
-    <div class="flex flex-1 p-4 sm:ml-64 h-auto pt-20">
+    <div class="flex flex-1 p-4 lg:ml-64 h-auto pt-20">
       <RouterView></RouterView>
     </div>
 

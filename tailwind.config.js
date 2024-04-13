@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import FlowbitePlugin from 'flowbite/plugin'
 
 export default {
   content: [
@@ -11,5 +10,9 @@ export default {
   theme: {
     extend: {}
   },
-  plugins: [FlowbitePlugin, 'prettier-plugin-tailwindcss', 'flowbite-typography']
+  plugins: [
+    require('flowbite/plugin')({ charts: true }),
+    'prettier-plugin-tailwindcss',
+    'flowbite-typography'
+  ]
 }

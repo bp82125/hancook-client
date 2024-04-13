@@ -19,7 +19,7 @@ const routes = [
         path: '/dashboard/home',
         name: 'home',
         component: () => import('../views/subviews/HomeView.vue'),
-        alias: '/dashboard/'
+        alias: '/dashboard'
       },
       {
         path: '/dashboard/dish',

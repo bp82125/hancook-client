@@ -12,9 +12,9 @@
 <script setup></script>
 
 <style scoped>
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
   footer {
-    margin-left: 17rem;
+    margin-left: 16rem;
   }
 }
 </style>

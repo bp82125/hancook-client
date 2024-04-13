@@ -1,19 +1,19 @@
 <template>
   <aside
     id="logo-sidebar"
-    class="fixed shadow-lg top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full pt-20 bg-gray-50 border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed shadow-lg top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full pt-20 bg-gray-50 border-r border-gray-200 lg:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidebar"
   >
     <div class="flex h-full px-3 pb-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
       <ul class="space-y-3 w-full">
         <li>
-          <SidebarComponent path="/dashboard/home" name="TRANG CHỦ">
+          <SidebarComponent path="/dashboard/home" name="TỔNG QUAN">
             <path
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="1.2"
-              d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5"
+              d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"
             />
           </SidebarComponent>
         </li>
