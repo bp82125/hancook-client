@@ -1,5 +1,7 @@
 <template>
-  <div class="flex gap-2 items-end p-4 rounded-lg bg-white hover:bg-gray-50">
+  <div
+    class="grid grid-cols-2 md:grid-cols-1 items-center p-2 md:p-4 rounded-lg bg-white hover:bg-gray-50"
+  >
     <h1 class="font-medium text-2xl">Đơn món</h1>
     <h1 class="font-light text-lg text-gray-600">({{ orderDetails.length }} món đã chọn)</h1>
   </div>

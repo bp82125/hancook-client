@@ -1,12 +1,12 @@
 <template>
-  <div class="flex items-center justify-end rounded-lg">
+  <div class="flex items-center justify-end rounded-lg px-2">
     <button
       data-modal-target="removeAllModal"
       data-modal-toggle="removeAllModal"
-      class="flex gap-2 hover:bg-gray-100 p-2 rounded-lg focus:ring-4 focus:outline-none focus:ring-red-300"
+      class="flex justify-center w-full md:w-fit gap-2 hover:bg-red-400 hover:md:bg-gray-100 p-2 rounded-lg bg-red-600 md:bg-transparent focus:ring-4 focus:outline-none focus:ring-red-300"
     >
       <svg
-        class="w-6 h-6 text-red-600 dark:text-white"
+        class="w-6 h-6 text-white md:text-red-600 dark:text-white"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -20,7 +20,7 @@
           d="M6 18 18 6m0 12L6 6"
         />
       </svg>
-      <h1 class="text-red-600">Xoá tất cả</h1>
+      <h1 class="text-white md:text-red-600">Xoá tất cả</h1>
     </button>
   </div>
 

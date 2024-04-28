@@ -1,16 +1,28 @@
 <template>
-  <div class="overflow-x-auto p-8 rounded-lg shadow-lg bg-white my-5">
-    <div class="flex justify-between mb-8">
+  <div class="p-8 rounded-lg shadow-lg bg-white my-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 mb-8">
       <EmployeeSearchBar></EmployeeSearchBar>
       <EmployeeCreateModal></EmployeeCreateModal>
     </div>
     <div>
-      <EmployeeList
-        @showEmployee="showInfo"
-        @updateEmployee="updateEmployee"
-        @deleteEmployee="deleteEmployee"
-        @createAccount="createAccount"
-      ></EmployeeList>
+      <template v-if="width > 768">
+        <EmployeeList
+          @showEmployee="showInfo"
+          @updateEmployee="updateEmployee"
+          @deleteEmployee="deleteEmployee"
+          @createAccount="createAccount"
+        ></EmployeeList>
+      </template>
+
+      <template v-else>
+        <EmployeeListForMobile
+          @showEmployee="showInfo"
+          @updateEmployee="updateEmployee"
+          @deleteEmployee="deleteEmployee"
+          @createAccount="createAccount"
+        ></EmployeeListForMobile>
+      </template>
+
       <EmployeeInfoModal ref="infoModal"></EmployeeInfoModal>
       <EmployeeUpdateModal ref="updateModal"></EmployeeUpdateModal>
       <EmployeeDeleteModal ref="deleteModal"></EmployeeDeleteModal>
@@ -22,12 +34,16 @@
 <script setup>
 import { ref } from 'vue'
 import EmployeeList from './EmployeeList.vue'
+import EmployeeListForMobile from './EmployeeListForMobile.vue'
 import EmployeeInfoModal from './EmployeeInfoModal.vue'
 import EmployeeSearchBar from './EmployeeSearchBar.vue'
 import EmployeeCreateModal from './EmployeeCreateModal.vue'
 import EmployeeUpdateModal from './EmployeeUpdateModal.vue'
 import EmployeeDeleteModal from './EmployeeDeleteModal.vue'
 import AccountCreateModal from '../account/AccountCreateModal.vue'
+import { useWindowSize } from '@vueuse/core'
+
+const { width, height } = useWindowSize()
 
 const infoModal = ref()
 const updateModal = ref()

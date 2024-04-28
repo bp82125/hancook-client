@@ -1,18 +1,18 @@
 <template>
   <div
-    id="deleteAccountModal"
+    id="deleteOrderDetailModal"
     tabindex="-1"
     aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
   >
     <div class="relative p-4 w-full max-w-md max-h-full">
       <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
         <div
           class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
         >
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Xoá nhân viên</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Xoá chi tiết đơn món</h3>
           <button
-            @click="closeModal"
+            @click="() => modal.toggle()"
             id="closeModal"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
           >
@@ -49,17 +49,17 @@
             />
           </svg>
           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-            Bạn có muốn xoá tài khoản {{ name }} không?
+            Bạn có muốn xoá {{ name }} không?
           </h3>
           <button
-            @click="deleteAccount"
+            @click="deleteDetail"
             type="button"
             class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
           >
             Có
           </button>
           <button
-            @click="closeModal"
+            @click="resetValue"
             type="button"
             class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
@@ -73,13 +73,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useAccountStore } from '@/stores/accountStore'
+import { useOrderStore } from '@/stores/orderStore'
 import { Modal } from 'flowbite'
 
-// Modal
 let modal
+
 onMounted(() => {
-  const $modalElement = document.querySelector('#deleteAccountModal')
+  const $modalElement = document.querySelector('#deleteOrderDetailModal')
   const modalOptions = {
     backdrop: 'static',
     backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40'
@@ -89,32 +89,28 @@ onMounted(() => {
     modal = new Modal($modalElement, modalOptions)
   }
 })
-// Modal
 
 const id = ref('')
 const name = ref('')
+const orderStore = useOrderStore()
 
-const accountStore = useAccountStore()
+const openModal = (table) => {
+  id.value = table.id
+  name.value = table.name
+  modal.toggle()
+}
 
-const deleteAccount = async () => {
+const deleteTable = async () => {
   try {
-    const response = await accountStore.deleteAccount(id.value)
+    await tableStore.deleteTable(id.value)
+
+    id.value = ''
+    name.value = ''
+
     modal.toggle()
-    console.log(response)
   } catch (error) {
-    console.error('Error submitting form:', error)
+    console.error('Error submit form:', error)
   }
-}
-
-const openModal = (account) => {
-  id.value = account.id
-  name.value = account.username
-
-  modal.toggle()
-}
-
-const closeModal = () => {
-  modal.toggle()
 }
 
 defineExpose({ openModal })

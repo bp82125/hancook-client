@@ -153,6 +153,10 @@ import { ref, onMounted, computed, watchEffect, watch } from 'vue'
 import { Modal } from 'flowbite'
 import { useModalStore } from '@/stores/modalStore'
 import { useCartItemStore } from '@/stores/cartItemStore'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+
 /**********                  data         *********** */
 const quantity = ref(1)
 const note = ref('')
@@ -222,8 +226,10 @@ const submitForm = async () => {
   }
 
   cartItemStore.addToOrder(item)
+  toast.success(`Thêm món ăn "${dishData.value.dishName}" vào đơn món thành công`)
   closeModal()
 }
+
 /**********             form        *********** */
 </script>
 @/stores/cartStore

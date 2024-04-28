@@ -1,17 +1,35 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
 import { signOut } from '@/services/auth'
+import anyAscii from 'any-ascii'
 
 export const useEmployeeStore = defineStore({
   id: 'employees',
   state: () => ({
-    employees: []
+    employees: [],
+    temp: []
   }),
   actions: {
+    async searchEmployee(name) {
+      try {
+        if (name === '') {
+          this.employees = this.temp
+          return
+        }
+
+        this.employees = this.employees.filter((employee) =>
+          anyAscii(employee.name.toLowerCase()).includes(anyAscii(name.toLowerCase()))
+        )
+      } catch (error) {
+        console.error('Failed to fetch employees:', error)
+        signOut()
+      }
+    },
     async fetchEmployees() {
       try {
         const response = await axiosInstance.get('/employees')
         this.employees = response.data.data
+        this.temp = response.data.data
       } catch (error) {
         console.error('Failed to fetch employees:', error)
         signOut()

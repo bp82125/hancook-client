@@ -100,17 +100,24 @@ import { initModals } from 'flowbite'
 import { onMounted } from 'vue'
 import { useDishTypeStore } from '@/stores/dishTypeStore'
 import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
 
 onMounted(() => {
   initModals()
 })
+
+const toast = useToast()
 
 const dishTypeStore = useDishTypeStore()
 const dishTypeName = ref('')
 
 const submitForm = async () => {
   const response = await dishTypeStore.createDishType({ dishTypeName: dishTypeName.value })
-  console.log(response)
+  if (response.data.success) {
+    toast.success('Thêm loại món ăn thành công')
+  } else {
+    toast.error('Thêm loại món ăn thất bại')
+  }
 
   dishTypeName.value = ''
 }

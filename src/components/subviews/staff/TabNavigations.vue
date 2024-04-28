@@ -1,12 +1,12 @@
 <template>
   <div class="border-b shadow-lg border-gray-200 dark:border-gray-700 bg-white rounded-lg">
     <ul
-      class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"
+      class="grid grid-cols-3 text-sm font-medium text-center text-gray-500 dark:text-gray-400 truncate"
     >
-      <li class="me-2">
+      <li class="">
         <RouterLink
           to="/dashboard/staff/employees"
-          class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+          class="inline-flex items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
         >
           <svg
             class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
@@ -26,10 +26,10 @@
         </RouterLink>
       </li>
 
-      <li class="me-2">
+      <li class="">
         <RouterLink
           to="/dashboard/staff/positions"
-          class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+          class="inline-flex items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
         >
           <svg
             class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
@@ -48,10 +48,10 @@
         </RouterLink>
       </li>
 
-      <li class="me-2">
+      <li class="">
         <RouterLink
           to="/dashboard/staff/accounts"
-          class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+          class="inline-flex items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
         >
           <svg
             class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"

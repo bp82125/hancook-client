@@ -90,7 +90,9 @@ import { ref, onMounted, computed, watchEffect } from 'vue'
 import { Modal } from 'flowbite'
 import { useModalStore } from '@/stores/modalStore'
 import { useDishTypeStore } from '@/stores/dishTypeStore'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 /**********                  data         *********** */
 const dishTypeStore = useDishTypeStore()
 const name = ref('')
@@ -136,6 +138,7 @@ const hasDishes = ref(false)
 const submitForm = async () => {
   const response = await dishTypeStore.deleteDishType(modalStore.data.id)
   if (response) {
+    toast.error('Xóa loại món ăn thành công')
     closeModal()
   } else {
     hasDishes.value = true

@@ -1,10 +1,38 @@
 <template>
-  <form class="flex items-center max-w-sm">
-    <label for="simple-search" class="sr-only">Search</label>
-    <div class="relative w-full">
-      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+  <div class="flex flex-row gap-2 justify-center items-center truncate mb-2">
+    <fwb-input
+      v-model="query"
+      @input="search"
+      placeholder="Nhập tên chi tiêu cần tìm..."
+      size="md"
+      class="grow truncate"
+    >
+      <template #prefix>
         <svg
-          class="w-[18px] h-[18px] text-gray-800 dark:text-white"
+          aria-hidden="true"
+          class="w-5 h-5 text-gray-500 dark:text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          />
+        </svg>
+      </template>
+    </fwb-input>
+
+    <fwb-button size="lg" color="dark" @click="reset" class="truncate h-full">
+      <template v-if="width > 768">
+        <h1 class="text-sm">Đặt lại</h1>
+      </template>
+      <template v-else>
+        <svg
+          class="w-[18px] h-[18px] text-white"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -17,38 +45,37 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M8 17.345a4.76 4.76 0 0 0 2.558 1.618c2.274.589 4.512-.446 4.999-2.31.487-1.866-1.273-3.9-3.546-4.49-2.273-.59-4.034-2.623-3.547-4.488.486-1.865 2.724-2.899 4.998-2.31.982.236 1.87.793 2.538 1.592m-3.879 12.171V21m0-18v2.2"
+            d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"
           />
         </svg>
-      </div>
-      <input
-        type="text"
-        id="simple-search"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Tìm kiếm chi tiêu..."
-        required
-      />
-    </div>
-    <button
-      type="submit"
-      class="p-2.5 px-5 ms-2 text-sm font-medium text-white bg-blue-500 rounded-lg border border-blue-700 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-    >
-      <svg
-        class="w-4 h-4"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 20 20"
-      >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-        />
-      </svg>
-      <span class="sr-only">Search</span>
-    </button>
-  </form>
+      </template>
+    </fwb-button>
+  </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { FwbButton, FwbInput } from 'flowbite-vue'
+import { useExpenseStore } from '@/stores/expenseStore'
+
+const expenseStore = useExpenseStore()
+
+const query = ref('')
+
+let timeout
+
+const search = async () => {
+  if (timeout) {
+    clearTimeout(timeout)
+  }
+
+  timeout = setTimeout(async () => {
+    await expenseStore.searchExpense(query.value)
+  }, 300)
+}
+
+const reset = () => {
+  query.value = ''
+  expenseStore.fetchExpenses()
+}
+</script>

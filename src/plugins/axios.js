@@ -1,22 +1,22 @@
-import axios from 'axios';
-import Cookies from 'vue-cookies';
+import axios from 'axios'
+import Cookies from 'vue-cookies'
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/api/v1', // Your API base URL
-  timeout: 5000, // Timeout duration in milliseconds
-});
+  baseURL: import.meta.env.VITE_API_SERVER_URL, // Your API base URL
+  timeout: 5000 // Timeout duration in milliseconds
+})
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = Cookies.get('accessToken');
+    const token = Cookies.get('accessToken')
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`
     }
-    return config;
+    return config
   },
   (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
-export default axiosInstance;
+export default axiosInstance

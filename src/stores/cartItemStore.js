@@ -9,18 +9,18 @@ export const useCartItemStore = defineStore({
   state: () => ({
     order: {
       employeeId: null,
-      tableId: null,
+      table: null,
       details: []
     }
   }),
   actions: {
     async createOrder() {
       try {
-        const { employeeId, tableId } = this.order
+        const { employeeId, table } = this.order
         const orderData = {
           employeeId
         }
-        const orderResponse = await axiosInstance.post(`/tables/${tableId}/orders`, orderData)
+        const orderResponse = await axiosInstance.post(`/tables/${table.id}/orders`, orderData)
         console.log('Order created:', orderResponse.data)
 
         const orderId = orderResponse.data.data.id

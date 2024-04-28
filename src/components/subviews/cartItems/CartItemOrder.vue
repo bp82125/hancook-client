@@ -22,6 +22,9 @@ import { useCartItemStore } from '@/stores/cartItemStore'
 import { useUserStore } from '@/stores/userStore'
 import { errorMessages } from 'vue/compiler-sfc'
 import { useRouter } from 'vue-router'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 const router = useRouter()
 
@@ -58,7 +61,7 @@ const submitForm = async () => {
   await userStore.fetchUser()
   cartItemStore.order.employeeId = userStore.user.id
 
-  if (!cartItemStore.order.tableId) {
+  if (!cartItemStore.order.table) {
     errorMessage.value = 'Bạn chưa chọn bàn để đặt đơn món'
     return
   }
@@ -66,6 +69,7 @@ const submitForm = async () => {
     errorMessage.value = 'Bạn chưa chọn món ăn nào để đặt đơn'
     return
   }
+  toast.success('Đơn món được tạo thành công')
   errorMessages.value = ''
   cartItemStore.createOrder()
   router.push({ name: 'dish' })

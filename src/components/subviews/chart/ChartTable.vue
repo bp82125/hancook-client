@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  <div class="w-full col-span-1 bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
     <div class="flex justify-between mb-3">
       <div class="flex items-center">
         <div class="flex justify-center items-center">
@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+    <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg w-full">
       <div class="grid grid-cols-2 gap-3 mb-2">
         <dl
           class="bg-teal-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[78px]"
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Radial Chart -->
-    <div class="py-6" id="radial-chart"></div>
+    <div class="py-6 w-full" id="radial-chart"></div>
   </div>
 </template>
 

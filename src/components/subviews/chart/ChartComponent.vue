@@ -7,7 +7,7 @@
       <ChartEmployee></ChartEmployee>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-5 lg:gap-5 mt-5">
       <ChartTable></ChartTable>
       <ChartTopDish></ChartTopDish>
     </div>

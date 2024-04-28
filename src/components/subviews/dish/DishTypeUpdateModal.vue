@@ -85,6 +85,9 @@ import { ref, onMounted, computed, watchEffect } from 'vue'
 import { Modal } from 'flowbite'
 import { useModalStore } from '@/stores/modalStore'
 import { useDishTypeStore } from '@/stores/dishTypeStore'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 /**********                  data         *********** */
 const dishTypeStore = useDishTypeStore()
@@ -132,7 +135,11 @@ const submitForm = async () => {
   }
 
   const response = dishTypeStore.updateDishType(modalStore.data.id, dishTypeData)
-  console.log(response)
+  if ((await response).data.success) {
+    toast.success('Chỉnh sửa loại món ăn thành công')
+  } else {
+    toast.error('Chỉnh sửa loại món ăn thất bại')
+  }
   closeModal()
 }
 /**********             form        *********** */

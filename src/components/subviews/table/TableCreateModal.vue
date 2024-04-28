@@ -3,7 +3,7 @@
     <button
       data-modal-target="createTableModal"
       data-modal-toggle="createTableModal"
-      class="flex items-center gap-2 bg-blue-500 p-3 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="flex w-full md:w-fit items-center justify-center gap-2 bg-blue-500 p-3 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg
         class="w-[18px] h-[18px] text-white dark:text-white me-1 pt-0.5"

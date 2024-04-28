@@ -10,12 +10,12 @@ const formatPrice = (price) => {
 </script>
 
 <template>
-  <div class="flex py-3 px-4 bitem-b hover:bg-gray-100">
+  <div class="flex items-center py-3 px-4 hover:bg-gray-100">
     <div class="flex-shrink-0">
-      <img class="w-16 h-16 object-cover rounded-lg" :src="item.dish.imagePath" />
+      <img class="w-12 h-12 object-cover rounded-lg" :src="item.dish.imagePath" />
     </div>
     <div class="pl-3 w-full">
-      <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">
+      <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400 line-clamp-1">
         <span class="font-semibold text-gray-900 dark:text-white text-base">{{
           item.dish.dishName
         }}</span>
@@ -31,8 +31,8 @@ const formatPrice = (price) => {
         </div>
       </div>
     </div>
-    <div class="flex items-center">
-      <button @click="cartItemStore.removeItem(item.dish.id)" type="button" class="ms-4">
+    <div class="flex items-center justify-center px-6">
+      <button @click="cartItemStore.removeItem(item.dish.id)" type="button">
         <svg
           class="w-[18px] h-[18px] text-gray-400 hover:text-gray-700 dark:text-white"
           aria-hidden="true"

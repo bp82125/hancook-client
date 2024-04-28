@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="flex justify-end">
     <button
       id="createEmployeeButton"
       data-modal-target="createEmployeeModal"
       data-modal-toggle="createEmployeeModal"
       type="button"
-      class="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="flex w-full md:w-fit justify-center items-center gap-2 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg
         class="w-[18px] h-[18px] text-white dark:text-white"
@@ -22,7 +22,7 @@
           d="M5 12h14m-7 7V5"
         />
       </svg>
-      <h1 class="text-white">Thêm nhân viên</h1>
+      <h1 class="text-white text-center">Thêm nhân viên</h1>
     </button>
 
     <div
@@ -31,7 +31,7 @@
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
     >
-      <div class="relative p-4 w-full max-w-xl h-full md:h-auto">
+      <div class="relative p-4 w-full max-w-xl max-h-full">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
           <!-- Modal header -->
@@ -73,7 +73,7 @@
                   v-model="name"
                   type="text"
                   name="name"
-                  id="nameInput"
+                  id="nameInputCreate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Vd: Nguyễn Văn A"
                   required
@@ -81,13 +81,13 @@
               </div>
               <div class="w-full">
                 <label
-                  for="genderSelect"
+                  for="genderSelectCreate"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Giới tính</label
                 >
                 <select
                   v-model="gender"
-                  id="genderSelect"
+                  id="genderSelectCreate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   required
                 >
@@ -107,7 +107,7 @@
                   v-model="phoneNumber"
                   type="text"
                   name="phoneNumber"
-                  id="phoneNumberInput"
+                  id="phoneNumberInputCreate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Vd: 0123456789"
                   required
@@ -124,7 +124,7 @@
                   v-model="address"
                   type="text"
                   name="address"
-                  id="addressInput"
+                  id="addressInputCreate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Vd: 79 Trần Duy Hưng"
                   required
@@ -133,13 +133,13 @@
 
               <div class="w-full">
                 <label
-                  for="positionSelect"
+                  for="positionSelectCreate"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Chức vụ</label
                 >
                 <select
                   v-model="position"
-                  id="positionSelect"
+                  id="positionSelectCreate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   required
                 >

@@ -86,7 +86,9 @@ import { Modal } from 'flowbite'
 import { useModalStore } from '@/stores/modalStore'
 import { useDishStore } from '@/stores/dishStore'
 import { deleteImage } from '@/services/image'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 /**********                  data         *********** */
 const dishStore = useDishStore()
 const name = ref('')
@@ -132,7 +134,13 @@ const submitForm = async () => {
   await deleteImage(imagePath)
 
   const response = dishStore.deleteDish(modalStore.data.id)
-  console.log(response)
+
+  if (response.data.success) {
+    toast.success(`"${name.value}" đã được xóa thành công`)
+  } else {
+    toast.error(`Xóa món ăn "${name.value}" thất bại`)
+  }
+
   closeModal()
 }
 /**********             form        *********** */

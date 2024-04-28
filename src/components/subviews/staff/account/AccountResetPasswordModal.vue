@@ -6,7 +6,7 @@
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
     >
-      <div class="relative p-4 w-full max-w-xl h-full md:h-auto">
+      <div class="relative p-4 w-full max-w-xl max-h-full">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
           <!-- Modal header -->
@@ -55,32 +55,13 @@
 
               <div class="sm:col-span-2">
                 <label
-                  for="currentPassword"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Mật khẩu hiện tại</label
-                >
-                <input
-                  v-model="currentPassword"
-                  type="text"
-                  name="currentPassword"
-                  id="currentPassword"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  required
-                />
-                <div v-show="currentPasswordIncorrect" class="sm:col-span-2 text-red-500 text-sm">
-                  Mật khẩu hiện tại không đúng!
-                </div>
-              </div>
-
-              <div class="sm:col-span-2">
-                <label
                   for="newPassword"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Mật khẩu mới</label
                 >
                 <input
                   v-model="newPassword"
-                  type="text"
+                  type="password"
                   name="newPassword"
                   id="newPassword"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -96,7 +77,7 @@
                 >
                 <input
                   v-model="newPasswordAgain"
-                  type="text"
+                  type="password"
                   name="newPasswordAgain"
                   id="newPasswordAgain"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -134,6 +115,9 @@
 import { ref, onMounted } from 'vue'
 import { useAccountStore } from '@/stores/accountStore'
 import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 let modal
 
@@ -150,7 +134,6 @@ onMounted(() => {
 })
 
 const id = ref('')
-const currentPassword = ref('')
 const newPassword = ref('')
 const newPasswordAgain = ref('')
 
@@ -166,14 +149,12 @@ const submitForm = async () => {
   }
 
   try {
-    const response = await accountStore.changePassword(id.value, {
-      oldPassword: currentPassword.value,
+    const response = await accountStore.resetPassword(id.value, {
       newPassword: newPassword.value
     })
 
-    console.log(response)
-
-    if (response != undefined) {
+    if (response.data.success) {
+      toast.success(`Đặt lại mật khẩu cho tài khoản thành công`)
       resetFields()
       closeModal()
     } else {
@@ -198,7 +179,6 @@ const closeModal = () => {
 
 const resetFields = () => {
   id.value = ''
-  currentPassword.value = ''
   newPassword.value = ''
   newPasswordAgain.value = ''
 }

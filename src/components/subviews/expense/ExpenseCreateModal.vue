@@ -1,9 +1,9 @@
 <template>
-  <div class="flex justify-end items-center">
+  <div class="flex justify-end items-center truncate">
     <button
       data-modal-target="createExpenseModal"
       data-modal-toggle="createExpenseModal"
-      class="flex items-center gap-2 bg-blue-500 p-3 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-3 py-3 text-center"
+      class="flex items-center justify-center w-full md:w-fit gap-2 bg-blue-500 p-3 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-3 py-3 text-center"
     >
       <svg
         class="w-[18px] h-[18px] text-white dark:text-white me-1 pt-0.5"

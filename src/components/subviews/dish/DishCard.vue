@@ -3,8 +3,8 @@
     <img :src="dish.imagePath" class="aspect-square object-cover grow" alt="Product Image" />
     <div class="p-4">
       <!-- Adjust the max width here according to your needs -->
-      <h5 class="text-sm lg:text-lg font-semibold truncate">{{ dish.dishName }}</h5>
-      <p class="text-xs lg:text-base text-gray-700">{{ formatPrice(dish.price) }}</p>
+      <h5 class="text-base lg:text-lg font-semibold">{{ dish.dishName }}</h5>
+      <p class="text-sm lg:text-base text-gray-700">{{ formatPrice(dish.price) }}</p>
       <div class="flex flex-row mt-3">
         <button
           @click="modalStore.toggleAddOrder(dish)"

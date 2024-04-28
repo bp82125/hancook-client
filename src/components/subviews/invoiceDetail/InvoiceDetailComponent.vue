@@ -1,9 +1,16 @@
 <template>
-  <div class="overflow-x-auto p-16 rounded-lg shadow-lg mx-16 my-4 bg-white">
+  <div class="overflow-x-auto p-6 md:p-16 rounded-lg shadow-lg mx-2 md:mx-16 my-4 bg-white">
     <div v-if="invoice">
+      <div class="p-2">
+        <InvoiceDetailHeader></InvoiceDetailHeader>
+      </div>
 
-      <InvoiceDetailHeader></InvoiceDetailHeader>
-      <InvoiceDetailTable></InvoiceDetailTable>
+      <template v-if="width > 768">
+        <InvoiceDetailTable></InvoiceDetailTable>
+      </template>
+      <template v-else>
+        <InvoiceDetailListForMobile></InvoiceDetailListForMobile>
+      </template>
       <InvoiceDetailPayment></InvoiceDetailPayment>
     </div>
 
@@ -20,6 +27,7 @@ import InvoiceDetailHeader from './InvoiceDetailHeader.vue'
 import InvoiceDetailButtonGroup from './InvoiceDetailButtonGroup.vue'
 import InvoiceDetailTable from './InvoiceDetailTable.vue'
 import InvoiceDetailPayment from './InvoiceDetailPayment.vue'
+import InvoiceDetailListForMobile from './InvoiceDetailListForMobile.vue'
 
 const route = useRoute()
 const invoiceId = ref(route.params.invoiceId)
@@ -32,4 +40,7 @@ const invoice = computed(() => {
 onMounted(() => {
   invoiceDetailStore.fetchDetails(invoiceId.value)
 })
+
+import { useWindowSize } from '@vueuse/core'
+const { width, height } = useWindowSize()
 </script>

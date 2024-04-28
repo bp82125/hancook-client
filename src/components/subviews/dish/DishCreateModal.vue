@@ -5,6 +5,7 @@ import { useDishStore } from '@/stores/dishStore'
 import { useFileDialog } from '@vueuse/core'
 import { Modal } from 'flowbite'
 import { uploadImage } from '@/services/image'
+import { useToast } from 'vue-toastification'
 
 const dishTypeStore = useDishTypeStore()
 const dishStore = useDishStore()
@@ -12,6 +13,8 @@ const dishStore = useDishStore()
 const name = ref('')
 const price = ref()
 const dishType = ref('')
+
+const toast = useToast()
 
 let modal
 onMounted(() => {
@@ -82,7 +85,11 @@ const submitForm = async () => {
     }
 
     const response = dishStore.createDish(dishData)
-    console.log(response)
+    if ((await response).data.success) {
+      toast.success('Thêm món ăn thành công')
+    } else {
+      toast.error('Thêm món ăn thất bại')
+    }
 
     closeModal()
   }

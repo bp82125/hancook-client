@@ -17,7 +17,7 @@
         :key="table.id"
         class="border-y bg-white dark:bg-gray-800"
       >
-        <th class="text-gray-900 whitespace-nowrap dark:text-white text-center">
+        <th class="text-gray-800 font-normal whitespace-nowrap dark:text-white text-center">
           {{ index + 1 }}
         </th>
         <td

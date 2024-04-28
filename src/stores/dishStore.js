@@ -1,19 +1,25 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
 import { signOut } from '@/services/auth'
+import anyAscii from 'any-ascii'
 
 export const useDishStore = defineStore({
   id: 'dishes',
   state: () => ({
-    dishes: []
+    dishes: [],
+    temp: []
   }),
   actions: {
     async searchDish(name) {
       try {
-        await this.fetchDishes()
-        this.dishes = this.dishes.filter((dish) =>
-          dish.dishName.toLowerCase().includes(name.toLowerCase())
-        )
+        console.log('hi')
+        if (name === '') {
+          this.dishes = this.temp
+        } else {
+          this.dishes = this.dishes.filter((dish) =>
+            anyAscii(dish.dishName.toLowerCase()).includes(anyAscii(name.toLowerCase()))
+          )
+        }
       } catch (error) {
         console.error('Failed to search dishes:', error)
       }
@@ -23,6 +29,7 @@ export const useDishStore = defineStore({
       try {
         const response = await axiosInstance.get('/dishes')
         this.dishes = response.data.data
+        this.temp = response.data.data
       } catch (error) {
         console.error('Failed to fetch dishes:', error)
         signOut()

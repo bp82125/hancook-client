@@ -200,6 +200,9 @@ import { useDishTypeStore } from '@/stores/dishTypeStore'
 import { useDishStore } from '@/stores/dishStore'
 import { useFileDialog } from '@vueuse/core'
 import { updateImage } from '@/services/image'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 /**********                  data         *********** */
 const dishStore = useDishStore()
@@ -289,7 +292,12 @@ const submitForm = async () => {
   }
 
   const response = dishStore.updateDish(modalStore.data.id, dishData)
-  console.log(response)
+  if (response.data.success) {
+    toast.success('Cập nhật món ăn thành công')
+  } else {
+    toast.error('Cập nhật món ăn thất bại')
+  }
+
   closeModal()
 }
 /**********             form        *********** */
