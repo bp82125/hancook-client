@@ -22,6 +22,26 @@ export const useExpenseStore = defineStore({
         console.error('Failed to search expense:', error)
       }
     },
+
+    async sortExpense(criteria = 'defaultValue', mode = 'asc') {
+      if (criteria === 'defaultValue') {
+        this.expenses = this.temp
+      } else if (criteria === 'name') {
+        this.expenses = this.expenses.slice().sort((a, b) => a.name.localeCompare(b.name))
+      } else if (criteria === 'employee') {
+        this.expenses = this.expenses
+          .slice()
+          .sort((a, b) => a.employee.name.localeCompare(b.employee.name))
+      } else if (criteria === 'amount') {
+        this.expenses = this.expenses.slice().sort((a, b) => a.amount - b.amount)
+      } else if (criteria === 'dateTime') {
+        this.expenses = this.expenses.slice().sort((a, b) => a.dateTime.localeCompare(b.dateTime))
+      }
+
+      if (mode === 'desc') {
+        this.expenses = this.expenses.slice().reverse()
+      }
+    },
     async fetchExpenses() {
       try {
         const response = await axiosInstance.get('/expenses')
@@ -36,7 +56,7 @@ export const useExpenseStore = defineStore({
     async createExpense(data) {
       try {
         const response = await axiosInstance.post('/expenses', data)
-        this.fetchExpenses()
+        await this.fetchExpenses()
         return response
       } catch (error) {
         console.log('Failed to create expense')
@@ -47,7 +67,7 @@ export const useExpenseStore = defineStore({
       try {
         const endpont = `/expenses/${id}`
         const response = await axiosInstance.put(endpont, data)
-        this.fetchExpenses()
+        await this.fetchExpenses()
         return response
       } catch (error) {
         console.log('Failed to update expense')
@@ -57,7 +77,7 @@ export const useExpenseStore = defineStore({
       try {
         const endpont = `/expenses/${id}`
         const response = await axiosInstance.delete(endpont)
-        this.fetchExpenses()
+        await this.fetchExpenses()
         return response
       } catch (error) {
         console.log('Failed to delete expense')

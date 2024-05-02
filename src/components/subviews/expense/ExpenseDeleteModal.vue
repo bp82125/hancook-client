@@ -75,6 +75,9 @@
 import { ref, onMounted } from 'vue'
 import { useExpenseStore } from '@/stores/expenseStore'
 import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 let modal
 
@@ -108,7 +111,11 @@ const closeModal = () => {
 
 const deleteExpense = async () => {
   const response = await expenseStore.deleteExpense(id.value)
-  console.log(response)
+  if (response.data.success) {
+    toast.success(`Chi tiêu ${name.value} xóa thành công`)
+  } else {
+    toast.error(`Chi tiêu ${name.value} xóa thất bại`)
+  }
   closeModal()
 }
 

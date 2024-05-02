@@ -16,8 +16,8 @@ import { useTableStore } from '@/stores/tableStore'
 import { useCartItemStore } from '@/stores/cartItemStore'
 import VueSelect from 'vue-select'
 
-onMounted(() => {
-  tableStore.fetchTable()
+onMounted(async () => {
+  await tableStore.fetchTable()
 })
 
 onUnmounted(() => {

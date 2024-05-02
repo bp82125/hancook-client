@@ -60,8 +60,8 @@ export const useOrderStore = defineStore({
           note: detail.note
         }
         const response = await axiosInstance.put(endpoint, request)
-        console.log(response)
         this.fetchOrder(this.order.table.id)
+        return response
       } catch (error) {
         console.error('Error deleting order detail:', error)
       }
@@ -80,10 +80,11 @@ export const useOrderStore = defineStore({
 
         await Promise.all(updatePromises)
 
-        // After updating all details, fetch the updated order
         await this.fetchOrder(this.order.table.id)
+        return true
       } catch (error) {
         console.error('Error updating all order details:', error)
+        return false
       }
     },
 
@@ -106,8 +107,8 @@ export const useOrderStore = defineStore({
       try {
         const endpoint = `/orders/${this.order.id}/invoices`
         const response = await axiosInstance.post(endpoint, data)
-        console.log(response)
         this.$reset()
+        return response
       } catch (error) {
         console.error('Error creating invoice from order:', error)
       }

@@ -77,7 +77,9 @@
 import { ref, onMounted } from 'vue'
 import { useAccountStore } from '@/stores/accountStore'
 import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 let modal
 
 onMounted(() => {
@@ -100,6 +102,7 @@ const accountStore = useAccountStore()
 
 const toggleAccount = async () => {
   if (role.value === 'admin') {
+    toast.error('Không thể thay đổi trạng thái tài khoản quản trị')
     modal.toggle()
     return
   }

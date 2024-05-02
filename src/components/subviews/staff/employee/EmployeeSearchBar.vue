@@ -5,7 +5,7 @@
       @input="search"
       placeholder="Nhập tên nhân viên cần tìm..."
       size="md"
-      class="grow truncate"
+      class="grow "
     >
       <template #prefix>
         <svg
@@ -59,6 +59,7 @@ import { FwbButton, FwbInput } from 'flowbite-vue'
 import { useEmployeeStore } from '@/stores/employeeStore'
 
 import { useWindowSize } from '@vueuse/core'
+
 const { width, height } = useWindowSize()
 
 const employeeStore = useEmployeeStore()
@@ -77,8 +78,8 @@ const search = async () => {
   }, 300)
 }
 
-const reset = () => {
+const reset = async () => {
   query.value = ''
-  employeeStore.fetchEmployees()
+  await employeeStore.fetchEmployees()
 }
 </script>

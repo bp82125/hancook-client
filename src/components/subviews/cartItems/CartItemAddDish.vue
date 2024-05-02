@@ -2,7 +2,7 @@
   <!-- Modal toggle -->
   <button
     @click="showModal"
-    class="block text-white bg-gray-800 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-md text-sm w-full py-2.5 text-center"
+    class="block text-white bg-gray-800 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-sm text-sm w-full py-2.5 text-center"
     type="button"
   >
     Thêm món ăn

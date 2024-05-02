@@ -34,6 +34,27 @@ export const usePositionStore = defineStore({
         signOut()
       }
     },
+    async sortPositions(criteria, mode) {
+      if (criteria === 'defaultValue') {
+        this.positions = this.temp
+      } else if (criteria === 'name') {
+        this.positions = this.positions
+          .slice()
+          .sort((a, b) => a.positionName.localeCompare(b.positionName))
+      } else if (criteria === 'salary') {
+        this.positions = this.positions
+          .slice()
+          .sort((a, b) => a.salaryCoefficient - b.salaryCoefficient)
+      } else if (criteria === 'employee') {
+        this.positions = this.positions
+          .slice()
+          .sort((a, b) => a.numberOfEmployees - b.numberOfEmployees)
+      }
+
+      if (mode === 'desc') {
+        this.positions = this.positions.slice().reverse()
+      }
+    },
     async createPosition(positionData) {
       try {
         await axiosInstance.post('/positions', positionData)

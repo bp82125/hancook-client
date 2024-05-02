@@ -47,9 +47,9 @@
                   v-model="name"
                   type="text"
                   name="name"
-                  id="nameInput"
+                  id="nameUpdateInput"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder=""
+                  placeholder="Ví dụ: Gà chiên phô mai..."
                   required
                 />
               </div>
@@ -63,7 +63,7 @@
                   v-model="price"
                   type="number"
                   name="price"
-                  id="priceInput"
+                  id="priceUpdateInput"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder
                   required
@@ -72,13 +72,13 @@
 
               <div class="w-full">
                 <label
-                  for="dishTypeSelect"
+                  for="dishTypeSelectUpdate"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Loại món ăn</label
                 >
                 <select
                   v-model="dishType"
-                  id="dishTypeSelect"
+                  id="dishTypeSelectUpdate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
                   <option v-for="dishType in dishTypes" :key="dishType.id" :value="dishType.id">
@@ -218,7 +218,7 @@ const dishTypes = computed(() => {
 
 /**********                  modal        *********** */
 let modal
-onMounted(() => {
+onMounted(async () => {
   const $modalElement = document.querySelector('#updateDishModal')
   const modalOptions = {
     backdrop: 'static',
@@ -228,7 +228,7 @@ onMounted(() => {
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
   }
-  dishTypeStore.fetchDishTypes()
+  await dishTypeStore.fetchDishTypes()
 })
 
 const modalStore = useModalStore()
@@ -291,7 +291,7 @@ const submitForm = async () => {
     dishData.imagePath = modalStore.data.imagePath
   }
 
-  const response = dishStore.updateDish(modalStore.data.id, dishData)
+  const response = await dishStore.updateDish(modalStore.data.id, dishData)
   if (response.data.success) {
     toast.success('Cập nhật món ăn thành công')
   } else {

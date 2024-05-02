@@ -58,6 +58,9 @@ import { ref } from 'vue'
 import { FwbButton, FwbInput } from 'flowbite-vue'
 import { useDishStore } from '@/stores/dishStore'
 import { computed } from 'vue'
+import { useWindowSize } from '@vueuse/core'
+
+const { width, height } = useWindowSize()
 
 const dishStore = useDishStore()
 

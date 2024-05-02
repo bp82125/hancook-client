@@ -25,6 +25,20 @@ export const useDishStore = defineStore({
       }
     },
 
+    sortDishes(criteria, mode) {
+      if (criteria === 'defaultValue') {
+        this.dishes = this.temp.slice()
+      } else if (criteria === 'name') {
+        this.dishes = this.dishes.slice().sort((a, b) => a.dishName.localeCompare(b.dishName))
+      } else if (criteria === 'price') {
+        this.dishes = this.dishes.slice().sort((a, b) => a.price - b.price)
+      }
+
+      if (mode === 'desc') {
+        this.dishes = this.dishes.slice().reverse()
+      }
+    },
+
     async fetchDishes() {
       try {
         const response = await axiosInstance.get('/dishes')
@@ -38,7 +52,7 @@ export const useDishStore = defineStore({
     async createDish(data) {
       try {
         const response = await axiosInstance.post('/dishes', data)
-        this.fetchDishes()
+        await this.fetchDishes()
         return response
       } catch (error) {
         console.error('Failed to create a dish:', error)
@@ -49,7 +63,7 @@ export const useDishStore = defineStore({
     async updateDish(id, data) {
       try {
         const response = await axiosInstance.put(`/dishes/${id}`, data)
-        this.fetchDishes()
+        await this.fetchDishes()
         return response
       } catch (error) {
         console.error('Failed to create a dish:', error)
@@ -60,7 +74,7 @@ export const useDishStore = defineStore({
     async deleteDish(id) {
       try {
         const response = await axiosInstance.delete(`/dishes/${id}`)
-        this.fetchDishes()
+        await this.fetchDishes()
         return response
       } catch (error) {
         console.error('Failed to delete a dish:', error)

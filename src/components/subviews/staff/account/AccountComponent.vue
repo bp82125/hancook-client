@@ -1,7 +1,8 @@
 <template>
-  <div class="p-8 rounded-lg shadow-lg bg-white my-5">
-    <div class="grid grid-cols-1 md:grid-cols-2 mb-4">
+  <div class="p-4 md:p-8 rounded-lg shadow-lg bg-white my-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 md:mb-10">
       <AccountSearchBar></AccountSearchBar>
+      <AccountSort></AccountSort>
     </div>
     <div class="overflow-x-auto">
       <template v-if="width > 768">
@@ -39,6 +40,7 @@ import AccountUpdateModal from './AccountUpdateModal.vue'
 import AccountToggle from './AccountToggle.vue'
 import AccountResetPasswordModal from './AccountResetPasswordModal.vue'
 import AccountDeleteModal from './AccountDeleteModal.vue'
+import AccountSort from './AccountSort.vue'
 
 import { useWindowSize } from '@vueuse/core'
 const { width, height } = useWindowSize()

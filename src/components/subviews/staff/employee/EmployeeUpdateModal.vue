@@ -195,6 +195,7 @@ const gender = ref('')
 const phoneNumber = ref('')
 const address = ref('')
 const position = ref('')
+const account = ref('')
 
 const submitForm = async () => {
   try {
@@ -203,7 +204,8 @@ const submitForm = async () => {
       gender: gender.value,
       address: address.value,
       phoneNumber: phoneNumber.value,
-      positionId: position.value
+      positionId: position.value,
+      accountId: account.value
     })
 
     name.value = ''
@@ -211,6 +213,7 @@ const submitForm = async () => {
     phoneNumber.value = ''
     address.value = ''
     position.value = ''
+    account.value = ''
 
     modal.toggle()
 
@@ -228,6 +231,7 @@ const openModal = (employee) => {
   phoneNumber.value = employee.phoneNumber
   address.value = employee.address
   position.value = employee.position.id
+  account.value = employee.account?.id
 
   modal.toggle()
 }

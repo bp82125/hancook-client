@@ -99,14 +99,14 @@
           <td class="py-4 text-center">
             <div class="flex justify-around">
               <button
-                @click="orderStore.updateDetail(detail)"
+                @click="saveDetail(detail)"
                 type="button"
                 class="px-6 py-2 text-sm font-medium bg-blue-500 rounded-lg hover:bg-blue-700 text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 Lưu
               </button>
               <button
-                @click="orderStore.deleteDetail(detail)"
+                @click="$emit('deleteDetail', detail)"
                 type="button"
                 class="px-6 py-2 text-sm font-medium bg-red-500 rounded-lg hover:bg-red-700 text-white focus:ring-4 focus:outline-none focus:ring-red-300"
               >
@@ -125,7 +125,7 @@
           <td class="px-6 py-4"></td>
           <td class="py-4">
             <button
-              @click="orderStore.updateAllDetails()"
+              @click="saveAllDetails()"
               class="block w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
@@ -141,7 +141,10 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
 import { useOrderStore } from '@/stores/orderStore'
+import { useToast } from 'vue-toastification'
 import OrderAddDish from './OrderAddDish.vue'
+
+const toast = useToast()
 
 const quantity = ref(1)
 const orderStore = useOrderStore()
@@ -177,5 +180,23 @@ const formatPrice = (price) => {
 
 const getTotalPrice = (detail) => {
   return detail.dish.price * detail.quantity
+}
+
+const saveDetail = async (detail) => {
+  const response = await orderStore.updateDetail(detail)
+  if (response.data.success) {
+    toast.success('Chi tiết đơn món đã được lưu thành công')
+  } else {
+    toast.error('Chi tiết đơn món lưu thất bại')
+  }
+}
+
+const saveAllDetails = async () => {
+  const success = await orderStore.updateAllDetails()
+  if (success) {
+    toast.success('Tất cả chi tiết đơn món đã được lưu thành công')
+  } else {
+    toast.error('Chi tiết đơn món lưu thất bại')
+  }
 }
 </script>

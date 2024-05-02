@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-end">
     <div
-      class="w-fit my-4 p-8 rounded-lg border flex flex-col items-end float-end bg-white shadow-lg"
+      class="w-full md:w-fit my-4 p-4 md:p-8 rounded-lg border flex flex-col items-end float-end bg-white shadow-lg"
     >
       <div class="grid grid-cols-2 gap-x-16 gap-y-1">
         <p class="font-medium text-gray-500 text-md text-start">Tổng giá</p>

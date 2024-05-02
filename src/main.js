@@ -17,6 +17,10 @@ import VueApexCharts from 'vue3-apexcharts'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+
+
 
 const app = createApp(App)
 
@@ -29,5 +33,6 @@ app.use(VueFire, {
   firebaseApp,
   modules: []
 })
+app.use(VueSidebarMenu)
 
 app.mount('#app')

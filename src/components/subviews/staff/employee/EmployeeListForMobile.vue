@@ -6,10 +6,10 @@
       <div class="flex justify-end">
         <button
           @click="$emit('updateEmployee', employee)"
-          class="text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
+          class="text-gray-400 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
         >
           <svg
-            class="w-[18px] h-[18px]"
+            class="w-6 h-6"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -26,10 +26,10 @@
         </button>
         <button
           @click="$emit('deleteEmployee', employee)"
-          class="text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm py-2 text-center"
+          class="text-gray-400 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm py-2 text-center"
         >
           <svg
-            class="w-[18px] h-[18px] text-gray-800 dark:text-white"
+            class="w-6 h-6"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -87,13 +87,11 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 import { useEmployeeStore } from '@/stores/employeeStore'
-import { initFlowbite } from 'flowbite'
 
 const employeeStore = useEmployeeStore()
 
-onMounted(() => {
-  employeeStore.fetchEmployees()
-  initFlowbite()
+onMounted(async () => {
+  await employeeStore.fetchEmployees()
 })
 
 const employees = computed(() => {

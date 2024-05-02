@@ -57,6 +57,9 @@
 import { ref } from 'vue'
 import { FwbButton, FwbInput } from 'flowbite-vue'
 import { useTableStore } from '@/stores/tableStore'
+import { useWindowSize } from '@vueuse/core'
+
+const { width, height } = useWindowSize()
 
 const tableStore = useTableStore()
 
@@ -74,8 +77,8 @@ const search = async () => {
   }, 300)
 }
 
-const reset = () => {
+const reset = async () => {
   query.value = ''
-  tableStore.fetchTable()
+  await tableStore.fetchTable()
 }
 </script>

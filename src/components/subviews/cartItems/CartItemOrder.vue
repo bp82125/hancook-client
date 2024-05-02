@@ -33,8 +33,9 @@ const userStore = useUserStore()
 
 const errorMessage = ref('')
 
-onUnmounted(() => {
+onUnmounted(async () => {
   errorMessage.value = ''
+  await userStore.fetchUser()
 })
 
 const details = computed(() => {
@@ -58,7 +59,6 @@ const getTotal = () => {
 }
 
 const submitForm = async () => {
-  await userStore.fetchUser()
   cartItemStore.order.employeeId = userStore.user.id
 
   if (!cartItemStore.order.table) {
@@ -71,7 +71,7 @@ const submitForm = async () => {
   }
   toast.success('Đơn món được tạo thành công')
   errorMessages.value = ''
-  cartItemStore.createOrder()
+  await cartItemStore.createOrder()
   router.push({ name: 'dish' })
 }
 </script>

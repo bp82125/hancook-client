@@ -5,7 +5,7 @@
       @input="search"
       placeholder="Nhập tên chức vụ cần tìm..."
       size="md"
-      class="grow truncate"
+      class="grow"
     >
       <template #prefix>
         <svg
@@ -77,8 +77,8 @@ const search = async () => {
   }, 300)
 }
 
-const reset = () => {
+const reset = async () => {
   query.value = ''
-  positionStore.fetchPositions()
+  await positionStore.fetchPositions()
 }
 </script>

@@ -133,7 +133,7 @@ const submitForm = async () => {
   const imagePath = modalStore.data.imagePath
   await deleteImage(imagePath)
 
-  const response = dishStore.deleteDish(modalStore.data.id)
+  const response = await dishStore.deleteDish(modalStore.data.id)
 
   if (response.data.success) {
     toast.success(`"${name.value}" đã được xóa thành công`)

@@ -68,7 +68,7 @@ export const useCartItemStore = defineStore({
       }
     }
   },
-  initialize() {
-    userStore.fetchUser()
+  async initialize() {
+    await userStore.fetchUser()
   }
 })

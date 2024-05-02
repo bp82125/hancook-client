@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-slate-50 rounded-lg p-8 mb-5 shadow-lg">
+  <div class="bg-slate-50 rounded-lg p-4 md:p-8 mb-5 shadow-lg">
     <div class="flex items-center justify-between mb-3">
-      <h1 class="font-medium text-2xl">{{ dishType.dishTypeName }}</h1>
-      <div class="flex gap-x-2">
+      <h1 class="font-medium text-xl md:text-2xl">{{ dishType.dishTypeName }}</h1>
+      <div v-if="isAdmin" class="flex gap-x-2">
         <button @click="modalStore.toggleUpdateDishType(props.dishType)">
           <svg
             class="w-6 h-6 text-gray-400 hover:text-gray-700 dark:text-white"
@@ -41,7 +41,9 @@
       </div>
     </div>
 
-    <div class="dishGrids mt-5 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 gap-y-6">
+    <div
+      class="dishGrids mt-5 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 md:gap-y-6"
+    >
       <DishCard :dish="dish" v-for="dish in dishes" :key="dish.id"></DishCard>
     </div>
   </div>
@@ -67,10 +69,23 @@ const dishes = computed(() => {
     return dish.dishType.id === props.dishType.id
   })
 })
+
+import { computedAsync } from '@vueuse/core'
+import { useUserStore } from '@/stores/userStore'
+
+const userStore = useUserStore()
+
+onMounted(async () => {
+  await userStore.fetchUser()
+})
+
+const isAdmin = computedAsync(async () => {
+  return await userStore.isAdmin()
+}, true)
 </script>
 
 <style scoped>
-@media (max-width: 432px) {
+@media (max-width: 320px) {
   .dishGrids {
     @apply grid-cols-1;
   }

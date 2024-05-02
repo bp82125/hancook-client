@@ -105,6 +105,10 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useOrderStore } from '@/stores/orderStore'
 import { useUserStore } from '@/stores/userStore'
+
+import { useToast } from 'vue-toastification'
+const toast = useToast()
+
 const userStore = useUserStore()
 
 let modal
@@ -112,7 +116,7 @@ let modal
 const router = useRouter()
 const orderStore = useOrderStore()
 
-onMounted(() => {
+onMounted(async () => {
   const $modalElement = document.querySelector('#orderPaymentModal')
   const modalOptions = {
     backdrop: 'static',
@@ -122,8 +126,7 @@ onMounted(() => {
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
   }
-
-  userStore.fetchUser()
+  await userStore.fetchUser()
 })
 
 const user = computed(() => {
@@ -154,9 +157,14 @@ const submitForm = async () => {
       employeeId: user.value.id,
       customerPayment: payment.value
     }
-    await orderStore.payOrder(data)
-    closeModal()
-    router.push({ name: 'table' })
+    const response = await orderStore.payOrder(data)
+    if (response.data.success) {
+      toast.success('Thanh toán hóa đơn thành công')
+      closeModal()
+      router.push({ name: 'table' })
+    } else {
+      toast.error('Thanh toán hóa đơn thất bại')
+    }
   }
 }
 </script>

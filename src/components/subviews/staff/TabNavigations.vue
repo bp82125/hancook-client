@@ -6,7 +6,7 @@
       <li class="">
         <RouterLink
           to="/dashboard/staff/employees"
-          class="inline-flex items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+          class="inline-flex w-full items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
         >
           <svg
             class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
@@ -29,7 +29,7 @@
       <li class="">
         <RouterLink
           to="/dashboard/staff/positions"
-          class="inline-flex items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+          class="inline-flex w-full items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
         >
           <svg
             class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"
@@ -51,7 +51,7 @@
       <li class="">
         <RouterLink
           to="/dashboard/staff/accounts"
-          class="inline-flex items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+          class="inline-flex w-full items-center justify-center px-3 py-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
         >
           <svg
             class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300"

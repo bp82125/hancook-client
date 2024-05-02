@@ -1,13 +1,14 @@
 <template>
   <ul v-for="table in tables" :key="table.id" class="list-none">
     <li
-      class="grid grid-cols-2 gap-x-2 gap-y-4 items-center p-4 border rounded-lg shadow-lg my-5 text-ellipsis"
+      class="grid grid-cols-2 gap-y-4 items-center p-4 border rounded-lg shadow-lg my-5 text-ellipsis"
     >
       <h1 class="font-semibold text-xl uppercase">{{ table.name }}</h1>
-      <div class="flex gap-x-2 justify-end items-center">
+      <div class="flex justify-end items-center">
         <button
+          v-if="isAdmin"
           @click="$emit('updateTable', table)"
-          class="text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
+          class="text-gray-400 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
         >
           <svg
             class="w-6 h-6"
@@ -26,11 +27,12 @@
           </svg>
         </button>
         <button
+          v-if="isAdmin"
           @click="$emit('deleteTable', table)"
-          class="text-gray-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2 text-center"
+          class="text-gray-400 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
         >
           <svg
-            class="w-6 h-6 text-gray-800 dark:text-white"
+            class="w-6 h-6"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -75,15 +77,13 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 import { useTableStore } from '@/stores/tableStore'
-import { initFlowbite } from 'flowbite'
 import { useRouter } from 'vue-router'
 
 const tableStore = useTableStore()
 const router = useRouter()
 
-onMounted(() => {
-  tableStore.fetchTable()
-  initFlowbite()
+onMounted(async () => {
+  await tableStore.fetchTable()
 })
 
 const tables = computed(() => {
@@ -93,4 +93,21 @@ const tables = computed(() => {
 const showOrder = async (table) => {
   router.push({ name: 'order', params: { tableId: table.id } })
 }
+
+defineOptions({
+  inheritAttrs: false
+})
+
+import { computedAsync } from '@vueuse/core'
+import { useUserStore } from '@/stores/userStore'
+
+const userStore = useUserStore()
+
+onMounted(async () => {
+  await userStore.fetchUser()
+})
+
+const isAdmin = computedAsync(async () => {
+  return await userStore.isAdmin()
+}, true)
 </script>

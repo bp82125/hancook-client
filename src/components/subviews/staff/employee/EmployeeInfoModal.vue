@@ -33,6 +33,12 @@
         <div class="py-3">
           <div class="my-2">
             <h6 class="text-sm font-bold text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+              Mã nhân viên
+            </h6>
+            <p>{{ employeeInfo.id }}</p>
+          </div>
+          <div class="my-2">
+            <h6 class="text-sm font-bold text-gray-700 dark:bg-gray-700 dark:text-gray-400">
               Họ và tên
             </h6>
             <p>{{ employeeInfo.name }}</p>
@@ -57,20 +63,6 @@
               Địa chỉ
             </h6>
             <p>{{ employeeInfo.address }}</p>
-          </div>
-
-          <div class="my-2">
-            <h6 class="text-sm font-bold text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-              Chức vụ
-            </h6>
-            <p>{{ employeeInfo.position.positionName }}</p>
-          </div>
-
-          <div class="my-2">
-            <h6 class="text-sm font-bold text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-              Hệ số lương
-            </h6>
-            <p>{{ employeeInfo.position.salaryCoefficient }}</p>
           </div>
         </div>
       </div>

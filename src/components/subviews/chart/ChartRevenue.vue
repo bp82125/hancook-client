@@ -1,25 +1,76 @@
 <template>
-  <div v-if="profits" class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-    <div class="flex justify-between mb-5">
-      <div>
-        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-          {{ formatPrice(profits.revenues.total - profits.expenses.total) }}
-        </h5>
+  <template v-if="profits">
+    <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+      <div class="grid grid-cols-2 gap-y-2 mb-5">
+        <div>
+          <template v-if="isProfit">
+            <div class="inline-flex items-center">
+              <svg
+                class="w-8 h-8 text-green-500"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v13m0-13 4 4m-4-4-4 4"
+                />
+              </svg>
+              <h5 class="leading-none text-2xl md:text-3xl font-bold text-green-500">
+                {{ formatPrice(profits.revenues.total - profits.expenses.total) }}
+              </h5>
+            </div>
+          </template>
+          <template v-else>
+            <div class="flex items-center">
+              <svg
+                class="w-8 h-8 text-red-500 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 19V5m0 14-4-4m4 4 4-4"
+                />
+              </svg>
 
-        <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-          {{ selectedTimeLabel }}
-        </p>
+              <h5 class="leading-none text-2xl md:text-3xl font-bold text-red-500">
+                {{ formatPrice(Math.abs(profits.revenues.total - profits.expenses.total)) }}
+              </h5>
+            </div>
+          </template>
+        </div>
+        <div class="flex justify-end">
+          <ChartTimeRangeSelect @time-selected="handleTimeSelected"></ChartTimeRangeSelect>
+        </div>
+        <div class="col-span-2">
+          <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+            {{ selectedTimeLabel }}
+          </p>
+        </div>
       </div>
-      <div>
-        <ChartTimeRangeSelect @time-selected="handleTimeSelected"></ChartTimeRangeSelect>
-      </div>
+      <div id="legend-chart"></div>
+      <div
+        class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5"
+      ></div>
     </div>
-    <div id="legend-chart"></div>
-    <div
-      class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5"
-    ></div>
-  </div>
-  <div v-else>Loading...</div>
+  </template>
+  <template v-else>
+    <div>Loading...</div>
+  </template>
 </template>
 
 <script setup>
@@ -98,7 +149,9 @@ const options = {
   xaxis: {
     categories: [],
     labels: {
-      formatter: formatHour,
+      formatter: (value) => {
+        return value
+      },
       style: {
         fontSize: '12px'
       },
@@ -128,13 +181,36 @@ const options = {
       }
     }
   },
-  markers: {}
+  markers: {},
+  responsive: [
+    {
+      breakpoint: 768,
+      options: {
+        xaxis: {
+          labels: {
+            show: false
+          }
+        },
+        yaxis: {
+          show: false
+        }
+      }
+    }
+  ]
 }
 
 const chartStore = useChartStore()
 
 const profits = computed(() => {
   return chartStore.profits
+})
+
+const isProfit = computed(() => {
+  if (profits.value == null) {
+    return false
+  } else {
+    return profits.value.revenues.total - profits.value.expenses.total >= 0
+  }
 })
 
 const getData = async (timeRange, formatter) => {
@@ -207,7 +283,8 @@ const handleTimeSelected = async (time) => {
 }
 
 function formatHour(value) {
-  const hour = parseInt(value)
+  const date = new Date(value)
+  const hour = date.getHours()
 
   const period = () => {
     if (hour <= 12) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      id="changePasswordModal"
+      id="resetPasswordModal"
       tabindex="-1"
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
@@ -13,7 +13,7 @@
           <div
             class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
           >
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Đổi mật khẩu</h3>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Đặt lại mật khẩu</h3>
             <button
               @click="closeModal"
               type="button"
@@ -122,7 +122,7 @@ const toast = useToast()
 let modal
 
 onMounted(() => {
-  const $modalElement = document.querySelector('#changePasswordModal')
+  const $modalElement = document.querySelector('#resetPasswordModal')
   const modalOptions = {
     backdrop: 'static',
     backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40'

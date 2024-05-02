@@ -1,7 +1,14 @@
 <template>
-  <div class="overflow-x-auto p-6 md:p-16 rounded-lg shadow-lg mx-2 md:mx-16 my-4 bg-white">
+  <div class="overflow-x-auto p-6 md:px-16 rounded-lg shadow-lg mx-2 md:mx-16 my-4 bg-white">
+    <InvoiceDetailButtonGroup @deleteInvoiceFromDetail="deleteInvoice"></InvoiceDetailButtonGroup>
+    <InvoiceDeleteModal ref="deleteModal"></InvoiceDeleteModal>
+  </div>
+  <div
+    id="currentInvoice"
+    class="overflow-x-auto p-6 md:p-16 rounded-lg shadow-lg mx-2 md:mx-16 my-4 bg-white"
+  >
     <div v-if="invoice">
-      <div class="p-2">
+      <div class="p-2 mb-3">
         <InvoiceDetailHeader></InvoiceDetailHeader>
       </div>
 
@@ -28,6 +35,10 @@ import InvoiceDetailButtonGroup from './InvoiceDetailButtonGroup.vue'
 import InvoiceDetailTable from './InvoiceDetailTable.vue'
 import InvoiceDetailPayment from './InvoiceDetailPayment.vue'
 import InvoiceDetailListForMobile from './InvoiceDetailListForMobile.vue'
+import InvoiceDeleteModal from '../invoice/InvoiceDeleteModal.vue'
+
+import { useWindowSize } from '@vueuse/core'
+const { width, height } = useWindowSize()
 
 const route = useRoute()
 const invoiceId = ref(route.params.invoiceId)
@@ -37,10 +48,13 @@ const invoice = computed(() => {
   return invoiceDetailStore.invoice
 })
 
-onMounted(() => {
-  invoiceDetailStore.fetchDetails(invoiceId.value)
+onMounted(async () => {
+  await invoiceDetailStore.fetchDetails(invoiceId.value)
 })
 
-import { useWindowSize } from '@vueuse/core'
-const { width, height } = useWindowSize()
+const deleteModal = ref()
+
+function deleteInvoice(invoice) {
+  deleteModal.value.openModal(invoice)
+}
 </script>

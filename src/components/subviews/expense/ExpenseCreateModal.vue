@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-end items-center truncate">
+  <div class="flex justify-end items-center truncate order-first md:order-none">
     <button
       data-modal-target="createExpenseModal"
       data-modal-toggle="createExpenseModal"
@@ -66,15 +66,15 @@
             <form class="space-y-4" @submit.prevent="submitForm" id="createExpenseForm">
               <div>
                 <label
-                  for="name"
+                  for="nameExpenseCreate"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Tên chi tiêu</label
                 >
                 <input
                   v-model="name"
                   type="text"
-                  name="name"
-                  id="name"
+                  name="nameExpenseCreate"
+                  id="nameExpenseCreate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Vd: Mua sốt mì cay"
                   required
@@ -83,15 +83,15 @@
 
               <div>
                 <label
-                  for="amount"
+                  for="amountCreateExpense"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Số tiền chi</label
                 >
                 <input
                   v-model="amount"
                   type="number"
-                  name="amount"
-                  id="name"
+                  name="amountCreateExpense"
+                  id="amountCreateExpense"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Vd: 900000"
                   required
@@ -144,10 +144,13 @@ import { initModals } from 'flowbite'
 import { ref, onMounted, computed } from 'vue'
 import { useExpenseStore } from '@/stores/expenseStore'
 import { useUserStore } from '@/stores/userStore'
+import { useToast } from 'vue-toastification'
 
-onMounted(() => {
+const toast = useToast()
+
+onMounted(async () => {
   initModals()
-  userStore.fetchUser()
+  await userStore.fetchUser()
 })
 
 const expenseStore = useExpenseStore()
@@ -175,7 +178,11 @@ const submitForm = async () => {
     note: note.value
   }
   const response = await expenseStore.createExpense(data)
+  if (response.data.success) {
+    toast.success(`Chi tiêu ${name.value} được tạo thành công`)
+  } else {
+    toast.error(`Chi tiêu ${name.value} được tạo thất bại`)
+  }
   resetModal()
-  console.log(response)
 }
 </script>

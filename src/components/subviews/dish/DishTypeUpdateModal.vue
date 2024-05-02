@@ -135,6 +135,7 @@ const submitForm = async () => {
   }
 
   const response = dishTypeStore.updateDishType(modalStore.data.id, dishTypeData)
+  console.log(response)
   if ((await response).data.success) {
     toast.success('Chỉnh sửa loại món ăn thành công')
   } else {

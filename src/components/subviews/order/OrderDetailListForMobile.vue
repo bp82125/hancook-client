@@ -1,11 +1,37 @@
 <template>
+  <div class="my-3">
+    <OrderAddDish></OrderAddDish>
+  </div>
+
   <ul v-for="(detail, index) in details" :key="detail.dish.id" class="list-none my-3">
     <li class="p-4 border rounded-lg shadow-lg my-5 text-sm">
       <div class="grid grid-cols-2 items-center">
         <h1 class="font-semibold text-lg">#{{ index }}</h1>
         <div class="flex justify-end">
           <button
-            @click="orderStore.deleteDetail(detail)"
+            @click="saveDetail(detail)"
+            type="button"
+            class="text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
+          >
+            <svg
+              class="w-[18px] h-[18px] text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7.414A2 2 0 0 0 20.414 6L18 3.586A2 2 0 0 0 16.586 3H5Zm3 11a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v6H8v-6Zm1-7V5h6v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"
+                clip-rule="evenodd"
+              />
+              <path fill-rule="evenodd" d="M14 17h-4v-2h4v2Z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <button
+            @click="$emit('deleteDetailMobile', detail)"
             class="text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
           >
             <svg
@@ -100,21 +126,11 @@
           class="align-text-top w-full text-sm resize-none py-2 border border-gray-200 text-gray-700 bg-transparent hover:bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
-
-      <div class="w-full">
-        <button
-          @click="orderStore.updateDetail(detail)"
-          type="button"
-          class="px-6 w-full py-2 text-sm font-medium bg-blue-500 rounded-lg hover:bg-blue-700 text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
-        >
-          Lưu
-        </button>
-      </div>
     </li>
   </ul>
-  <div>
+  <div class="my-3">
     <button
-      @click="orderStore.updateAllDetails()"
+      @click="saveAllDetails()"
       class="block w-full text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       type="button"
     >
@@ -127,6 +143,9 @@
 import { ref, watch, computed } from 'vue'
 import { useOrderStore } from '@/stores/orderStore'
 import OrderAddDish from './OrderAddDish.vue'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 const quantity = ref(1)
 const orderStore = useOrderStore()
@@ -163,4 +182,26 @@ const formatPrice = (price) => {
 const getTotalPrice = (detail) => {
   return detail.dish.price * detail.quantity
 }
+
+const saveDetail = async (detail) => {
+  const response = await orderStore.updateDetail(detail)
+  if (response.data.success) {
+    toast.success('Chi tiết đơn món đã được lưu thành công')
+  } else {
+    toast.error('Chi tiết đơn món lưu thất bại')
+  }
+}
+
+const saveAllDetails = async () => {
+  const success = await orderStore.updateAllDetails()
+  if (success) {
+    toast.success('Tất cả chi tiết đơn món đã được lưu thành công')
+  } else {
+    toast.error('Chi tiết đơn món lưu thất bại')
+  }
+}
+
+defineOptions({
+  inheritAttrs: false
+})
 </script>

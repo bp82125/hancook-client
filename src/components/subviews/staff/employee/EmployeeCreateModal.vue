@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-end">
+  <div class="flex justify-end order-first md:order-none">
     <button
       id="createEmployeeButton"
       data-modal-target="createEmployeeModal"

@@ -1,7 +1,8 @@
 <template>
-  <div class="p-8 rounded-lg shadow-lg bg-white my-5">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 mb-8">
+  <div class="p-4 md:p-8 rounded-lg shadow-lg bg-white my-5">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2 md:mb-8">
       <PositionSearchBar></PositionSearchBar>
+      <PositionSort></PositionSort>
       <PositionsCreateModal></PositionsCreateModal>
     </div>
 
@@ -34,6 +35,7 @@ import PositionsListForMobile from './PositionsListForMobile.vue'
 import PositionUpdateModal from './PositionUpdateModal.vue'
 import PositionDeleteModal from './PositionDeleteModal.vue'
 import PositionSearchBar from './PositionSearchBar.vue'
+import PositionSort from './PositionSort.vue'
 
 import { useWindowSize } from '@vueuse/core'
 const { width, height } = useWindowSize()

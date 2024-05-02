@@ -11,7 +11,7 @@ const toast = useToast()
 async function onSubmit() {
   const success = await login(username.value, password.value)
   if (!success) {
-    errorMessage.value = 'Invalid username or password. Please try again.'
+    errorMessage.value = 'Tên đăng nhập hoặc mật khẩu không đúng. Hãy thử lại'
   } else {
     toast.success('Đăng nhập thành công')
   }
@@ -48,7 +48,7 @@ async function onSubmit() {
     </div>
     <button
       type="submit"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       Đăng nhập
     </button>

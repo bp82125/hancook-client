@@ -1,7 +1,8 @@
 <template>
-  <div class="p-8 rounded-lg shadow-lg bg-white my-5">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 mb-8">
+  <div class="p-4 md:p-8 rounded-lg shadow-lg bg-white my-5">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2 md:mb-8">
       <EmployeeSearchBar></EmployeeSearchBar>
+      <EmployeeSort></EmployeeSort>
       <EmployeeCreateModal></EmployeeCreateModal>
     </div>
     <div>
@@ -41,6 +42,8 @@ import EmployeeCreateModal from './EmployeeCreateModal.vue'
 import EmployeeUpdateModal from './EmployeeUpdateModal.vue'
 import EmployeeDeleteModal from './EmployeeDeleteModal.vue'
 import AccountCreateModal from '../account/AccountCreateModal.vue'
+import EmployeeSort from './EmployeeSort.vue'
+
 import { useWindowSize } from '@vueuse/core'
 
 const { width, height } = useWindowSize()

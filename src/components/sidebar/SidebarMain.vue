@@ -7,7 +7,7 @@
     <div class="flex h-full px-3 pb-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
       <ul class="space-y-3 w-full">
         <li>
-          <SidebarComponent path="/dashboard/home" name="TỔNG QUAN">
+          <SidebarComponent v-if="isAdmin" path="/dashboard/home" name="TỔNG QUAN">
             <path
               stroke="currentColor"
               stroke-linecap="round"
@@ -43,7 +43,7 @@
         </li>
 
         <li>
-          <SidebarComponent path="/dashboard/expense" name="CHI TIÊU">
+          <SidebarComponent v-if="isAdmin" path="/dashboard/expense" name="CHI TIÊU">
             <path
               stroke="currentColor"
               stroke-linecap="round"
@@ -67,7 +67,7 @@
         </li>
 
         <li>
-          <SidebarComponent path="/dashboard/staff" name="NHÂN VIÊN">
+          <SidebarComponent v-if="isAdmin" path="/dashboard/staff" name="NHÂN VIÊN">
             <path
               stroke="currentColor"
               stroke-linecap="round"
@@ -83,4 +83,19 @@
 
 <script setup>
 import SidebarComponent from './SidebarComponent.vue'
+import { onMounted } from 'vue'
+import { initFlowbite } from 'flowbite'
+import { useUserStore } from '@/stores/userStore'
+import { computedAsync } from '@vueuse/core'
+
+const userStore = useUserStore()
+
+onMounted(async () => {
+  initFlowbite()
+  await userStore.fetchUser()
+})
+
+const isAdmin = computedAsync(async () => {
+  return await userStore.isAdmin()
+}, true)
 </script>

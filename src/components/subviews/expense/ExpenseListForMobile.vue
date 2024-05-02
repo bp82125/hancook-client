@@ -10,10 +10,10 @@
       <div class="w-full flex justify-end items-center">
         <button
           @click="$emit('updateExpense', expense)"
-          class="text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-1 text-center"
+          class="text-gray-400 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-1 text-center"
         >
           <svg
-            class="w-6 h-6 text-gray-800"
+            class="w-6 h-6"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -30,10 +30,10 @@
         </button>
         <button
           @click="$emit('deleteExpense', expense)"
-          class="text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-1 text-center"
+          class="text-gray-400 hover:text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-1 text-center"
         >
           <svg
-            class="w-6 h-6 text-gray-800 dark:text-white"
+            class="w-6 h-6 dark:text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -82,14 +82,12 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 import { useExpenseStore } from '@/stores/expenseStore'
-import { initFlowbite } from 'flowbite'
 import { format } from 'date-fns'
 
 const expenseStore = useExpenseStore()
 
-onMounted(() => {
-  expenseStore.fetchExpenses()
-  initFlowbite()
+onMounted(async () => {
+  await expenseStore.fetchExpenses()
 })
 
 const expenses = computed(() => {

@@ -39,7 +39,7 @@
             <fieldset class="grid gap-4 grid-cols-1">
               <div>
                 <label
-                  for="name"
+                  for="nameExpenseUpdate"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Tên chi tiêu</label
                 >
@@ -47,7 +47,7 @@
                   v-model="name"
                   type="text"
                   name="name"
-                  id="name"
+                  id="nameExpenseUpdate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Vd: Mua sốt mì cay"
                   required
@@ -56,15 +56,15 @@
 
               <div>
                 <label
-                  for="amount"
+                  for="amountExpenseUpdate"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Số tiền chi</label
                 >
                 <input
                   v-model="amount"
                   type="number"
-                  name="amount"
-                  id="name"
+                  name="amountExpenseUpdate"
+                  id="amountExpenseUpdate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Vd: 900000"
                   required
@@ -73,13 +73,13 @@
 
               <div>
                 <label
-                  for="note"
+                  for="noteExpenseUpdate"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Nội dung chi tiêu</label
                 >
                 <textarea
                   v-model="note"
-                  id="note"
+                  id="noteExpenseUpdate"
                   rows="4"
                   class="block p-2.5 w-full text-sm resize-none text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Thông tin chi tiết về chi tiêu..."
@@ -116,6 +116,9 @@
 import { ref, onMounted } from 'vue'
 import { Modal } from 'flowbite'
 import { useExpenseStore } from '@/stores/expenseStore'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 /**********                  data         *********** */
 const expenseStore = useExpenseStore()
@@ -169,7 +172,12 @@ const submitForm = async () => {
     amount: amount.value,
     note: note.value
   }
-  await expenseStore.updateExpense(id.value, expenseData)
+  const response = await expenseStore.updateExpense(id.value, expenseData)
+  if (response.data.success) {
+    toast.success(`Chi tiêu ${name.value} cập nhật thành công`)
+  } else {
+    toast.error(`Chi tiêu ${name.value} cập nhật thất bại`)
+  }
   closeModal()
 }
 /**********             form        *********** */

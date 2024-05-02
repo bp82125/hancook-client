@@ -49,7 +49,7 @@
             />
           </svg>
           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-            Bạn có muốn xoá {{ name }} không?
+            Bạn có muốn xoá chi tiết đơn món {{ name }} không?
           </h3>
           <button
             @click="deleteDetail"
@@ -59,7 +59,7 @@
             Có
           </button>
           <button
-            @click="resetValue"
+            @click="closeModal"
             type="button"
             class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
@@ -75,6 +75,9 @@
 import { ref, onMounted } from 'vue'
 import { useOrderStore } from '@/stores/orderStore'
 import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 let modal
 
@@ -92,24 +95,31 @@ onMounted(() => {
 
 const id = ref('')
 const name = ref('')
+const detailData = ref(null)
 const orderStore = useOrderStore()
 
-const openModal = (table) => {
-  id.value = table.id
-  name.value = table.name
+const openModal = (detail) => {
+  id.value = detail.dish.id
+  name.value = detail.dish.dishName
+  detailData.value = detail
   modal.toggle()
 }
 
-const deleteTable = async () => {
+const closeModal = () => {
+  id.value = ''
+  name.value = ''
+  detailData.value = null
+
+  modal.toggle()
+}
+
+const deleteDetail = async () => {
   try {
-    await tableStore.deleteTable(id.value)
-
-    id.value = ''
-    name.value = ''
-
-    modal.toggle()
+    await orderStore.deleteDetail(detailData.value)
+    toast.success(`Chi tiết đơn món ${name.value} đã xóa thành công`)
+    closeModal()
   } catch (error) {
-    console.error('Error submit form:', error)
+    toast.error(`Lỗi khi xóa chi tiết đơn món`)
   }
 }
 

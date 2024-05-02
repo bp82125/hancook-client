@@ -7,10 +7,10 @@
       <div class="flex justify-end">
         <button
           @click="$emit('updatePosition', position)"
-          class="text-gray-800 hover:bg-gray-100 hover:text-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
+          class="text-gray-400 hover:text-gray-800 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
         >
           <svg
-            class="w-[18px] h-[18px]"
+            class="w-6 h-6"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -27,10 +27,10 @@
         </button>
         <button
           @click="$emit('deletePosition', position)"
-          class="text-gray-800 hover:bg-gray-100 hover:text-gray-5 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
+          class="text-gray-400 hover:text-gray-800 hover:bg-gray-100 hover:text-gray-5 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
         >
           <svg
-            class="w-[18px] h-[18px] text-gray-800 dark:text-white"
+            class="w-6 h-6"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -72,13 +72,11 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 import { usePositionStore } from '@/stores/positionStore'
-import { initFlowbite } from 'flowbite'
 
 const positionStore = usePositionStore()
 
-onMounted(() => {
-  positionStore.fetchPositions()
-  initFlowbite()
+onMounted(async () => {
+  await positionStore.fetchPositions()
 })
 
 const positions = computed(() => {

@@ -25,6 +25,42 @@ export const useEmployeeStore = defineStore({
         signOut()
       }
     },
+    async sortEmployee(criteria, mode) {
+      if (criteria === 'defaultValue') {
+        this.employees = this.temp
+      } else if (criteria === 'name') {
+        this.employees = this.employees.slice().sort((a, b) => a.name.localeCompare(b.name))
+      } else if (criteria === 'phoneNumber') {
+        this.employees = this.employees
+          .slice()
+          .sort((a, b) => a.phoneNumber.localeCompare(b.phoneNumber))
+      } else if (criteria === 'position') {
+        this.employees = this.employees
+          .slice()
+          .sort((a, b) => a.position.positionName.localeCompare(b.position.positionName))
+      } else if (criteria === 'account') {
+        console.log('hi')
+        this.employees = this.employees.slice().sort((a, b) => {
+          if (a.account === null && b.account === null) {
+            return 0
+          }
+          if (a.account === null) {
+            return -1
+          }
+          if (b.account === null) {
+            return 1
+          }
+          // Compare by username
+          if (a.account.username < b.account.username) return -1
+          if (a.account.username > b.account.username) return 1
+          return 0
+        })
+      }
+
+      if (mode === 'desc') {
+        this.employees = this.employees.slice().reverse()
+      }
+    },
     async fetchEmployees() {
       try {
         const response = await axiosInstance.get('/employees')
@@ -46,8 +82,9 @@ export const useEmployeeStore = defineStore({
     },
     async updateEmployee(id, employeeData) {
       try {
-        await axiosInstance.put(`/employees/${id}`, employeeData)
+        const response = await axiosInstance.put(`/employees/${id}`, employeeData)
         await this.fetchEmployees()
+        return response
       } catch (error) {
         console.error('Failed to update employee:', error)
         signOut()

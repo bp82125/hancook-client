@@ -18,11 +18,13 @@
     </h1>
   </div>
 
-  <div class="md:hidden my-10 line-clamp-2">
-    <h1 class="text-sm text-center md:text-sm font-semibold text-gray-800">#{{ invoice.id }}</h1>
+  <div class="md:hidden line-clamp-2">
+    <h1 class="text-sm text-center py-5 md:text-sm font-semibold text-gray-800">
+      #{{ invoice.id }}
+    </h1>
   </div>
 
-  <div class="grid grid-cols-2 gap-1 line-clamp-1 mt-3">
+  <div class="grid grid-cols-2 gap-1 line-clamp-1 py-3">
     <h1 class="font-bold text-sm md:text-base text-gray-700 md:mb-3">LẬP BỞI</h1>
     <h1 class="font-bold text-end text-sm md:text-base text-gray-700 md:mb-3">LẬP TẠI</h1>
     <h1 class="font-normal text-sm md:text-base text-gray-500">{{ invoice.employee.name }}</h1>
@@ -32,6 +34,7 @@
     <h1 class="font-normal text-sm md:text-base text-gray-500">
       {{ invoice.employee.position.positionName }}
     </h1>
+    <h1></h1>
   </div>
 </template>
 

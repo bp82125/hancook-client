@@ -11,8 +11,8 @@ import DishGrids from './DishGrids.vue'
 
 const dishTypeStore = useDishTypeStore()
 
-onMounted(() => {
-  dishTypeStore.fetchDishTypes()
+onMounted(async () => {
+  await dishTypeStore.fetchDishTypes()
 })
 
 const dishTypes = computed(() => {

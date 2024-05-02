@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-end items-center">
+  <div class="flex justify-end items-center order-first md:order-none">
     <button
       data-modal-target="createTableModal"
       data-modal-toggle="createTableModal"

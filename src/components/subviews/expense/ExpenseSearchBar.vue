@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-row gap-2 justify-center items-center truncate mb-2">
+  <div class="flex flex-row gap-2 justify-center items-center">
     <fwb-input
       v-model="query"
       @input="search"
-      placeholder="Nhập tên chi tiêu cần tìm..."
+      placeholder="Nhập tên chi tiêu tìm..."
       size="md"
-      class="grow truncate"
+      class="grow"
     >
       <template #prefix>
         <svg
@@ -26,7 +26,7 @@
       </template>
     </fwb-input>
 
-    <fwb-button size="lg" color="dark" @click="reset" class="truncate h-full">
+    <fwb-button size="lg" color="dark" @click="reset" class="truncate">
       <template v-if="width > 768">
         <h1 class="text-sm">Đặt lại</h1>
       </template>
@@ -57,6 +57,9 @@
 import { ref } from 'vue'
 import { FwbButton, FwbInput } from 'flowbite-vue'
 import { useExpenseStore } from '@/stores/expenseStore'
+import { useWindowSize } from '@vueuse/core'
+
+const { width, height } = useWindowSize()
 
 const expenseStore = useExpenseStore()
 
@@ -74,8 +77,10 @@ const search = async () => {
   }, 300)
 }
 
-const reset = () => {
+const reset = async () => {
   query.value = ''
-  expenseStore.fetchExpenses()
+  await expenseStore.fetchExpenses()
 }
+
+const mode = ref('Mặc định')
 </script>

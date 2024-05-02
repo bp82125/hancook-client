@@ -19,13 +19,20 @@ const routes = [
         path: '/dashboard/home',
         name: 'home',
         component: () => import('../views/subviews/HomeView.vue'),
-        alias: '/dashboard'
+        alias: '/dashboard',
+        meta: { requiresAdmin: true }
       },
       {
         path: '/dashboard/dish',
         name: 'dish',
 
         component: () => import('../views/subviews/DishView.vue')
+      },
+      {
+        path: '/dashboard/table',
+        name: 'table',
+
+        component: () => import('../views/subviews/TableView.vue')
       },
       {
         path: '/dashboard/invoice',
@@ -42,8 +49,8 @@ const routes = [
       {
         path: '/dashboard/staff',
         name: 'staff',
-
         component: () => import('../views/subviews/StaffView.vue'),
+        meta: { requiresAdmin: true },
         children: [
           {
             path: '/dashboard/staff',
@@ -63,23 +70,12 @@ const routes = [
           }
         ]
       },
-      {
-        path: '/dashboard/table',
-        name: 'table',
 
-        component: () => import('../views/subviews/TableView.vue')
-      },
       {
         path: '/dashboard/table/:tableId/order',
         name: 'order',
 
         component: () => import('../views/subviews/OrderView.vue')
-      },
-      {
-        path: '/dashboard/profile',
-        name: 'profile',
-
-        component: () => import('../views/subviews/ProfileView.vue')
       },
       {
         path: '/dashboard/expense',
@@ -108,13 +104,33 @@ const router = createRouter({
   linkActiveClass: 'active-link'
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
+import { useUserStore } from '../stores/userStore'
+
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
+  const requireLogin = to.matched.some((record) => record.meta.requiresAuth)
+  const requireAdmin = to.matched.some((record) => record.meta.requiresAdmin)
+  if (requireLogin) {
     const accessToken = Cookies.get('accessToken')
     if (!accessToken) {
       next({ name: 'main' })
     } else {
-      next()
+      // If authenticated, check if admin access is required
+      if (requireAdmin) {
+        // If admin access is required, check if user is admin
+        const isAdmin = await userStore.isAdmin()
+
+        // If user is admin, allow access
+        if (isAdmin) {
+          next()
+        } else {
+          // If not admin, redirect to error view
+          next({ name: 'NotFound' })
+        }
+      } else {
+        // If admin access is not required, allow access
+        next()
+      }
     }
   } else {
     next()

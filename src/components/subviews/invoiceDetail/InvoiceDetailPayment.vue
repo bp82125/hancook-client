@@ -10,8 +10,8 @@
         <p class="font-medium text-end text-gray-600">
           {{ formatPrice(invoice.totalPrice * (1 - 1 / 1.1)) }}
         </p>
-        <p class="font-medium text-gray-800 text-start border-b">TỔNG CỘNG</p>
-        <p class="font-bold text-end border-b text-gray-800">
+        <p class="text-xl font-medium text-gray-800 text-start border-b pb-3">TỔNG CỘNG</p>
+        <p class="text-xl font-bold text-end border-b text-gray-800 pb-3">
           {{ formatPrice(invoice.totalPrice) }}
         </p>
         <p class="font-normal text-gray-500 text-start mt-3">KHÁCH HÀNG THANH TOÁN</p>
@@ -19,8 +19,8 @@
           {{ formatPrice(invoice.customerPayment) }}
         </p>
 
-        <p class="font-medium text-gray-800 text-start">TIỀN HOÀN LẠI</p>
-        <p class="font-bold text-end">
+        <p class="text-xl font-medium text-gray-800 text-start">TIỀN HOÀN LẠI</p>
+        <p class="text-xl font-bold text-end">
           {{ formatPrice(invoice.customerPayment - invoice.totalPrice) }}
         </p>
       </div>

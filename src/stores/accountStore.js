@@ -26,6 +26,25 @@ export const useAccountStore = defineStore({
         console.error('Failed to fetch accounts:', error)
       }
     },
+    async sortAccounts(criteria, mode) {
+      if (criteria === 'defaultValue') {
+        this.accounts = this.temp.slice()
+      } else if (criteria === 'employee') {
+        this.accounts = this.temp
+          .slice()
+          .sort((a, b) => a.employeeName.localeCompare(b.employeeName))
+      } else if (criteria === 'username') {
+        this.accounts = this.temp.slice().sort((a, b) => a.username.localeCompare(b.username))
+      } else if (criteria === 'role') {
+        this.accounts = this.temp.slice().sort((a, b) => a.role.localeCompare(b.role))
+      } else if (criteria === 'enabled') {
+        this.accounts = this.temp.slice().sort((a, b) => -a.enabled + b.enabled)
+      }
+
+      if (mode === 'desc') {
+        this.accounts = this.accounts.slice().reverse()
+      }
+    },
     async fetchAccounts() {
       try {
         const response = await axiosInstance.get('/accounts')
@@ -63,6 +82,16 @@ export const useAccountStore = defineStore({
         return response
       } catch (error) {
         console.error('Failed to reset password:', error)
+      }
+    },
+    async changePassword(id, passwordData) {
+      try {
+        const response = await axiosInstance.patch(`/accounts/changePassword/${id}`, passwordData)
+        await this.fetchAccounts()
+        return response
+      } catch (error) {
+        console.error('Failed to change password:', error)
+        return error.response
       }
     },
     async createAccount(accountData) {
