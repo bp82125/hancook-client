@@ -110,6 +110,18 @@ router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore()
   const requireLogin = to.matched.some((record) => record.meta.requiresAuth)
   const requireAdmin = to.matched.some((record) => record.meta.requiresAdmin)
+
+  // if (to.name === 'main' && Cookies.get('accessToken')) {
+  //   const isAdmin = await userStore.isAdmin()
+  //   if (isAdmin) {
+  //     next({ name: 'home' })
+  //   } else {
+  //     next({ name: 'dish' })
+  //   }
+
+  //   return
+  // }
+
   if (requireLogin) {
     const accessToken = Cookies.get('accessToken')
     if (!accessToken) {

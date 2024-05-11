@@ -5,7 +5,7 @@
     aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
   >
-    <div class="relative p-4 w-full max-w-xl max-h-full">
+    <div class="relative p-4 w-full max-w-md max-h-full">
       <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
         <div
           class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
@@ -85,22 +85,22 @@
               />
             </div>
           </div>
+          <div class="flex">
+            <button
+              type="submit"
+              class="mt-4 text-white w-full flex justify-center bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-start dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Lưu
+            </button>
 
-          <button
-            @click="submitForm"
-            type="button"
-            class="mt-4 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-start dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Lưu
-          </button>
-
-          <button
-            @click="closeModal"
-            type="button"
-            class="mt-4 text-gray-900 border hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mx-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:gray-blue-800"
-          >
-            Huỷ
-          </button>
+            <button
+              @click="closeModal"
+              type="button"
+              class="mt-4 text-gray-900 w-full border hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mx-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:gray-blue-800"
+            >
+              Huỷ
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -138,12 +138,7 @@ const submitForm = async () => {
       salaryCoefficient: salary.value
     })
 
-    id.value = ''
-    name.value = ''
-    salary.value = ''
-
     closeModal()
-    console.log(response)
   } catch (error) {
     console.error('Error submitting form:', error)
   }
@@ -153,10 +148,13 @@ const openModal = (position) => {
   id.value = position.id
   name.value = position.positionName
   salary.value = position.salaryCoefficient
-  closeModal()
+  modal.toggle()
 }
 
 const closeModal = () => {
+  id.value = ''
+  name.value = ''
+  salary.value = ''
   modal.toggle()
 }
 

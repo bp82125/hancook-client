@@ -3,7 +3,9 @@
     <div class="mb-6 p-2 bg-white rounded-lg shadow-md">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
         <CartItemsTitle></CartItemsTitle>
-        <CartItemsRemoveAll></CartItemsRemoveAll>
+        <template v-if="width > 768">
+          <CartItemsRemoveAll></CartItemsRemoveAll>
+        </template>
       </div>
 
       <div class="px-3 py-5 grid grid-cols-1 md:grid-cols-2 gap-2 gap-y-4">
@@ -14,13 +16,16 @@
       </div>
     </div>
 
-    <div class="bg-white my-8">
+    <div class="bg-white my-4 md:my-8">
       <template v-if="width > 768">
         <CartItemList></CartItemList>
       </template>
       <template v-else>
-        <CartItemAddDish></CartItemAddDish>
-        <CartItemListForMobile></CartItemListForMobile>
+        <div>
+          <CartItemAddDish></CartItemAddDish>
+          <CartItemsRemoveAll></CartItemsRemoveAll>
+          <CartItemListForMobile></CartItemListForMobile>
+        </div>
       </template>
     </div>
 

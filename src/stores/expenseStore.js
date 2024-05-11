@@ -23,7 +23,7 @@ export const useExpenseStore = defineStore({
       }
     },
 
-    async sortExpense(criteria = 'defaultValue', mode = 'asc') {
+    sortExpense(criteria = 'defaultValue', mode = 'asc') {
       if (criteria === 'defaultValue') {
         this.expenses = this.temp
       } else if (criteria === 'name') {

@@ -5,11 +5,11 @@
     <thead class="text-sm font-normal text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
       <tr>
         <th scope="col" class="text-center rounded-s-lg">Số thứ tự</th>
-        <th scope="col" class="px-6 py-5 text-center">Người lập lập</th>
+        <th scope="col" class="px-6 py-5 text-center">Người lập</th>
         <th scope="col" class="px-6 py-5 text-center \">Bàn</th>
         <th scope="col" class="px-6 py-5 text-center">Tổng tiền</th>
         <th scope="col" class="py-5 text-center rounded-e-lg">Thời gian lập</th>
-        <th scope="col" class="py-5"></th>
+        <th scope="col" class="px-6 py-5"></th>
       </tr>
     </thead>
     <tbody>
@@ -36,8 +36,8 @@
         </td>
 
         <!-- Edit button column -->
-        <td class="py-3 text-center">
-          <div class="grid grid-cols-2 gap-2">
+        <td class="px-6 py-3 text-center">
+          <div class="grid gap-2" :class="isAdmin ? 'grid-cols-2' : 'grid-cols-1'">
             <button
               @click="showDetail(invoice)"
               class="flex justify-center text-white bg-gray-800 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center"
@@ -60,28 +60,30 @@
                 />
               </svg>
             </button>
-            <button
-              @click="$emit('deleteInvoice', invoice)"
-              class="flex justify-center text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center"
-            >
-              <svg
-                class="w-[18px] h-[18px]"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
+            <template v-if="isAdmin">
+              <button
+                @click="$emit('deleteInvoice', invoice)"
+                class="flex justify-center text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center"
               >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
-                />
-              </svg>
-            </button>
+                <svg
+                  class="w-[18px] h-[18px]"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+                  />
+                </svg>
+              </button>
+            </template>
           </div>
         </td>
       </tr>
@@ -94,6 +96,18 @@ import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useInvoiceStore } from '@/stores/invoiceStore'
 import { format } from 'date-fns'
+import { computedAsync } from '@vueuse/core'
+import { useUserStore } from '@/stores/userStore'
+
+const userStore = useUserStore()
+
+onMounted(async () => {
+  await userStore.fetchUser()
+})
+
+const isAdmin = computedAsync(async () => {
+  return await userStore.isAdmin()
+}, true)
 
 const invoiceStore = useInvoiceStore()
 

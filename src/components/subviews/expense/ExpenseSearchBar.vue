@@ -26,7 +26,7 @@
       </template>
     </fwb-input>
 
-    <fwb-button size="lg" color="dark" @click="reset" class="truncate">
+    <fwb-button size="lg" color="dark" @click="reset" class="truncate h-full">
       <template v-if="width > 768">
         <h1 class="text-sm">Đặt lại</h1>
       </template>

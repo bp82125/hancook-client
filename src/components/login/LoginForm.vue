@@ -46,13 +46,12 @@ async function onSubmit() {
         required
       />
     </div>
+    <p v-if="errorMessage" class="text-red-500 pb-5">{{ errorMessage }}</p>
     <button
       type="submit"
       class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       Đăng nhập
     </button>
-
-    <p v-if="errorMessage" class="text-red-500 pt-5">{{ errorMessage }}</p>
   </form>
 </template>

@@ -26,7 +26,7 @@ export const useAccountStore = defineStore({
         console.error('Failed to fetch accounts:', error)
       }
     },
-    async sortAccounts(criteria, mode) {
+    sortAccounts(criteria, mode) {
       if (criteria === 'defaultValue') {
         this.accounts = this.temp.slice()
       } else if (criteria === 'employee') {

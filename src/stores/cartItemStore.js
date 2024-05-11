@@ -21,7 +21,6 @@ export const useCartItemStore = defineStore({
           employeeId
         }
         const orderResponse = await axiosInstance.post(`/tables/${table.id}/orders`, orderData)
-        console.log('Order created:', orderResponse.data)
 
         const orderId = orderResponse.data.data.id
         const orderDetailsData = this.order.details.map((detail) => ({
@@ -38,6 +37,7 @@ export const useCartItemStore = defineStore({
           )
           console.log('Order detail created:', detailResponse.data.data)
         }
+        return orderResponse
 
         this.clearAll()
       } catch (error) {

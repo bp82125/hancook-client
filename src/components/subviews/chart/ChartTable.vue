@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full col-span-1 bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  <div class="w-full col-span-1 bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 md:p-6">
     <div class="flex justify-between mb-3">
       <div class="flex items-center">
         <div class="flex justify-center items-center">

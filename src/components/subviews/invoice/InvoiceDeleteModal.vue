@@ -51,20 +51,22 @@
           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
             Bạn có muốn xoá hóa đơn {{ id }} không?
           </h3>
-          <button
-            @click="deleteInvoice"
-            type="button"
-            class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-          >
-            Có
-          </button>
-          <button
-            @click="closeModal"
-            type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-500 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-          >
-            Huỷ
-          </button>
+          <div class="flex">
+            <button
+              @click="deleteInvoice"
+              type="button"
+              class="text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center justify-center"
+            >
+              Có
+            </button>
+            <button
+              @click="closeModal"
+              type="button"
+              class="py-2.5 px-5 ms-3 w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-500 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            >
+              Huỷ
+            </button>
+          </div>
         </div>
       </div>
     </div>

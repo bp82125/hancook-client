@@ -1,7 +1,9 @@
 <template>
-  <div class="overflow-x-auto p-6 md:px-16 rounded-lg shadow-lg mx-2 md:mx-16 my-4 bg-white">
+  <div class="overflow-x-auto p-4 rounded-lg shadow-lg mx-2 md:mx-16 mb-4 bg-white">
     <InvoiceDetailButtonGroup @deleteInvoiceFromDetail="deleteInvoice"></InvoiceDetailButtonGroup>
-    <InvoiceDeleteModal ref="deleteModal"></InvoiceDeleteModal>
+    <template v-if="isAdmin">
+      <InvoiceDeleteModal ref="deleteModal"></InvoiceDeleteModal>
+    </template>
   </div>
   <div
     id="currentInvoice"
@@ -37,7 +39,20 @@ import InvoiceDetailPayment from './InvoiceDetailPayment.vue'
 import InvoiceDetailListForMobile from './InvoiceDetailListForMobile.vue'
 import InvoiceDeleteModal from '../invoice/InvoiceDeleteModal.vue'
 
+import { computedAsync } from '@vueuse/core'
+import { useUserStore } from '@/stores/userStore'
 import { useWindowSize } from '@vueuse/core'
+
+const userStore = useUserStore()
+
+onMounted(async () => {
+  await userStore.fetchUser()
+})
+
+const isAdmin = computedAsync(async () => {
+  return await userStore.isAdmin()
+}, true)
+
 const { width, height } = useWindowSize()
 
 const route = useRoute()

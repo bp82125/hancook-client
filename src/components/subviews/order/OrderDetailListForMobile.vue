@@ -1,8 +1,4 @@
 <template>
-  <div class="my-3">
-    <OrderAddDish></OrderAddDish>
-  </div>
-
   <ul v-for="(detail, index) in details" :key="detail.dish.id" class="list-none my-3">
     <li class="p-4 border rounded-lg shadow-lg my-5 text-sm">
       <div class="grid grid-cols-2 items-center">
@@ -11,10 +7,10 @@
           <button
             @click="saveDetail(detail)"
             type="button"
-            class="text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
+            class="text-gray-400 hover:text-gray-800 font-medium rounded-lg text-sm p-2 text-center"
           >
             <svg
-              class="w-[18px] h-[18px] text-gray-800 dark:text-white"
+              class="w-6 h-6"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -32,10 +28,10 @@
           </button>
           <button
             @click="$emit('deleteDetailMobile', detail)"
-            class="text-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm p-2 text-center"
+            class="text-gray-400 hover:text-gray-800 font-medium rounded-lg text-sm p-2 text-center"
           >
             <svg
-              class="w-[18px] h-[18px] text-gray-800 dark:text-white"
+              class="w-6 h-6"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -56,8 +52,8 @@
       </div>
 
       <div class="flex my-3 gap-x-4">
-        <img :src="detail.dish.imagePath" class="w-16 h-16 rounded-lg object-cover" />
-        <div class="flex flex-col line-clamp-">
+        <img :src="detail.dish.imagePath" class="w-20 h-20 rounded-lg object-cover" />
+        <div class="flex flex-col justify-center line-clamp-2">
           <h1 class="text-lg font-semibold">{{ detail.dish.dishName }}</h1>
           <h1 class="text-sm font-light">{{ detail.dish.dishType.dishTypeName }}</h1>
         </div>

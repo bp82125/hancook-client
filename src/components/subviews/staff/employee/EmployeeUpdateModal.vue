@@ -138,22 +138,21 @@
                   </option>
                 </select>
               </div>
+              <button
+                type="submit"
+                class="mt-4 text-white w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Lưu
+              </button>
+
+              <button
+                @click="closeModal"
+                type="button"
+                class="mt-4 w-full text-gray-900 border hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mx-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:gray-blue-800"
+              >
+                Huỷ
+              </button>
             </div>
-
-            <button
-              type="submit"
-              class="mt-4 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Lưu
-            </button>
-
-            <button
-              @click="closeModal"
-              type="button"
-              class="mt-4 text-gray-900 border hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mx-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:gray-blue-800"
-            >
-              Huỷ
-            </button>
           </form>
         </div>
       </div>
@@ -166,6 +165,8 @@ import { ref, computed, onMounted } from 'vue'
 import { useEmployeeStore } from '@/stores/employeeStore'
 import { usePositionStore } from '@/stores/positionStore'
 import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 
 let modal
 let positions
@@ -208,18 +209,12 @@ const submitForm = async () => {
       accountId: account.value
     })
 
-    name.value = ''
-    gender.value = ''
-    phoneNumber.value = ''
-    address.value = ''
-    position.value = ''
-    account.value = ''
-
-    modal.toggle()
-
-    console.log(response)
+    toast.success('Cập nhật nhân viên thành công')
+    closeModal()
   } catch (error) {
     console.error('Error submitting form:', error)
+    toast.error('Cập nhật nhân viên thất bại')
+    closeModal()
   }
   console.log(employeeStore)
 }
@@ -237,6 +232,12 @@ const openModal = (employee) => {
 }
 
 const closeModal = () => {
+  name.value = ''
+  gender.value = ''
+  phoneNumber.value = ''
+  address.value = ''
+  position.value = ''
+  account.value = ''
   modal.toggle()
 }
 

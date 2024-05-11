@@ -4,6 +4,13 @@
       <OrderTitle></OrderTitle>
     </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
+      <OrderSort></OrderSort>
+      <div class="flex justify-end order-first md:order-none">
+        <OrderAddDish></OrderAddDish>
+      </div>
+    </div>
+
     <template v-if="width > 768">
       <OrderDetailList @deleteDetail="deleteDetail"></OrderDetailList>
     </template>
@@ -22,6 +29,8 @@ import OrderDetailListForMobile from './OrderDetailListForMobile.vue'
 import OrderTitle from './OrderTitle.vue'
 import OrderPayment from './OrderPayment.vue'
 import OrderDetailRemove from './OrderDetailRemove.vue'
+import OrderSort from './OrderSort.vue'
+import OrderAddDish from './OrderAddDish.vue'
 
 import { useOrderStore } from '@/stores/orderStore'
 import { ref, onMounted } from 'vue'

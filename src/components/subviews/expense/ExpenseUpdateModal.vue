@@ -71,6 +71,10 @@
                 />
               </div>
 
+              <div v-if="amountSmallerZero">
+                <h1 class="text-red-500">Số tiền chi phải lớn hơn 0</h1>
+              </div>
+
               <div>
                 <label
                   for="noteExpenseUpdate"
@@ -95,14 +99,14 @@
           <button
             form="updateExpenseForm"
             type="submit"
-            class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            class="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Lưu
           </button>
           <button
             @click="closeModal"
             type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            class="w-full py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
             Huỷ
           </button>
@@ -127,6 +131,7 @@ const name = ref('')
 const amount = ref(0)
 const note = ref('')
 const employee = ref(null)
+const amountSmallerZero = ref(false)
 /**********                  data         *********** */
 
 /**********                  modal        *********** */
@@ -149,6 +154,7 @@ const closeModal = () => {
   amount.value = 0
   note.value = ''
   employee.value = null
+  amountSmallerZero.value = false
   modal.toggle()
 }
 
@@ -158,6 +164,7 @@ const openModal = (expense) => {
   amount.value = expense.amount
   note.value = expense.note
   employee.value = expense.employee
+  amountSmallerZero.value = false
   modal.toggle()
 }
 
@@ -166,6 +173,11 @@ defineExpose({ openModal })
 
 /**********             form        *********** */
 const submitForm = async () => {
+  if (amount.value <= 0) {
+    amountSmallerZero.value = true
+    return
+  }
+
   const expenseData = {
     employeeId: employee.value.id,
     name: name.value,

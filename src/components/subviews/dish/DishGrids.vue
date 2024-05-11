@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-50 rounded-lg p-4 md:p-8 mb-5 shadow-lg">
+  <div class="bg-slate-50 rounded-lg p-3 md:p-8 mb-5 shadow-lg">
     <div class="flex items-center justify-between mb-3">
       <h1 class="font-medium text-xl md:text-2xl">{{ dishType.dishTypeName }}</h1>
       <div v-if="isAdmin" class="flex gap-x-2">

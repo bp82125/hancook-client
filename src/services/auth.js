@@ -31,19 +31,11 @@ export async function login(username, password) {
     if (response.data.success) {
       const { accountInfo, token } = response.data.data
 
-      Cookies.set('accessToken', token, {
-        expires: '2h',
-        secure: true,
-        httpOnly: true
-      })
+      Cookies.set('accessToken', token)
 
       const employeeId = accountInfo.employeeId
 
-      Cookies.set('employeeId', employeeId, {
-        expires: '2h',
-        secure: true,
-        httpOnly: true
-      })
+      Cookies.set('employeeId', employeeId)
 
       const role = accountInfo.role
       if (role === 'admin') {

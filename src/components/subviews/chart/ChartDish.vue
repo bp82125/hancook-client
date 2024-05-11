@@ -1,14 +1,15 @@
 <template>
-  <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  <div class="w-full bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 md:p-6">
     <div class="flex justify-between mb-3">
       <div class="flex justify-center items-center">
         <h1 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1 uppercase">
           Thống kê món ăn
         </h1>
       </div>
+      
     </div>
 
-    <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+    <div class="bg-gray-50 p-3 rounded-lg">
       <div class="grid grid-cols-2 gap-3 mb-2">
         <dl
           v-for="(dishType, index) in dishTypes"
@@ -16,14 +17,14 @@
           :class="[
             'bg-' +
               getColor(index) +
-              '-50 dark:bg-gray-600 rounded-lg flex flex-col items-center justify-center h-[64px]'
+              '-50 rounded-lg flex flex-col items-center justify-center h-[64px]'
           ]"
         >
           <dt
             :class="[
               'w-8 h-8 rounded-full bg-' +
                 getColor(index) +
-                '-100 dark:bg-gray-500 text-' +
+                '-100  text-' +
                 getColor(index) +
                 '-600 dark:text-' +
                 getColor(index) +
@@ -59,7 +60,7 @@ import { computed } from 'vue'
 
 const options = {
   series: [],
-  colors: ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694'],
+  colors: ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694', '#DAC4F7', '#272932', '#12664F', '#EA3546'],
   chart: {
     height: 320,
     width: '100%',
@@ -147,7 +148,8 @@ onMounted(async () => {
 })
 
 const getColor = (index) => {
-  const colors = ['blue', 'teal', 'orange', 'pink']
+  const colors = ['blue', 'teal', 'orange', 'pink', 'fuchsia', 'slate', 'emerald', 'red']
+
   return colors[index % colors.length]
 }
 </script>

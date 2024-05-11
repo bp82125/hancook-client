@@ -2,9 +2,8 @@
   <div class="flex justify-end order-first md:order-none">
     <button
       id="createEmployeeButton"
-      data-modal-target="createEmployeeModal"
-      data-modal-toggle="createEmployeeModal"
       type="button"
+      @click="openModal"
       class="flex w-full md:w-fit justify-center items-center gap-2 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       <svg
@@ -40,9 +39,9 @@
           >
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Thêm nhân viên</h3>
             <button
+              @click="closeModal"
               type="button"
               class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="createEmployeeModal"
             >
               <svg
                 aria-hidden="true"
@@ -62,7 +61,7 @@
           </div>
           <!-- Modal body -->
           <form @submit.prevent="submitForm">
-            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <fieldset class="grid gap-4 sm:grid-cols-2 sm:gap-6">
               <div class="sm:col-span-2">
                 <label
                   for="name"
@@ -148,14 +147,21 @@
                   </option>
                 </select>
               </div>
-            </div>
 
-            <button
-              data-modal-toggle="createEmployeeModal"
-              class="mt-4 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Thêm
-            </button>
+              <button
+                type="submit"
+                class="text-white w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Thêm
+              </button>
+              <button
+                @click="closeModal"
+                type="button"
+                class="py-2.5 px-5 w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-500 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              >
+                Huỷ
+              </button>
+            </fieldset>
           </form>
         </div>
       </div>
@@ -164,9 +170,26 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useEmployeeStore } from '@/stores/employeeStore'
 import { usePositionStore } from '@/stores/positionStore'
+import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+
+let modal
+onMounted(async () => {
+  const $modalElement = document.querySelector('#createEmployeeModal')
+  const modalOptions = {
+    backdrop: 'static',
+    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40'
+  }
+
+  if ($modalElement) {
+    modal = new Modal($modalElement, modalOptions)
+  }
+})
 
 const name = ref('')
 const gender = ref('')
@@ -181,6 +204,24 @@ const positions = computed(() => {
   return positionStore.positions
 })
 
+const openModal = () => {
+  resetData()
+  modal.toggle()
+}
+
+const resetData = () => {
+  name.value = ''
+  gender.value = ''
+  phoneNumber.value = ''
+  address.value = ''
+  position.value = ''
+}
+
+const closeModal = () => {
+  resetData()
+  modal.toggle()
+}
+
 const submitForm = async () => {
   try {
     const response = await employeeStore.createEmployee({
@@ -191,15 +232,13 @@ const submitForm = async () => {
       positionId: position.value
     })
 
-    document.getElementById('createEmployeeModal').hidden = true
+    if (response.data.success) {
+      toast.success('Thêm nhân viên thành công')
+    } else {
+      toast.error('Thêm nhân viên thất bại')
+    }
 
-    name.value = ''
-    gender.value = ''
-    phoneNumber.value = ''
-    address.value = ''
-    position.value = ''
-
-    console.log(response)
+    closeModal()
   } catch (error) {
     console.error('Error submitting form:', error)
   }

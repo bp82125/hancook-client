@@ -1,10 +1,14 @@
 <template>
   <div class="overflow-x-auto p-2">
     <div
-      class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-2 mb-5 bg-white p-5 rounded-lg w-full shadow-lg"
+      :class="isAdmin ? 'xl:grid-cols-3' : 'md:grid-cols-2'"
+      class="grid grid-cols-1 gap-y-4 gap-2 mb-5 bg-white p-5 rounded-lg w-full shadow-lg"
     >
       <DishSearchBarVue></DishSearchBarVue>
-      <DishSort></DishSort>
+      <div :class="isAdmin ? '' : 'flex md:justify-end'">
+        <DishSort></DishSort>
+      </div>
+
       <DishCreateModalVue v-if="isAdmin"></DishCreateModalVue>
     </div>
     <div>

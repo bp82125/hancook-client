@@ -1,8 +1,11 @@
 <template>
   <div class="p-5 md:p-8 rounded-lg shadow-lg bg-white m-2">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-y-4">
+    <div :class="isAdmin ? 'md:grid-cols-3' : 'md:grid-cols-2'" class="grid grid-cols-1 gap-y-4">
       <TableSearchBar></TableSearchBar>
-      <TableSort></TableSort>
+      <div :class="isAdmin ? '' : 'flex justify-end'">
+        <TableSort></TableSort>
+      </div>
+
       <TableCreateModal v-if="isAdmin"></TableCreateModal>
     </div>
     <div class="overflow-x-auto">

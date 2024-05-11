@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  <div class="w-full bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 md:p-6">
     <div class="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3">
       <div class="flex justify-center items-center">
         <h1 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1 uppercase">
@@ -12,15 +12,15 @@
 
     <div class="grid grid-cols-2 py-3">
       <dl>
-        <dt class="text-center font-normal text-gray-500 dark:text-gray-400 pb-1">Chức vụ</dt>
-        <dd class="leading-none text-center text-xl font-bold text-gray-800">
-          {{ positionCounts }}
-        </dd>
-      </dl>
-      <dl>
         <dt class="text-center font-normal text-gray-500 dark:text-gray-400 pb-1">Nhân viên</dt>
         <dd class="leading-none text-xl text-center font-bold text-gray-800">
           {{ employeeCounts }}
+        </dd>
+      </dl>
+      <dl>
+        <dt class="text-center font-normal text-gray-500 dark:text-gray-400 pb-1">Chức vụ</dt>
+        <dd class="leading-none text-center text-xl font-bold text-gray-800">
+          {{ positionCounts }}
         </dd>
       </dl>
     </div>
@@ -61,8 +61,8 @@ const options = {
   },
   plotOptions: {
     bar: {
-      horizontal: true,
-      columnWidth: '100%',
+      horizontal: false,
+      columnWidth: '50%',
       borderRadiusApplication: 'end',
       borderRadius: 6,
       dataLabels: {
@@ -99,7 +99,7 @@ const options = {
   },
   yaxis: {
     labels: {
-      show: false,
+      show: true,
       style: {
         fontFamily: 'Inter, sans-serif',
         cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'

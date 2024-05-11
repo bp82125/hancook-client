@@ -7,6 +7,8 @@ import { Modal } from 'flowbite'
 import { uploadImage } from '@/services/image'
 import { useToast } from 'vue-toastification'
 
+import { FwbSpinner } from 'flowbite-vue'
+
 const dishTypeStore = useDishTypeStore()
 const dishStore = useDishStore()
 
@@ -41,6 +43,7 @@ const resetData = () => {
   dishType.value = ''
   loadedImageUrl.value = null
   isSubmitting.value = false
+  isFileLoading.value = false
   reset()
 }
 
@@ -55,13 +58,16 @@ const dishTypes = computed(() => {
 
 const { files, open, reset } = useFileDialog()
 const loadedImageUrl = ref(null)
+const isFileLoading = ref(false)
 
 watch(files, async (newFiles) => {
   if (newFiles.length) {
     const url = await URL.createObjectURL(newFiles[0])
     loadedImageUrl.value = url
+    isFileLoading.value = true
   } else {
     removePreviewImage()
+    isFileLoading.value = false
   }
 })
 
@@ -84,13 +90,12 @@ const submitForm = async () => {
       imagePath: url.value
     }
 
-    const response = dishStore.createDish(dishData)
-    if ((await response).data.success) {
+    const response = await dishStore.createDish(dishData)
+    if (response.data.success) {
       toast.success('Thêm món ăn thành công')
     } else {
       toast.error('Thêm món ăn thất bại')
     }
-
     closeModal()
   }
 }
@@ -159,7 +164,7 @@ const submitForm = async () => {
           </div>
           <!-- Modal body -->
           <form @submit.prevent="submitForm">
-            <fieldset class="grid gap-4 sm:grid-cols-2 sm:gap-6" :disabled="isSubmitting">
+            <fieldset class="grid gap-4 sm:grid-cols-2 sm:gap-6">
               <div class="sm:col-span-2">
                 <label
                   for="name"
@@ -174,6 +179,7 @@ const submitForm = async () => {
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder=""
                   required
+                  :disabled="isSubmitting"
                 />
               </div>
               <div class="w-full">
@@ -190,6 +196,7 @@ const submitForm = async () => {
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder
                   required
+                  :disabled="isSubmitting"
                 />
               </div>
 
@@ -202,6 +209,7 @@ const submitForm = async () => {
                 <select
                   v-model="dishType"
                   id="dishTypeSelect"
+                  :disabled="isSubmitting"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
                   <option v-for="dishType in dishTypes" :key="dishType.id" :value="dishType.id">
@@ -224,7 +232,7 @@ const submitForm = async () => {
                         alt="Selected Image Preview"
                       />
                       <div class="mx-3">
-                        <h1>{{ files.item(0).name }}</h1>
+                        <h1 class="text-start line-clamp-1">{{ files.item(0).name }}</h1>
                         <h1 class="text-start text-sm opacity-75">
                           {{ (files.item(0).size / (1024 * 1024)).toFixed(2) }} MB
                         </h1>
@@ -254,9 +262,9 @@ const submitForm = async () => {
                   <button type="button" @click="open({ accept: 'image/*' })" class="w-full">
                     <div class="flex items-center justify-center w-full">
                       <div
-                        class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                        class="flex flex-col items-center justify-center w-full h-40 md:h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                       >
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <div class="flex flex-col items-center justify-center p-4 md:pt-5 md:pb-6">
                           <svg
                             class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
                             aria-hidden="true"
@@ -286,11 +294,31 @@ const submitForm = async () => {
                 </template>
               </div>
 
+              <template v-if="isSubmitting">
+                <button
+                  disabled
+                  type="submit"
+                  class="mt-4 flex justify-center text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center opacity-85"
+                >
+                  <fwb-spinner size="6" color="white" />
+                </button>
+              </template>
+
+              <template v-else>
+                <button
+                  type="submit"
+                  class="mt-4 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Thêm
+                </button>
+              </template>
+
               <button
-                type="submit"
-                class="mt-4 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                @click="closeModal"
+                type="button"
+                class="mt-4 text-gray-800 border hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
               >
-                Thêm
+                Hủy
               </button>
             </fieldset>
           </form>

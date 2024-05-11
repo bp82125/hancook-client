@@ -20,7 +20,7 @@ import 'vue-toastification/dist/index.css'
 import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 
-
+import VueCookies from 'vue-cookies'
 
 const app = createApp(App)
 
@@ -34,5 +34,8 @@ app.use(VueFire, {
   modules: []
 })
 app.use(VueSidebarMenu)
+app.use(VueCookies, {
+  expires: '2h'
+})
 
 app.mount('#app')

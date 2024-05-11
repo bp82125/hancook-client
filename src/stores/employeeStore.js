@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
-import { signOut } from '@/services/auth'
 import anyAscii from 'any-ascii'
 
 export const useEmployeeStore = defineStore({
@@ -22,10 +21,9 @@ export const useEmployeeStore = defineStore({
         )
       } catch (error) {
         console.error('Failed to fetch employees:', error)
-        signOut()
       }
     },
-    async sortEmployee(criteria, mode) {
+    sortEmployee(criteria, mode) {
       if (criteria === 'defaultValue') {
         this.employees = this.temp
       } else if (criteria === 'name') {
@@ -68,7 +66,6 @@ export const useEmployeeStore = defineStore({
         this.temp = response.data.data
       } catch (error) {
         console.error('Failed to fetch employees:', error)
-        signOut()
       }
     },
     async createEmployee(employeeData) {
@@ -77,7 +74,6 @@ export const useEmployeeStore = defineStore({
         await this.fetchEmployees()
       } catch (error) {
         console.error('Failed to create employee:', error)
-        signOut()
       }
     },
     async updateEmployee(id, employeeData) {
@@ -87,7 +83,6 @@ export const useEmployeeStore = defineStore({
         return response
       } catch (error) {
         console.error('Failed to update employee:', error)
-        signOut()
       }
     },
     async deleteEmployee(id) {
@@ -97,7 +92,6 @@ export const useEmployeeStore = defineStore({
         await this.fetchEmployees()
       } catch (error) {
         console.error('Failed to update employee:', error)
-        signOut()
       }
     }
   },

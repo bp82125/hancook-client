@@ -9,6 +9,7 @@ export const useOrderStore = defineStore({
       employee: null,
       table: null,
       details: [],
+      temp: [],
       placedTime: null
     }
   }),
@@ -22,9 +23,34 @@ export const useOrderStore = defineStore({
         this.order.employee = order.employee
         this.order.table = order.table
         this.order.details = order.details
+        this.order.temp = order.details
         this.order.placedTime = order.placedTime
       } catch (error) {
         console.error('Error fetching order:', error)
+      }
+    },
+
+    sortOrders(criteria, mode) {
+      if (criteria === 'defaultValue') {
+        this.order.details = this.order.temp.slice()
+      } else if (criteria === 'dish') {
+        this.order.details = this.order.details.sort((a, b) =>
+          a.dish.dishName.localeCompare(b.dish.dishName)
+        )
+      } else if (criteria === 'type') {
+        this.order.details = this.order.details.sort((a, b) =>
+          a.dish.dishType.dishTypeName.localeCompare(b.dish.dishType.dishTypeName)
+        )
+      } else if (criteria === 'price') {
+        this.order.details = this.order.details.sort(
+          (a, b) => a.dish.price * a.quantity - b.dish.price * b.quantity
+        )
+      } else if (criteria === 'quantity') {
+        this.order.details = this.order.details.sort((a, b) => a.quantity - b.quantity)
+      }
+
+      if (mode === 'desc') {
+        this.order.details = this.order.details.slice().reverse()
       }
     },
 

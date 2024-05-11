@@ -1,9 +1,9 @@
 <template>
-  <ul v-for="table in tables" :key="table.id" class="list-none">
+  <ul v-for="(table, index) in tables" :key="table.id" class="list-none">
     <li
       class="grid grid-cols-2 gap-y-4 items-center p-4 border rounded-lg shadow-lg my-5 text-ellipsis"
     >
-      <h1 class="font-semibold text-xl uppercase">{{ table.name }}</h1>
+      <h1 class="font-semibold text-lg uppercase">#{{ index + 1 }}</h1>
       <div class="flex justify-end items-center">
         <button
           v-if="isAdmin"
@@ -51,7 +51,10 @@
         </button>
       </div>
 
-      <h1 class="text-sm uppercase">Trạng thái bàn</h1>
+      <h1 class="font-semibold uppercase">Tên bàn</h1>
+      <h1 class="text-end">{{ table.name }}</h1>
+
+      <h1 class="font-semibold uppercase">Trạng thái bàn</h1>
       <div v-if="table.state == 'available'" class="flex justify-end">
         <h1 class="text-green-500">Còn trống</h1>
       </div>
@@ -60,14 +63,14 @@
         <h1 class="text-red-500">Đã có khách</h1>
       </div>
 
-      <h1 class="text-sm uppercase">Đơn món</h1>
+      <h1 class="font-semibold uppercase">Đơn món</h1>
       <div class="flex justify-end">
         <button
           :disabled="table.state === 'available'"
           @click="showOrder(table)"
-          class="text-white w-full truncate bg-gray-800 hover:bg-gray-600 focus:ring-4 disabled:bg-gray-300 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-3 text-center"
+          class="text-white w-full truncate bg-gray-800 hover:bg-gray-600 focus:ring-4 disabled:bg-gray-300 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         >
-          <h1 class="text-sm">Xem chi tiết</h1>
+          <h1 class="">Xem chi tiết</h1>
         </button>
       </div>
     </li>

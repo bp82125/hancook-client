@@ -3,7 +3,7 @@
     <button
       id="sortPositionButton"
       data-dropdown-toggle="sortPositionRadio"
-      class="text-gray-800 w-fit hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+      class="text-gray-800 w-fit hover:bg-gray-100 font-medium rounded-lg text-sm ps-1 pe-5 md:px-5 py-2.5 text-center inline-flex items-center"
       type="button"
     >
       Sắp xếp theo: {{ getValue(criteria) }}
@@ -195,7 +195,7 @@ const getValue = (criteria) => {
   }
 }
 
-watchEffect(async () => {
-  await accountStore.sortAccounts(criteria.value, mode.value)
+watchEffect(() => {
+  accountStore.sortAccounts(criteria.value, mode.value)
 })
 </script>

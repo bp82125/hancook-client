@@ -8,7 +8,7 @@
           <th scope="col" class="py-3 uppercase">Số lượng</th>
           <th scope="col" class="px-6 py-3 min-w-36 text-end uppercase">Giá</th>
           <th scope="col" class="px-9 py-3 w-32 text-center uppercase">Ghi chú</th>
-          <th scope="col" class="py-3"><OrderAddDish></OrderAddDish></th>
+          <th scope="col" class="py-3"></th>
         </tr>
       </thead>
       <tbody class="divide-y-2">

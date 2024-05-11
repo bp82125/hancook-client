@@ -1,8 +1,8 @@
 <template>
   <div class="flex justify-end items-center truncate order-first md:order-none">
     <button
-      data-modal-target="createExpenseModal"
-      data-modal-toggle="createExpenseModal"
+      @click="openModal"
+      type="button"
       class="flex items-center justify-center w-full md:w-fit gap-2 bg-blue-500 p-3 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-3 py-3 text-center"
     >
       <svg
@@ -25,7 +25,6 @@
 
     <div
       id="createExpenseModal"
-      data-modal-backdrop="static"
       tabindex="-1"
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
@@ -39,9 +38,9 @@
           >
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Thêm chi tiêu</h3>
             <button
+              @click="closeModal"
               type="button"
               class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-hide="createExpenseModal"
             >
               <svg
                 class="w-3 h-3"
@@ -98,6 +97,10 @@
                 />
               </div>
 
+              <div v-if="amountSmallerZero">
+                <h1 class="text-red-500">Số tiền chi phải lớn hơn 0</h1>
+              </div>
+
               <div>
                 <label
                   for="note"
@@ -116,17 +119,16 @@
               <div class="flex flex-row gap-x-2">
                 <button
                   form="createExpenseForm"
-                  data-modal-hide="createExpenseModal"
                   type="submit"
-                  class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  class="text-white w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Thêm
                 </button>
 
                 <button
-                  data-modal-hide="createExpenseModal"
+                  @click="closeModal"
                   type="button"
-                  class="hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-black border"
+                  class="hover:bg-gray-100 w-full focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-black border"
                 >
                   Hủy
                 </button>
@@ -140,7 +142,7 @@
 </template>
 
 <script setup>
-import { initModals } from 'flowbite'
+import { Modal } from 'flowbite'
 import { ref, onMounted, computed } from 'vue'
 import { useExpenseStore } from '@/stores/expenseStore'
 import { useUserStore } from '@/stores/userStore'
@@ -148,10 +150,29 @@ import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 
+let modal
 onMounted(async () => {
-  initModals()
+  const $modalElement = document.querySelector('#createExpenseModal')
+  const modalOptions = {
+    backdrop: 'static',
+    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40'
+  }
+
+  if ($modalElement) {
+    modal = new Modal($modalElement, modalOptions)
+  }
+
   await userStore.fetchUser()
 })
+
+const openModal = () => {
+  modal.toggle()
+}
+
+const closeModal = () => {
+  resetModal()
+  modal.toggle()
+}
 
 const expenseStore = useExpenseStore()
 const userStore = useUserStore()
@@ -163,14 +184,23 @@ const user = computed(() => {
 const name = ref('')
 const amount = ref(0)
 const note = ref('')
+const amountSmallerZero = ref(false)
 
 const resetModal = () => {
   name.value = ''
   amount.value = 0
   note.value = ''
+  amountSmallerZero.value = false
 }
 
 const submitForm = async () => {
+  if (amount.value <= 0) {
+    amountSmallerZero.value = true
+    return
+  }
+
+  amountSmallerZero.value = false
+
   const data = {
     employeeId: user.value.id,
     name: name.value,
@@ -183,6 +213,6 @@ const submitForm = async () => {
   } else {
     toast.error(`Chi tiêu ${name.value} được tạo thất bại`)
   }
-  resetModal()
+  closeModal()
 }
 </script>

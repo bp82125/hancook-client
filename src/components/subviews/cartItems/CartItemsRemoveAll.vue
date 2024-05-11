@@ -1,12 +1,12 @@
 <template>
-  <div class="flex items-center justify-end rounded-lg px-2">
+  <div class="flex items-center justify-end rounded-lg my-2 md:my-0">
     <button
       data-modal-target="removeAllModal"
       data-modal-toggle="removeAllModal"
-      class="flex justify-center w-full md:w-fit gap-2 hover:bg-red-400 hover:md:bg-gray-100 p-2 rounded-lg bg-red-600 md:bg-transparent focus:ring-4 focus:outline-none focus:ring-red-300"
+      class="flex justify-center items-center w-full md:w-fit gap-2 hover:bg-red-400 hover:md:bg-gray-100 p-2 rounded-lg bg-red-600 md:bg-transparent focus:ring-4 focus:outline-none focus:ring-red-300"
     >
       <svg
-        class="w-6 h-6 text-white md:text-red-600 dark:text-white"
+        class="w-[18px] h-[18px] md:w-6 md:h-6 text-white md:text-red-600 dark:text-white"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -92,14 +92,14 @@
             @click="cartItemStore.clearAll()"
             data-modal-hide="removeAllModal"
             type="button"
-            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            class="text-white w-full justify-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             Xoá
           </button>
           <button
             data-modal-hide="removeAllModal"
             type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4"
+            class="py-2.5 px-5 ms-3 w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4"
           >
             Huỷ
           </button>

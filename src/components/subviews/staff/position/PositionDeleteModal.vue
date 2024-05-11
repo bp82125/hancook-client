@@ -12,7 +12,7 @@
         >
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Xoá chức vụ</h3>
           <button
-            @click="() => modal.toggle()"
+            @click="closeModal"
             id="closeModal"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
           >
@@ -51,20 +51,22 @@
           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
             Bạn có muốn xoá chức vụ {{ name }} không?
           </h3>
-          <button
-            @click="deletePosition"
-            type="button"
-            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-          >
-            Có
-          </button>
-          <button
-            @click="() => modal.toggle()"
-            type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-          >
-            Huỷ
-          </button>
+          <div class="flex">
+            <button
+              @click="deletePosition"
+              type="button"
+              class="text-white flex justify-center w-full bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm items-center px-5 py-2.5 text-center"
+            >
+              Xóa
+            </button>
+            <button
+              @click="closeModal"
+              type="button"
+              class="py-2.5 px-5 ms-3 w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            >
+              Huỷ
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -75,6 +77,8 @@
 import { ref, onMounted } from 'vue'
 import { usePositionStore } from '@/stores/positionStore'
 import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 
 let modal
 
@@ -102,17 +106,23 @@ const openModal = (position) => {
   modal.toggle()
 }
 
+const closeModal = () => {
+  id.value = ''
+  name.value = ''
+  salary.value = ''
+
+  modal.toggle()
+}
+
 const deletePosition = async () => {
   try {
     await positionStore.deletePosition(id.value)
-
-    id.value = ''
-    name.value = ''
-    salary.value = ''
-
-    modal.toggle()
+    toast.success('Xóa chức vụ thành công')
+    closeModal()
   } catch (error) {
+    toast.error('Xóa chức vụ thất bại')
     console.error('Error submit form:', error)
+    closeModal()
   }
 }
 

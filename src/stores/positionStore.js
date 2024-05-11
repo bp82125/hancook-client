@@ -34,7 +34,7 @@ export const usePositionStore = defineStore({
         signOut()
       }
     },
-    async sortPositions(criteria, mode) {
+    sortPositions(criteria, mode) {
       if (criteria === 'defaultValue') {
         this.positions = this.temp
       } else if (criteria === 'name') {

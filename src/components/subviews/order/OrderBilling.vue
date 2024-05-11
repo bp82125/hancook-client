@@ -81,14 +81,14 @@
           <button
             form="orderPaymentForm"
             type="submit"
-            class="text-white bg-gray-800 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            class="text-white w-full bg-gray-800 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             Thanh toán
           </button>
           <button
             @click="closeModal"
             type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"
+            class="py-2.5 w-full px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"
           >
             Hủy
           </button>
@@ -161,7 +161,7 @@ const submitForm = async () => {
     if (response.data.success) {
       toast.success('Thanh toán hóa đơn thành công')
       closeModal()
-      router.push({ name: 'table' })
+      router.push({ name: 'invoiceDetail', params: { invoiceId: response.data.data.id } })
     } else {
       toast.error('Thanh toán hóa đơn thất bại')
     }

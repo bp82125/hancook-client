@@ -25,6 +25,7 @@ import InvoiceSort from './InvoiceSort.vue'
 
 import { useWindowSize } from '@vueuse/core'
 import { ref } from 'vue'
+
 const width = useWindowSize().width
 
 const deleteModal = ref()

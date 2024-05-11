@@ -3,12 +3,12 @@
     <table class="table-auto w-full text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase">
         <tr>
-          <th scope="col" class="px-6 py-3 w-36"></th>
-          <th scope="col" class="px-6 py-3 text-center w-auto">Món ăn</th>
-          <th scope="col" class="px-6 py-3">Số lượng</th>
-          <th scope="col" class="px-6 py-3 min-w-36 text-end">Giá</th>
-          <th scope="col" class="px-9 py-3 w-32 text-center">Ghi chú</th>
-          <th scope="col" class="px-6 py-3 w-8"></th>
+          <th scope="col" class="py-3 w-36"></th>
+          <th scope="col" class="py-3 text-start">Món ăn</th>
+          <th scope="col" class="py-3">Số lượng</th>
+          <th scope="col" class="py-3 text-end">Giá</th>
+          <th scope="col" class="px-6 py-3 w-32 text-center">Ghi chú</th>
+          <th scope="col" class="py-3"></th>
         </tr>
       </thead>
       <tbody class="divide-y-2">
@@ -20,8 +20,8 @@
           <th scope="row" class="px-6 py-4">
             <img :src="item.dish.imagePath" class="w-24 h-24 rounded-lg object-cover" />
           </th>
-          <td class="px-6 py-4">
-            <div>
+          <td class="py-4">
+            <div class="line-clamp-2">
               <h2 class="font-semibold text-xl text-gray-900">
                 {{ item.dish.dishName }}
               </h2>
@@ -30,7 +30,7 @@
               </h2>
             </div>
           </td>
-          <td class="px-6 py-4">
+          <td class="py-4">
             <div class="flex flex-row space-x-1 items-center justify-center" role="group">
               <button
                 @click="decreaseQuantity(item)"
@@ -83,7 +83,7 @@
               </button>
             </div>
           </td>
-          <td class="px-6 py-4 text-end font-semibold text-gray-900">
+          <td class="py-4 text-end font-semibold text-gray-900">
             {{ formatPrice(getTotalPrice(item)) }}
           </td>
 
@@ -93,10 +93,10 @@
               rows="3"
               placeholder="
               ..."
-              class="align-text-top resize-none py-2 border-0 text-sm text-gray-700 bg-transparent hover:bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="align-text-bottom resize-none py-2 border border-gray-200 text-sm text-gray-700 bg-transparent hover:bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </td>
-          <td class="px-6 py-4 text-center">
+          <td class="py-4 text-center">
             <button
               @click="cartItemStore.removeItem(item.dish.id)"
               type="button"

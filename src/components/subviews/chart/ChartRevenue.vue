@@ -1,6 +1,6 @@
 <template>
   <template v-if="profits">
-    <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div class="w-full bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 md:p-6">
       <div class="grid grid-cols-2 gap-y-2 mb-5">
         <div>
           <template v-if="isProfit">

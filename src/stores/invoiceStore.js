@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
 import anyAscii from 'any-ascii'
-import { useTableStore } from './tableStore'
 
 export const useInvoiceStore = defineStore({
   id: 'invoice',
@@ -23,7 +22,7 @@ export const useInvoiceStore = defineStore({
         console.error('Error searching invoices:', error)
       }
     },
-    async sortInvoice(criteria, mode) {
+    sortInvoice(criteria, mode) {
       if (criteria === 'defaultValue') {
         this.invoices = this.temp
       } else if (criteria === 'employee') {
@@ -31,16 +30,15 @@ export const useInvoiceStore = defineStore({
           .slice()
           .sort((a, b) => a.employee.name.localeCompare(b.employee.name))
       } else if (criteria === 'table') {
-        const tableStore = useTableStore()
         this.invoices = this.invoices
           .slice()
-          .sort((a, b) => tableStore.customCompare(a.table.name, b.table.name))
+          .sort((a, b) => a.table.name.localeCompare(b.table.name))
       } else if (criteria === 'totalPrice') {
         this.invoices = this.invoices.slice().sort((a, b) => a.totalPrice - b.totalPrice)
       } else if (criteria === 'createdTime') {
         this.invoices = this.invoices
           .slice()
-          .sort((a, b) => a.createdTime.localeCompare(b.createdTime))
+          .sort((a, b) => -a.createdTime.localeCompare(b.createdTime))
       }
 
       if (mode === 'desc') {

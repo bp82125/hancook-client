@@ -1,9 +1,8 @@
 <template>
   <div class="flex justify-end order-first md:order-none">
     <button
+      @click="openModal"
       id="positionCreateModalButton"
-      data-modal-target="positionCreateModal"
-      data-modal-toggle="positionCreateModal"
       type="button"
       class="flex items-center justify-center w-full md:w-fit gap-2 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
@@ -31,7 +30,7 @@
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
     >
-      <div class="relative p-4 w-full max-w-xl max-h-full">
+      <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
           <!-- Modal header -->
@@ -40,9 +39,9 @@
           >
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Thêm chức vụ</h3>
             <button
+              @click="closeModal"
               type="button"
               class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="positionCreateModal"
             >
               <svg
                 aria-hidden="true"
@@ -99,12 +98,22 @@
               </div>
             </div>
 
-            <button
-              data-modal-toggle="positionCreateModal"
-              class="mt-4 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Thêm chức vụ
-            </button>
+            <div class="flex">
+              <button
+                type="submit"
+                class="mt-4 text-white w-full bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Thêm
+              </button>
+
+              <button
+                @click="closeModal"
+                type="button"
+                class="mt-4 py-2.5 px-5 ms-3 w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-500 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              >
+                Huỷ
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -113,8 +122,35 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { usePositionStore } from '@/stores/positionStore'
+import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+
+let modal
+onMounted(async () => {
+  const $modalElement = document.querySelector('#positionCreateModal')
+  const modalOptions = {
+    backdrop: 'static',
+    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40'
+  }
+
+  if ($modalElement) {
+    modal = new Modal($modalElement, modalOptions)
+  }
+})
+
+const openModal = () => {
+  modal.toggle()
+}
+
+const closeModal = () => {
+  name.value = ''
+  salary.value = ''
+  modal.toggle()
+}
+
+const toast = useToast()
 
 const name = ref('')
 const salary = ref('')
@@ -127,14 +163,12 @@ const submitForm = async () => {
       positionName: name.value,
       salaryCoefficient: salary.value
     })
-
-    name.value = ''
-    salary.value = ''
-    document.getElementById('positionCreateModal').hidden = true
-
-    console.log(response)
+    toast.success(`Thêm chức vụ ${name.value} thành công`)
+    closeModal()
   } catch (error) {
     console.error('Error submitting form:', error)
+    toast.success(`Thêm chức vụ ${name.value} thất bại`)
+    closeModal()
   }
 }
 </script>

@@ -51,20 +51,22 @@
           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
             Bạn có muốn xoá nhân viên {{ name }} không?
           </h3>
-          <button
-            @click="deleteEmployee"
-            type="button"
-            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-          >
-            Có
-          </button>
-          <button
-            @click="closeModal"
-            type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-          >
-            Huỷ
-          </button>
+          <div class="flex">
+            <button
+              @click="deleteEmployee"
+              type="button"
+              class="text-white w-full bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 justify-center"
+            >
+              Có
+            </button>
+            <button
+              @click="closeModal"
+              type="button"
+              class="py-2.5 px-5 ms-3 w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            >
+              Huỷ
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -75,6 +77,8 @@
 import { ref, onMounted } from 'vue'
 import { useEmployeeStore } from '@/stores/employeeStore'
 import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 
 let modal
 
@@ -98,21 +102,24 @@ const employeeStore = useEmployeeStore()
 const deleteEmployee = async () => {
   try {
     const response = await employeeStore.deleteEmployee(id.value)
-    modal.toggle()
-    console.log(response)
+    toast.success('Xóa nhân viên thành công')
+    closeModal()
   } catch (error) {
     console.error('Error submitting form:', error)
+    toast.success('Xóa nhân viên thất bại')
+    closeModal()
   }
 }
 
 const openModal = (employee) => {
   id.value = employee.id
   name.value = employee.name
-
   modal.toggle()
 }
 
 const closeModal = () => {
+  id.value = ''
+  name.value = ''
   modal.toggle()
 }
 

@@ -22,11 +22,11 @@ export const useTableStore = defineStore({
         console.error('Failed to search tables:', error)
       }
     },
-    async sortTable(criteria, mode) {
+    sortTable(criteria, mode) {
       if (criteria === 'defaultValue') {
         this.tables = this.temp
       } else if (criteria === 'name') {
-        this.tables = this.tables.slice().sort((a, b) => this.customCompare(a.name, b.name))
+        this.tables = this.tables.slice().sort((a, b) => a.name.localeCompare(b.name))
       } else if (criteria === 'state') {
         this.tables = this.tables.slice().sort((a, b) => -a.state.localeCompare(b.state))
       }

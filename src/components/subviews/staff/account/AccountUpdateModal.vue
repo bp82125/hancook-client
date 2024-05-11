@@ -108,20 +108,22 @@
               </div>
             </div>
 
-            <button
-              type="submit"
-              class="mt-4 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Lưu
-            </button>
+            <div class="flex">
+              <button
+                type="submit"
+                class="mt-4 w-full justify-center text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Lưu
+              </button>
 
-            <button
-              @click="closeModal"
-              type="button"
-              class="mt-4 text-gray-900 border hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mx-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:gray-blue-800"
-            >
-              Huỷ
-            </button>
+              <button
+                @click="closeModal"
+                type="button"
+                class="mt-4 w-full text-gray-900 border hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 mx-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:gray-blue-800"
+              >
+                Huỷ
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -133,6 +135,8 @@
 import { ref, onMounted } from 'vue'
 import { useAccountStore } from '@/stores/accountStore'
 import { Modal } from 'flowbite'
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 
 let modal
 
@@ -164,20 +168,13 @@ const submitForm = async () => {
       role: role.value
     })
 
-    id.value = ''
-    username.value = ''
-    password.value = ''
-    role.value = ''
-    enabled.value = null
-    employeeName.value = ''
-
-    modal.toggle()
-
-    console.log(response)
+    toast.success('Cập nhật tài khoản thành công')
+    closeModal()
   } catch (error) {
     console.error('Error submitting form:', error)
+    toast.success('Cập nhật tài khoản thất bại')
+    modal.toggle()
   }
-  console.log(accountStore)
 }
 
 const openModal = (account) => {
@@ -192,6 +189,12 @@ const openModal = (account) => {
 }
 
 const closeModal = () => {
+  id.value = ''
+  username.value = ''
+  password.value = ''
+  role.value = ''
+  enabled.value = null
+  employeeName.value = ''
   modal.toggle()
 }
 

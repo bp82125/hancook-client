@@ -9,7 +9,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="scroll-smooth">
     <RouterView></RouterView>
   </div>
 </template>

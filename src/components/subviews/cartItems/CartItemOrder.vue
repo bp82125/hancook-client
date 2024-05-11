@@ -69,10 +69,17 @@ const submitForm = async () => {
     errorMessage.value = 'Bạn chưa chọn món ăn nào để đặt đơn'
     return
   }
-  toast.success('Đơn món được tạo thành công')
+
+  const response = await cartItemStore.createOrder()
+
+  if (response.data.success) {
+    await router.push({ name: 'order', params: { tableId: response.data.data.table.id } })
+    toast.success('Đơn món được tạo thành công')
+  } else {
+    await router.push({ name: 'dish' })
+    toast.error('Đơn món tạo thất bại')
+  }
   errorMessages.value = ''
-  await cartItemStore.createOrder()
-  router.push({ name: 'dish' })
 }
 </script>
 @/stores/cartStore
