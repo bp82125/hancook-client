@@ -73,7 +73,7 @@ const search = async () => {
 
   timeout = setTimeout(async () => {
     await accountStore.searchAccount(query.value)
-  }, 300)
+  }, 100)
 }
 
 const reset = async () => {

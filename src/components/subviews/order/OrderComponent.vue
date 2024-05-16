@@ -1,12 +1,12 @@
 <template>
-  <div class="overflow-x-auto p-6 rounded-lg shadow-lg bg-gray-50 mb-5">
+  <div class="overflow-x-auto p-3 m-2 rounded-lg shadow-lg bg-gray-50">
     <div class="mb-5">
       <OrderTitle></OrderTitle>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
       <OrderSort></OrderSort>
-      <div class="flex justify-end order-first md:order-none">
+      <div class="flex justify-end order-first md:order-none md:me-8">
         <OrderAddDish></OrderAddDish>
       </div>
     </div>

@@ -2,10 +2,28 @@
   <!-- Modal toggle -->
   <button
     @click="showModal"
-    class="block w-full mt-2 text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+    class="flex justify-center items-end gap-x-2 w-full mt-2 text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
     type="button"
   >
-    Huỷ đơn
+    <svg
+      class="w-[20px] h-[20px]"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+      />
+    </svg>
+
+    <h1>Huỷ đơn</h1>
   </button>
 
   <!-- Main modal -->
@@ -74,14 +92,14 @@
           <button
             @click="cancelOrder"
             type="button"
-            class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            class="text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             Huỷ
           </button>
           <button
             @click="closeModal"
             type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"
+            class="py-2.5 w-full px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100"
           >
             Không
           </button>
@@ -96,6 +114,9 @@ import { onMounted } from 'vue'
 import { Modal } from 'flowbite'
 import { useRouter } from 'vue-router'
 import { useOrderStore } from '@/stores/orderStore'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 let modal
 
 const router = useRouter()
@@ -125,5 +146,6 @@ const cancelOrder = async () => {
   await orderStore.deleteOrder()
   router.push({ name: 'table' })
   modal.hide()
+  toast.success('Đơn món đã được hủy thành công')
 }
 </script>

@@ -5,7 +5,7 @@
       @input="search"
       placeholder="Nhập tên nhân viên cần tìm..."
       size="md"
-      class="grow "
+      class="grow"
     >
       <template #prefix>
         <svg
@@ -75,7 +75,7 @@ const search = async () => {
 
   timeout = setTimeout(async () => {
     await employeeStore.searchEmployee(query.value)
-  }, 300)
+  }, 100)
 }
 
 const reset = async () => {

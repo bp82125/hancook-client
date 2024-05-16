@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, watchEffect } from 'vue'
 import { useDishTypeStore } from '@/stores/dishTypeStore'
 import { useDishStore } from '@/stores/dishStore'
 import { useFileDialog } from '@vueuse/core'
@@ -13,10 +13,16 @@ const dishTypeStore = useDishTypeStore()
 const dishStore = useDishStore()
 
 const name = ref('')
-const price = ref()
+const price = ref(0)
 const dishType = ref('')
 
 const toast = useToast()
+
+watchEffect(() => {
+  if (price.value < 0 || !price.value) {
+    price.value = 0
+  }
+})
 
 let modal
 onMounted(async () => {
@@ -39,11 +45,13 @@ const openModal = () => {
 
 const resetData = () => {
   name.value = ''
-  price.value = ''
+  price.value = 0
   dishType.value = ''
   loadedImageUrl.value = null
   isSubmitting.value = false
   isFileLoading.value = false
+  isSelectedImage.value = false
+  isPriceLargerThan0.value = false
   reset()
 }
 
@@ -59,6 +67,8 @@ const dishTypes = computed(() => {
 const { files, open, reset } = useFileDialog()
 const loadedImageUrl = ref(null)
 const isFileLoading = ref(false)
+const isSelectedImage = ref(false)
+const isPriceLargerThan0 = ref(false)
 
 watch(files, async (newFiles) => {
   if (newFiles.length) {
@@ -78,9 +88,18 @@ const removePreviewImage = () => {
 
 const isSubmitting = ref(false)
 const submitForm = async () => {
-  isSubmitting.value = true
-  const data = files.value.item(0)
-  if (data) {
+  console.log(price.value)
+  if (price.value == 0) {
+    isPriceLargerThan0.value = true
+    return
+  }
+  isPriceLargerThan0.value = false
+
+  const checkImage = files.value
+  if (checkImage) {
+    isSubmitting.value = true
+    isSelectedImage.value = false
+    const data = checkImage.item(0)
     const url = await uploadImage(data, data.name)
 
     const dishData = {
@@ -97,6 +116,8 @@ const submitForm = async () => {
       toast.error('Thêm món ăn thất bại')
     }
     closeModal()
+  } else {
+    isSelectedImage.value = true
   }
 }
 </script>
@@ -133,12 +154,12 @@ const submitForm = async () => {
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
     >
-      <div class="relative p-4 w-full max-w-xl h-full md:h-auto">
+      <div class="relative p-4 w-full max-w-xl max-h-full">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
           <!-- Modal header -->
           <div
-            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+            class="flex justify-between items-center py-2 rounded-t border-b md:mb-5 dark:border-gray-600"
           >
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Thêm món ăn</h3>
             <button
@@ -164,7 +185,7 @@ const submitForm = async () => {
           </div>
           <!-- Modal body -->
           <form @submit.prevent="submitForm">
-            <fieldset class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <fieldset class="grid gap-2 sm:grid-cols-2 md:gap-6">
               <div class="sm:col-span-2">
                 <label
                   for="name"
@@ -177,7 +198,7 @@ const submitForm = async () => {
                   name="name"
                   id="nameInputCreate"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder=""
+                  placeholder="Nhập tên món ăn..."
                   required
                   :disabled="isSubmitting"
                 />
@@ -198,6 +219,9 @@ const submitForm = async () => {
                   required
                   :disabled="isSubmitting"
                 />
+                <div v-if="isPriceLargerThan0">
+                  <h1 class="text-red-500">Giá món ăn phải lớn hơn 0</h1>
+                </div>
               </div>
 
               <div class="w-full">
@@ -292,6 +316,9 @@ const submitForm = async () => {
                     </div>
                   </button>
                 </template>
+                <div v-if="isSelectedImage">
+                  <h1 class="text-red-500">Bạn chưa chọn ảnh cho món ăn</h1>
+                </div>
               </div>
 
               <template v-if="isSubmitting">

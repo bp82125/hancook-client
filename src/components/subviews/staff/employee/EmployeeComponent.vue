@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 md:p-8 rounded-lg shadow-lg bg-white my-5">
+  <div class="p-3 md:p-8 rounded-lg shadow-lg bg-white my-5">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2 md:mb-8">
       <EmployeeSearchBar></EmployeeSearchBar>
       <EmployeeSort></EmployeeSort>

@@ -90,7 +90,7 @@ import { initDropdowns } from 'flowbite'
 
 let dropdown
 
-const selectedTime = ref('Từ trước đến giờ')
+const selectedTime = ref('Hôm nay')
 const emits = defineEmits(['timeSelectedDish'])
 
 onMounted(() => {
@@ -107,6 +107,7 @@ onMounted(() => {
   }
 
   dropdown = new Dropdown($targetEl, $triggerEl, options)
+  updateSelectedTime('Hôm nay')
 })
 
 const hideDropdown = () => {

@@ -102,8 +102,18 @@ const accountStore = useAccountStore()
 
 const deleteAccount = async () => {
   try {
+    if (name.value === 'admin') {
+      toast.error('Không thể xóa tài khoản admin')
+      modal.toggle()
+      return
+    }
     const response = await accountStore.deleteAccount(id.value)
-    toast.success('Xóa tài khoản thành công')
+    if (response.data.success) {
+      toast.success('Xóa tài khoản thành công')
+    } else {
+      toast.error('Xóa tài khoản thất bại')
+    }
+
     modal.toggle()
   } catch (error) {
     toast.error('Xóa tài khoản thất bại')

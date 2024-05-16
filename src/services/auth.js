@@ -15,7 +15,7 @@ export function signOut() {
 export async function login(username, password) {
   try {
     const response = await axios.post(
-      'http://localhost:8080/api/v1/accounts/login',
+      import.meta.env.VITE_API_SERVER_URL + '/accounts/login',
       {
         username,
         password

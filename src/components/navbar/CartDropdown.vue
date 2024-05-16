@@ -1,6 +1,9 @@
 <template>
   <!-- Dropdown menu -->
-  <div id="cart-dropdown" class="z-40 shadow-lg bg-white divide-y divide-gray-100 rounded-lg w-96">
+  <div
+    id="cart-dropdown"
+    class="z-40 shadow-lg bg-white divide-y divide-gray-100 rounded-lg w-80 md:w-96"
+  >
     <div class="px-4 py-3 text-sm text-gray-900">
       <h1 class="font-medium text-lg text-center">Các món ăn đã chọn</h1>
     </div>

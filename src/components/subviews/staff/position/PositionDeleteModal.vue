@@ -55,7 +55,7 @@
             <button
               @click="deletePosition"
               type="button"
-              class="text-white flex justify-center w-full bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm items-center px-5 py-2.5 text-center"
+              class="text-white flex justify-center w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm items-center px-5 py-2.5 text-center"
             >
               Xóa
             </button>
@@ -116,8 +116,22 @@ const closeModal = () => {
 
 const deletePosition = async () => {
   try {
-    await positionStore.deletePosition(id.value)
-    toast.success('Xóa chức vụ thành công')
+    const output = await positionStore.deletePosition(id.value)
+    let response
+    if (output.response) {
+      response = output.response
+    } else {
+      response = output
+    }
+
+    if (response.data.success) {
+      toast.success('Xóa chức vụ thành công')
+    } else if (response.data.statusCode == 403) {
+      toast.error('Không thể xóa chức vụ của người dùng tài khoản admin')
+    } else {
+      toast.error('Xóa chức vụ thất bại')
+    }
+
     closeModal()
   } catch (error) {
     toast.error('Xóa chức vụ thất bại')

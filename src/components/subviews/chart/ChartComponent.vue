@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-auto p-4 md:p-8 rounded-lg shadow-lg bg-gray-50 m-2">
+  <div class="overflow-x-auto p-3 md:p-8 rounded-lg shadow-lg bg-gray-50 m-2">
     <ChartRevenue></ChartRevenue>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-d md:p-8 rounded-lg shadow-lg bg-white m-2">
+  <div class="md:p-8 rounded-lg shadow-lg bg-white m-2">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 items-center md:mb-3 p-4 pb-0 md:p-0">
       <InvoiceSearch></InvoiceSearch>
       <InvoiceSort></InvoiceSort>

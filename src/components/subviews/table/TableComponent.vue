@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5 md:p-8 rounded-lg shadow-lg bg-white m-2">
+  <div class="p-3 md:p-8 rounded-lg shadow-lg bg-white m-2">
     <div :class="isAdmin ? 'md:grid-cols-3' : 'md:grid-cols-2'" class="grid grid-cols-1 gap-y-4">
       <TableSearchBar></TableSearchBar>
       <div :class="isAdmin ? '' : 'flex justify-end'">

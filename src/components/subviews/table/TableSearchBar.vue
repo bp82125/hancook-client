@@ -74,7 +74,7 @@ const search = async () => {
 
   timeout = setTimeout(async () => {
     await tableStore.searchTable(query.value)
-  }, 300)
+  }, 100)
 }
 
 const reset = async () => {

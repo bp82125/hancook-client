@@ -1,13 +1,33 @@
 <template>
-  <div class="flex flex-col items-end">
-    <div class="w-fit my-5 mx-3 flex flex-col items-end float-end gap-2">
-      <p class="font-medium text-2xl text-end">Tổng cộng: {{ formatPrice(getTotal()) }}</p>
+  <div class="flex flex-col items-center md:items-end">
+    <div class="w-full md:w-fit my-5 mx-3 flex flex-col md:items-end md:float-end gap-2">
+      <p class="font-medium text-2xl text-center md:text-end">
+        Tổng cộng: {{ formatPrice(getTotal()) }}
+      </p>
       <button
         @click="submitForm"
-        class="w-full bg-gray-900 text-white inline-block py-2 px-4 focus:ring-4 focus:ring-gray-400 hover:bg-slate-700 mt-3 rounded-lg"
+        class="w-full flex justify-center items-end gap-x-2 bg-gray-800 text-white py-2 px-4 focus:ring-4 focus:ring-gray-400 hover:bg-slate-700 mt-3 rounded-lg"
         type="button"
       >
-        Đặt món
+        <svg
+          class="w-[24px] h-[24px]"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.2"
+            d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
+          />
+        </svg>
+
+        <h1>Đặt món</h1>
       </button>
     </div>
     <div>

@@ -1,9 +1,9 @@
 <template>
   <div class="flex items-center justify-end rounded-lg my-2 md:my-0">
     <button
-      data-modal-target="removeAllModal"
-      data-modal-toggle="removeAllModal"
-      class="flex justify-center items-center w-full md:w-fit gap-2 hover:bg-red-400 hover:md:bg-gray-100 p-2 rounded-lg bg-red-600 md:bg-transparent focus:ring-4 focus:outline-none focus:ring-red-300"
+      @click="showModal"
+      type="button"
+      class="flex justify-center items-center w-full md:w-fit gap-2 hover:bg-red-500 hover:md:bg-gray-100 p-2 rounded-lg bg-red-600 md:bg-transparent focus:ring-4 focus:outline-none focus:ring-red-300"
     >
       <svg
         class="w-[18px] h-[18px] md:w-6 md:h-6 text-white md:text-red-600 dark:text-white"
@@ -26,8 +26,7 @@
 
   <!-- Main modal -->
   <div
-    id="removeAllModal"
-    data-modal-backdrop="static"
+    id="removeAllItemsModal"
     tabindex="-1"
     aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
@@ -41,9 +40,9 @@
         >
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Xoá tất cả</h3>
           <button
+            @click="closeModal"
             type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            data-modal-hide="removeAllModal"
           >
             <svg
               class="w-3 h-3"
@@ -89,15 +88,14 @@
           class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
         >
           <button
-            @click="cartItemStore.clearAll()"
-            data-modal-hide="removeAllModal"
+            @click="submitForm"
             type="button"
-            class="text-white w-full justify-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            class="text-white w-full justify-center bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             Xoá
           </button>
           <button
-            data-modal-hide="removeAllModal"
+            @click="closeModal"
             type="button"
             class="py-2.5 px-5 ms-3 w-full text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4"
           >
@@ -111,13 +109,35 @@
 
 <script setup>
 import { onMounted } from 'vue'
-import { initModals } from 'flowbite'
+import { Modal } from 'flowbite'
 import { useCartItemStore } from '@/stores/cartItemStore'
 
 const cartItemStore = useCartItemStore()
 
+let modal
 onMounted(() => {
-  initModals()
+  const $modalElement = document.querySelector('#removeAllItemsModal')
+  const modalOptions = {
+    backdrop: 'static',
+    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40'
+  }
+
+  if ($modalElement) {
+    modal = new Modal($modalElement, modalOptions)
+  }
 })
+
+const showModal = () => {
+  modal.toggle()
+}
+
+const closeModal = () => {
+  modal.toggle()
+}
+
+const submitForm = () => {
+  cartItemStore.clearAll()
+  closeModal()
+}
 </script>
 @/stores/cartStore

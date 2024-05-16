@@ -21,7 +21,7 @@
           d="M5 12h14m-7 7V5"
         />
       </svg>
-      <div class="text-white">Thêm vị trí</div>
+      <div class="text-white">Thêm chức vụ</div>
     </button>
 
     <div
@@ -122,7 +122,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watchEffect } from 'vue'
 import { usePositionStore } from '@/stores/positionStore'
 import { Modal } from 'flowbite'
 import { useToast } from 'vue-toastification'
@@ -154,6 +154,12 @@ const toast = useToast()
 
 const name = ref('')
 const salary = ref('')
+
+watchEffect(() => {
+  if (salary.value < 1.0) {
+    salary.value = 1.0
+  }
+})
 
 const positionStore = usePositionStore()
 

@@ -3,7 +3,7 @@
     <fwb-input
       v-model="query"
       @input="search"
-      placeholder="Nhập tên bàn cần tìm..."
+      placeholder="Nhập thông tin cần tìm..."
       size="md"
       class="grow"
     >
@@ -74,7 +74,7 @@ const search = async () => {
 
   timeout = setTimeout(async () => {
     await invoiceStore.searchInvoice(query.value)
-  }, 300)
+  }, 100)
 }
 
 const reset = async () => {

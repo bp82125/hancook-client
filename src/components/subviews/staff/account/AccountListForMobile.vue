@@ -101,7 +101,7 @@
         <h1 class="font-semibold uppercase">Trạng thái tài khoản</h1>
       </div>
 
-      <div class="inline-flex justify-end">
+      <div class="inline-flex justify-end ms-2">
         <button
           v-if="account.enabled"
           @click="$emit('toggleAccount', account)"

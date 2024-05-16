@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
-import { signOut } from '@/services/auth'
 import anyAscii from 'any-ascii'
+import { query } from 'firebase/database'
 
 export const useDishStore = defineStore({
   id: 'dishes',
@@ -12,12 +12,16 @@ export const useDishStore = defineStore({
   actions: {
     async searchDish(name) {
       try {
-        console.log('hi')
         if (name === '') {
           this.dishes = this.temp
         } else {
-          this.dishes = this.dishes.filter((dish) =>
-            anyAscii(dish.dishName.toLowerCase()).includes(anyAscii(name.toLowerCase()))
+          this.dishes = this.temp.filter(
+            (dish) =>
+              anyAscii(dish.dishName.toLowerCase()).includes(anyAscii(name.toLowerCase())) ||
+              dish.price.toString().includes(name.toString()) ||
+              anyAscii(dish.dishType.dishTypeName.toLowerCase()).includes(
+                anyAscii(name.toLowerCase())
+              )
           )
         }
       } catch (error) {
@@ -46,7 +50,6 @@ export const useDishStore = defineStore({
         this.temp = response.data.data
       } catch (error) {
         console.error('Failed to fetch dishes:', error)
-        signOut()
       }
     },
     async createDish(data) {
@@ -56,7 +59,6 @@ export const useDishStore = defineStore({
         return response
       } catch (error) {
         console.error('Failed to create a dish:', error)
-        signOut()
       }
     },
 
@@ -67,7 +69,6 @@ export const useDishStore = defineStore({
         return response
       } catch (error) {
         console.error('Failed to create a dish:', error)
-        signOut()
       }
     },
 
@@ -78,7 +79,6 @@ export const useDishStore = defineStore({
         return response
       } catch (error) {
         console.error('Failed to delete a dish:', error)
-        signOut()
       }
     }
   }

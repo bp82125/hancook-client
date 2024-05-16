@@ -13,7 +13,7 @@
       Hẻm 290/27, Đ. Lê Bình, Hưng Lợi, Ninh Kiều, TP. Cần Thơ
     </h1>
 
-    <h1 class="text-sm text-center md:text-sm font-normal mt-1 md:mt-2 text-gray-500">
+    <h1 class="text-sm text-center md:text-sm font-normal text-gray-500">
       {{ formatDateTime(invoice.createdTime) }}
     </h1>
   </div>

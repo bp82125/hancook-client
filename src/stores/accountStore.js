@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
-import { signOut } from '@/services/auth'
 import { useEmployeeStore } from './employeeStore'
 import anyAscii from 'any-ascii'
 
@@ -19,11 +18,28 @@ export const useAccountStore = defineStore({
           this.accounts = this.temp
           return
         }
-        this.accounts = this.accounts.filter((account) =>
-          anyAscii(account.username.toLowerCase()).includes(anyAscii(username.toLowerCase()))
+        this.accounts = this.temp.filter(
+          (account) =>
+            anyAscii(account.username.toLowerCase()).includes(anyAscii(username.toLowerCase())) ||
+            anyAscii(account.employeeName.toLowerCase()).includes(
+              anyAscii(username.toLowerCase())
+            ) ||
+            anyAscii(this.roleMapping(account.role).toLowerCase()).includes(
+              anyAscii(username.toLowerCase())
+            )
         )
       } catch (error) {
         console.error('Failed to fetch accounts:', error)
+      }
+    },
+    roleMapping(role) {
+      switch (role) {
+        case 'admin':
+          return 'Quản trị'
+        case 'staff':
+          return 'Nhân viên'
+        default:
+          return role
       }
     },
     sortAccounts(criteria, mode) {
@@ -53,7 +69,6 @@ export const useAccountStore = defineStore({
         return response
       } catch (error) {
         console.error('Failed to fetch accounts:', error)
-        signOut()
       }
     },
     async updateAccount(id, accountData) {
@@ -63,7 +78,6 @@ export const useAccountStore = defineStore({
         return response
       } catch (error) {
         console.error('Failed to update accounts:', error)
-        signOut()
       }
     },
     async toggleAccount(id) {
@@ -72,7 +86,6 @@ export const useAccountStore = defineStore({
         await this.fetchAccounts()
       } catch (error) {
         console.error('Failed to toggle account:', error)
-        signOut()
       }
     },
     async resetPassword(id, passwordData) {

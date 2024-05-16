@@ -169,7 +169,7 @@ onMounted(async () => {
   if ($modalElement) {
     modal = new Modal($modalElement, modalOptions)
   }
-  await userStore.fetchUser()
+  await userStore.fetchUser(true)
 })
 
 const user = computed(() => {
@@ -208,7 +208,7 @@ const submitForm = async () => {
     const response = await employeeStore.updateEmployee(id.value, requestBody)
 
     if (response.data.success) {
-      await userStore.fetchUser()
+      await userStore.fetchUser(true)
       toast.success('Cập nhật thông tin cá nhân thành công')
       resetValue()
     } else {

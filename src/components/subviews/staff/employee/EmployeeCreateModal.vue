@@ -223,25 +223,20 @@ const closeModal = () => {
 }
 
 const submitForm = async () => {
-  try {
-    const response = await employeeStore.createEmployee({
-      name: name.value,
-      gender: gender.value,
-      address: address.value,
-      phoneNumber: phoneNumber.value,
-      positionId: position.value
-    })
+  const response = await employeeStore.createEmployee({
+    name: name.value,
+    gender: gender.value,
+    address: address.value,
+    phoneNumber: phoneNumber.value,
+    positionId: position.value
+  })
 
-    if (response.data.success) {
-      toast.success('Thêm nhân viên thành công')
-    } else {
-      toast.error('Thêm nhân viên thất bại')
-    }
-
-    closeModal()
-  } catch (error) {
-    console.error('Error submitting form:', error)
+  if (response.data.success) {
+    toast.success('Thêm nhân viên thành công')
+  } else {
+    toast.error('Thêm nhân viên thất bại')
   }
-  console.log(employeeStore)
+
+  closeModal()
 }
 </script>

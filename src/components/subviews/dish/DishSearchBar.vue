@@ -69,14 +69,13 @@ const query = ref('')
 let timeout
 
 const search = async () => {
-  console.log(isDisable.value)
   if (timeout) {
     clearTimeout(timeout)
   }
 
   timeout = setTimeout(async () => {
     await dishStore.searchDish(query.value)
-  }, 300)
+  }, 100)
 }
 
 const reset = () => {

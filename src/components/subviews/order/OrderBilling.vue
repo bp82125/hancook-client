@@ -1,9 +1,29 @@
 <template>
   <button
     @click="showModal"
-    class="w-full bg-gray-900 text-white inline-block py-2 px-4 focus:ring-4 focus:ring-gray-400 hover:bg-slate-700 mt-3 rounded-lg"
+    class="w-full flex justify-center items-center gap-x-2 bg-gray-900 text-white py-2 px-4 focus:ring-4 focus:ring-gray-400 hover:bg-slate-700 mt-3 rounded-lg"
     type="button"
   >
+    <svg
+      class="w-[20px] h-[20px]"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M4 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H4Zm0 6h16v6H4v-6Z"
+        clip-rule="evenodd"
+      />
+      <path
+        fill-rule="evenodd"
+        d="M5 14a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Zm5 0a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2h-5a1 1 0 0 1-1-1Z"
+        clip-rule="evenodd"
+      />
+    </svg>
     Thanh toán
   </button>
 
@@ -63,7 +83,7 @@
                   name="payment"
                   id="paymentInput"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder=""
+                  placeholder="Nhập số tiền khách hàng thanh toán..."
                   required
                 />
                 <p v-if="paymentNotEnough" class="text-left text-red-500 text-sm !mt-1">
@@ -81,9 +101,9 @@
           <button
             form="orderPaymentForm"
             type="submit"
-            class="text-white w-full bg-gray-800 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            class="text-white flex justify-center items-end gap-x-2 w-full bg-gray-800 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            Thanh toán
+            <h1>Thanh toán</h1>
           </button>
           <button
             @click="closeModal"
@@ -101,11 +121,10 @@
 <script setup>
 import { onMounted } from 'vue'
 import { Modal } from 'flowbite'
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { useOrderStore } from '@/stores/orderStore'
 import { useUserStore } from '@/stores/userStore'
-
 import { useToast } from 'vue-toastification'
 const toast = useToast()
 
@@ -138,13 +157,19 @@ const showModal = () => {
 }
 
 const closeModal = () => {
-  payment.value = null
+  payment.value = 0
   paymentNotEnough.value = false
   modal.hide()
 }
 
-const payment = ref()
+const payment = ref(0)
 const paymentNotEnough = ref(false)
+
+watchEffect(() => {
+  if (payment.value < 0) {
+    payment.value = 0 // Ensure it's always larger than 1.0
+  }
+})
 
 const submitForm = async () => {
   const totalPrice = orderStore.calculateTotalPrice()

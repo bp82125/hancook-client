@@ -13,7 +13,7 @@ import ProfileDropdown from '@/components/navbar/ProfileDropdown.vue'
     <CartDropdown></CartDropdown>
     <ProfileDropdown></ProfileDropdown>
     <SidebarMain></SidebarMain>
-    <div class="flex flex-1 p-2 md:p-4 lg:ml-64 h-auto mt-16">
+    <div class="flex flex-1 p-0.5 md:p-4 lg:ml-64 h-auto mt-16">
       <RouterView></RouterView>
     </div>
 

@@ -130,8 +130,8 @@ const closeModal = () => {
 
 /**********             form        *********** */
 const submitForm = async () => {
-  const imagePath = modalStore.data.imagePath
-  await deleteImage(imagePath)
+  // const imagePath = modalStore.data.imagePath
+  // await deleteImage(imagePath)
 
   const response = await dishStore.deleteDish(modalStore.data.id)
 

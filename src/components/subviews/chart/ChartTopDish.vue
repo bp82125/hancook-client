@@ -2,15 +2,19 @@
   <div
     class="flex flex-col w-full col-span-2 bg-white rounded-lg shadow-lg dark:bg-gray-800 p-4 md:p-6"
   >
-    <div class="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3">
+    <div
+      class="flex flex-col md:flex-row gap-y-4 md:gap-y-0 md:justify-between border-gray-200 border-b dark:border-gray-700 pb-3"
+    >
       <div class="flex justify-between items-center gap-x-2">
         <h1 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1 uppercase">
           Thống kê số lượng bán ra
         </h1>
       </div>
-      <chart-time-range-select-for-dish
-        @time-selected-dish="changeTimeRange"
-      ></chart-time-range-select-for-dish>
+      <div class="">
+        <chart-time-range-select-for-dish
+          @time-selected-dish="changeTimeRange"
+        ></chart-time-range-select-for-dish>
+      </div>
     </div>
     <div class="grow">
       <template v-if="numberOfInvoices > 0">
@@ -81,7 +85,6 @@ const calculateProgress = (dish) => {
 }
 
 const changeTimeRange = async (time) => {
-  console.log(time)
   await chartStore.fetchDishCounts(time)
 }
 </script>

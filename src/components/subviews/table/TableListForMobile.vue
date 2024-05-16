@@ -51,15 +51,15 @@
         </button>
       </div>
 
-      <h1 class="font-semibold uppercase">Tên bàn</h1>
+      <h1 class="font-semibold uppercase py-0.5">Tên bàn</h1>
       <h1 class="text-end">{{ table.name }}</h1>
 
-      <h1 class="font-semibold uppercase">Trạng thái bàn</h1>
+      <h1 class="font-semibold uppercase py-2.5">Trạng thái bàn</h1>
       <div v-if="table.state == 'available'" class="flex justify-end">
         <h1 class="text-green-500">Còn trống</h1>
       </div>
 
-      <div v-else class="flex justify-end">
+      <div v-else class="flex justify-end py-0.5">
         <h1 class="text-red-500">Đã có khách</h1>
       </div>
 
@@ -68,9 +68,9 @@
         <button
           :disabled="table.state === 'available'"
           @click="showOrder(table)"
-          class="text-white w-full truncate bg-gray-800 hover:bg-gray-600 focus:ring-4 disabled:bg-gray-300 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          class="text-white flex justify-center w-full truncate bg-gray-800 hover:bg-gray-600 focus:ring-4 disabled:bg-gray-300 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         >
-          <h1 class="">Xem chi tiết</h1>
+          <h1>Xem chi tiết</h1>
         </button>
       </div>
     </li>

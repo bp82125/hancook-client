@@ -138,7 +138,7 @@ const hasDishes = ref(false)
 const submitForm = async () => {
   const response = await dishTypeStore.deleteDishType(modalStore.data.id)
   if (response) {
-    toast.error('Xóa loại món ăn thành công')
+    toast.success('Xóa loại món ăn thành công')
     closeModal()
   } else {
     hasDishes.value = true

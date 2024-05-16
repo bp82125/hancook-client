@@ -128,10 +128,7 @@ const formatAmount = (amount) => {
 }
 
 const formatDateTime = (dateTime) => {
-  // Parse the dateTime string
   const parsedDateTime = new Date(dateTime)
-
-  // Format the parsed dateTime
   return format(parsedDateTime, 'dd/MM/yyyy - HH:mm')
 }
 

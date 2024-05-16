@@ -164,6 +164,12 @@ const accountStore = useAccountStore()
 
 const submitForm = async () => {
   try {
+    if (username.value === 'admin') {
+      toast.error('Không thể thay đổi loại tài khoản của tài khoản admin')
+      closeModal()
+      return
+    }
+
     const response = await accountStore.updateAccount(id.value, {
       role: role.value
     })

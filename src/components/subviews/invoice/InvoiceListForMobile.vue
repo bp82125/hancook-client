@@ -1,5 +1,5 @@
 <template>
-  <ul v-for="(invoice, index) in invoices" :key="invoice.id" class="list-none p-4">
+  <ul v-for="(invoice, index) in invoices" :key="invoice.id" class="list-none p-3">
     <li class="grid grid-cols-2 gap-2 gap-y-4 items-center p-4 border rounded-lg shadow-lg text-sm">
       <h1 class="font-semibold uppercase text-lg">#{{ index + 1 }}</h1>
       <div class="flex justify-end items-center">

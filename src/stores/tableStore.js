@@ -14,7 +14,7 @@ export const useTableStore = defineStore({
         if (name === '') {
           this.tables = this.temp
         } else {
-          this.tables = this.tables.filter((table) =>
+          this.tables = this.temp.filter((table) =>
             anyAscii(table.name.toLowerCase()).includes(anyAscii(name.toLowerCase()))
           )
         }

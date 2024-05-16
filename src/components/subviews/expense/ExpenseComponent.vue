@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5 md:p-8 rounded-lg shadow-lg bg-white m-2">
+  <div class="p-3 md:p-8 rounded-lg shadow-lg bg-white m-2">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-y-4 mb-3">
       <ExpenseSearchBar></ExpenseSearchBar>
       <ExpenseSort></ExpenseSort>

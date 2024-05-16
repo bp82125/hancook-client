@@ -65,7 +65,7 @@ const userStore = useUserStore()
 
 onMounted(async () => {
   initFlowbite()
-  await userStore.fetchUser()
+  await userStore.fetchUser(true)
 })
 
 const user = computed(() => {

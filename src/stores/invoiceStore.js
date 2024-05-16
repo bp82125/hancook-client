@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
 import anyAscii from 'any-ascii'
+import { format } from 'date-fns'
 
 export const useInvoiceStore = defineStore({
   id: 'invoice',
@@ -9,18 +10,29 @@ export const useInvoiceStore = defineStore({
     temp: []
   }),
   actions: {
-    async searchInvoice(id) {
+    async searchInvoice(query) {
       try {
-        if (id === '') {
+        if (query === '') {
           this.invoices = this.temp
         } else {
-          this.invoices = this.invoices.filter((invoice) =>
-            anyAscii(invoice.id.toLowerCase()).includes(anyAscii(id.toLowerCase()))
+          this.invoices = this.temp.filter(
+            (invoice) =>
+              anyAscii(invoice.employee.name.toLowerCase()).includes(
+                anyAscii(query.toLowerCase())
+              ) ||
+              anyAscii(invoice.table.name.toLowerCase()).includes(anyAscii(query.toLowerCase())) ||
+              anyAscii(invoice.id.toLowerCase()).includes(anyAscii(query.toLowerCase())) ||
+              invoice.totalPrice.toString().includes(query.toString()) ||
+              this.formatDateTime(invoice.createdTime).includes(query.toString())
           )
         }
       } catch (error) {
         console.error('Error searching invoices:', error)
       }
+    },
+    formatDateTime(dateTime) {
+      const parsedDateTime = new Date(dateTime)
+      return format(parsedDateTime, 'dd/MM/yyyy - HH:mm')
     },
     sortInvoice(criteria, mode) {
       if (criteria === 'defaultValue') {
@@ -38,7 +50,7 @@ export const useInvoiceStore = defineStore({
       } else if (criteria === 'createdTime') {
         this.invoices = this.invoices
           .slice()
-          .sort((a, b) => -a.createdTime.localeCompare(b.createdTime))
+          .sort((a, b) => a.createdTime.localeCompare(b.createdTime))
       }
 
       if (mode === 'desc') {

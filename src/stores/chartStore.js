@@ -27,12 +27,11 @@ export const useChartStore = defineStore({
         console.log('Error fetching table states', error)
       }
     },
-    async fetchDishCounts(timeRange = 'allTime') {
+    async fetchDishCounts(timeRange = 'today') {
       try {
         const response = await axiosInstance.get('/charts/dishes', {
           params: { timeRange: timeRange }
         })
-        console.log(response)
         this.dishCounts = response.data.data
         return response
       } catch (error) {

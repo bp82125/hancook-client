@@ -80,6 +80,7 @@ const routes = [
       {
         path: '/dashboard/expense',
         name: 'expense',
+        meta: { requiresAdmin: true },
 
         component: () => import('../views/subviews/ExpenseView.vue')
       },

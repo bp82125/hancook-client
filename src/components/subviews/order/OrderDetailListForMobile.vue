@@ -114,7 +114,7 @@
         <h1 class="text-sm font-semibold uppercase">{{ formatPrice(getTotalPrice(detail)) }}</h1>
       </div>
 
-      <div class="flex flex-col w-full p-2 gap-1">
+      <div class="flex flex-col w-full my-2">
         <textarea
           v-model="detail.note"
           rows="2"

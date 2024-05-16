@@ -15,10 +15,20 @@ export const useEmployeeStore = defineStore({
           this.employees = this.temp
           return
         }
-
-        this.employees = this.employees.filter((employee) =>
-          anyAscii(employee.name.toLowerCase()).includes(anyAscii(name.toLowerCase()))
-        )
+        this.employees = this.temp.filter((employee) => {
+          let username = ''
+          if (employee.account != null) {
+            username = employee.account.username
+          }
+          return (
+            anyAscii(employee.name.toLowerCase()).includes(anyAscii(name.toLowerCase())) ||
+            employee.phoneNumber.toString().includes(name.toString()) ||
+            anyAscii(employee.position.positionName.toLowerCase()).includes(
+              anyAscii(name.toLowerCase())
+            ) ||
+            anyAscii(username.toLowerCase()).includes(anyAscii(name.toLowerCase()))
+          )
+        })
       } catch (error) {
         console.error('Failed to fetch employees:', error)
       }
@@ -70,8 +80,9 @@ export const useEmployeeStore = defineStore({
     },
     async createEmployee(employeeData) {
       try {
-        await axiosInstance.post('/employees', employeeData)
+        const response = await axiosInstance.post('/employees', employeeData)
         await this.fetchEmployees()
+        return response
       } catch (error) {
         console.error('Failed to create employee:', error)
       }

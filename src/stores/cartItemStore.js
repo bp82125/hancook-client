@@ -37,9 +37,9 @@ export const useCartItemStore = defineStore({
           )
           console.log('Order detail created:', detailResponse.data.data)
         }
-        return orderResponse
 
         this.clearAll()
+        return orderResponse
       } catch (error) {
         console.error('Error creating order:', error)
         throw error

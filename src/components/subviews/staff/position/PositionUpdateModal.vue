@@ -108,7 +108,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watchEffect } from 'vue'
 import { usePositionStore } from '@/stores/positionStore'
 import { Modal } from 'flowbite'
 
@@ -129,6 +129,13 @@ onMounted(() => {
 const id = ref('')
 const name = ref('')
 const salary = ref('')
+
+watchEffect(() => {
+  if (salary.value < 1.0) {
+    salary.value = 1.0
+  }
+})
+
 const positionStore = usePositionStore()
 
 const submitForm = async () => {

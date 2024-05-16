@@ -72,7 +72,7 @@
         <h5 class="text-sm md:text-base lg:text-lg font-semibold line-clamp-1">
           {{ dish.dishName }}
         </h5>
-        <p class="text-xs md:text-sm lg:text-base text-gray-700 font-thin">
+        <p class="text-xs md:text-sm lg:text-base text-gray-700 font-normal">
           {{ formatPrice(dish.price) }}
         </p>
       </div>

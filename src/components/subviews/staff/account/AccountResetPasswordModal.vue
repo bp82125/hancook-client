@@ -63,6 +63,7 @@
                 type="password"
                 name="newPassword"
                 id="newPassword"
+                placeholder="Nhập mật khẩu mới..."
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 required
               />
@@ -83,6 +84,7 @@
                 type="password"
                 name="newPasswordAgain"
                 id="newPasswordAgain"
+                placeholder="Nhập lại mật khẩu mới..."
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 required
               />
@@ -137,6 +139,7 @@ onMounted(() => {
 })
 
 const id = ref('')
+const username = ref('')
 const newPassword = ref('')
 const newPasswordAgain = ref('')
 
@@ -163,6 +166,12 @@ const submitForm = async () => {
   }
   newPasswordNotSecure.value = false
 
+  if (username.value === 'admin') {
+    toast.info('Thay vào đó, hãy đăng nhập vào tài khoản admin và tiến hành đổi mật khẩu')
+    toast.error('Không thể đặt lại mật khẩu cho tài khoản admin')
+    return
+  }
+
   try {
     const response = await accountStore.resetPassword(id.value, {
       newPassword: newPassword.value
@@ -182,6 +191,7 @@ const submitForm = async () => {
 
 const openModal = (account) => {
   id.value = account.id
+  username.value = account.username
   modal.toggle()
 }
 
@@ -192,6 +202,7 @@ const closeModal = () => {
 
 const resetFields = () => {
   id.value = ''
+  username.value = ''
   newPassword.value = ''
   newPasswordAgain.value = ''
   newPasswordMismatch.value = false

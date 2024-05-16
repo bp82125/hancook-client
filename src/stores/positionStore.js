@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
-import { signOut } from '@/services/auth'
 import anyAscii from 'any-ascii'
 
 export const usePositionStore = defineStore({
@@ -16,8 +15,13 @@ export const usePositionStore = defineStore({
           this.positions = this.temp
           return
         } else {
-          this.positions = this.positions.filter((position) =>
-            anyAscii(position.positionName.toLowerCase()).includes(anyAscii(name.toLowerCase()))
+          this.positions = this.temp.filter(
+            (position) =>
+              anyAscii(position.positionName.toLowerCase()).includes(
+                anyAscii(name.toLowerCase())
+              ) ||
+              position.salaryCoefficient.toString().includes(name.toString()) ||
+              position.numberOfEmployees.toString().includes(name.toString())
           )
         }
       } catch (error) {
@@ -31,7 +35,6 @@ export const usePositionStore = defineStore({
         this.temp = response.data.data
       } catch (error) {
         console.error('Failed to fetch positions:', error)
-        signOut()
       }
     },
     sortPositions(criteria, mode) {
@@ -61,7 +64,6 @@ export const usePositionStore = defineStore({
         await this.fetchPositions() // Refresh positions data
       } catch (error) {
         console.error('Error creating position:', error)
-        signOut()
       }
     },
     async updatePosition(id, positionData) {
@@ -70,16 +72,16 @@ export const usePositionStore = defineStore({
         await this.fetchPositions()
       } catch (error) {
         console.error('Error creating position:', error)
-        signOut()
       }
     },
     async deletePosition(id) {
       try {
-        await axiosInstance.delete(`/positions/${id}`)
+        const response = await axiosInstance.delete(`/positions/${id}`)
         await this.fetchPositions()
+        return response
       } catch (error) {
         console.error('Error deleting position:', error)
-        signOut()
+        return error
       }
     }
   }

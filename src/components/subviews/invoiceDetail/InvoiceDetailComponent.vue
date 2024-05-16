@@ -7,7 +7,7 @@
   </div>
   <div
     id="currentInvoice"
-    class="overflow-x-auto p-6 md:p-16 rounded-lg shadow-lg mx-2 md:mx-16 my-4 bg-white"
+    class="overflow-x-auto p-3 md:p-16 rounded-lg shadow-lg mx-2 md:mx-16 my-4 bg-white"
   >
     <div v-if="invoice">
       <div class="p-2 mb-3">

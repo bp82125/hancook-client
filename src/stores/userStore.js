@@ -7,8 +7,8 @@ export const useUserStore = defineStore({
     user: null
   }),
   actions: {
-    async fetchUser() {
-      if (this.user == null) {
+    async fetchUser(force = false) {
+      if (this.user == null || force) {
         try {
           const employeeId = Cookies.get('employeeId')
           if (employeeId) {

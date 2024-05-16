@@ -55,7 +55,7 @@
             <button
               @click="deleteEmployee"
               type="button"
-              class="text-white w-full bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 justify-center"
+              class="text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 justify-center"
             >
               Có
             </button>
@@ -96,11 +96,17 @@ onMounted(() => {
 
 const id = ref('')
 const name = ref('')
+const account = ref(null)
 
 const employeeStore = useEmployeeStore()
 
 const deleteEmployee = async () => {
   try {
+    if (account.value != null && account.value.username === 'admin') {
+      toast.error('Không thể xóa nhân viên có tài khoản admin')
+      closeModal()
+      return
+    }
     const response = await employeeStore.deleteEmployee(id.value)
     toast.success('Xóa nhân viên thành công')
     closeModal()
@@ -112,14 +118,17 @@ const deleteEmployee = async () => {
 }
 
 const openModal = (employee) => {
+  console.log(employee)
   id.value = employee.id
   name.value = employee.name
+  account.value = employee.account
   modal.toggle()
 }
 
 const closeModal = () => {
   id.value = ''
   name.value = ''
+  account.value = null
   modal.toggle()
 }
 

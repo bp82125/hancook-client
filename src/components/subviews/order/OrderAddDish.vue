@@ -2,10 +2,28 @@
   <!-- Modal toggle -->
   <button
     @click="showModal"
-    class="block text-white bg-gray-800 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full md:w-fit py-2.5 px-12 text-center"
+    class="flex justify-center items-end gap-x-2 text-white bg-gray-800 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full md:w-fit py-2.5 px-12 text-center"
     type="button"
   >
-    Thêm món ăn
+    <svg
+      class="w-[18px] h-[18px]"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 12h14m-7 7V5"
+      />
+    </svg>
+
+    <h1>Thêm món ăn</h1>
   </button>
 
   <!-- Main modal -->

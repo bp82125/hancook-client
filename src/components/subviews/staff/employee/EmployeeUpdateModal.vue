@@ -164,6 +164,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useEmployeeStore } from '@/stores/employeeStore'
 import { usePositionStore } from '@/stores/positionStore'
+import { useUserStore } from '@/stores/userStore'
 import { Modal } from 'flowbite'
 import { useToast } from 'vue-toastification'
 const toast = useToast()
@@ -172,6 +173,7 @@ let modal
 let positions
 const positionStore = usePositionStore()
 const employeeStore = useEmployeeStore()
+const userStore = useUserStore()
 
 onMounted(async () => {
   await positionStore.fetchPositions()
@@ -208,6 +210,8 @@ const submitForm = async () => {
       positionId: position.value,
       accountId: account.value
     })
+
+    await userStore.fetchUser(true)
 
     toast.success('Cập nhật nhân viên thành công')
     closeModal()
