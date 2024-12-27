@@ -1,43 +1,85 @@
-# hancook-fe
+# Hancook (Client)
 
-This template should help get you started developing with Vue 3 in Vite.
+This repository contains the front-end application for a Korean-based restaurant management system. It is built using Vue 3, Vite, and other modern web development tools.
 
-## Recommended IDE Setup
+Check out [Hancook (Server)](https://github.com/bp82125/hancook-server)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Tech Stack
+- Frontend: Vue 3, Vite
+- Styling: TailwindCSS, Flowbite
+- State Management: Pinia
+- Routing: Vue Router
+- Charts: ApexCharts, Vue3-ApexCharts
+- Storage: Firebase Authentication, Firestore, Firebase Storage
+- Other Libraries: Axios, Fuse.js, html2canvas, vue-toastification, vue-cookies, vue-select
 
-## Customize configuration
+## Getting Started
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### Prerequisites
+- Node.js (>= 20.18)
+- npm or yarn
 
-## Project Setup
+### Clone the repository
+```bash
+git clone https://github.com/your-username/hancook-client.git
+cd hancook-client
+```
 
-```sh
+### Install dependencies
+Run the following command to install all the necessary dependencies:
+```bash
 npm install
 ```
+Or 
+```bash
+yarn install
+```
 
-### Compile and Hot-Reload for Development
+### Setting up the environment variables
 
-```sh
+1. Rename .env.example to .env
+2. Open the .env file and replace the placeholders with your configuration values.
+
+Example .env file:
+```env
+VITE_API_SERVER_URL=http://localhost:8080/api/v1
+VITE_FIREBASE_API_KEY=AIzaSyD-Your-API-Key-Here
+VITE_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=1234567890
+VITE_FIREBASE_APP_ID=1:1234567890:web:abcdefg12345678
+VITE_FIREBASE_MEASUREMENT_ID=G-XXXXXXX
+```
+
+### Run the development server
+Start the Vite development server:
+```bash
 npm run dev
 ```
+Or
+```bash
+yarn dev
+```
+This will start the project locally on http://localhost:3000.
 
-### Compile and Minify for Production
-
-```sh
+### Build for production
+Once you're ready to deploy, build the project:
+```bash
 npm run build
 ```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+Or
+```bash
+yarn build
+```
+To preview the production build locally, run:
+```bash
+npm run preview
+```
+Or
+```bash
+yarn preview
 ```
 
-# REQUIREMENT
-
-- node 16.*
-```
-node -v
-v16.20.2
-```
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
