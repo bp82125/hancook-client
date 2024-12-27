@@ -13,6 +13,23 @@ Check out [Hancook (Server)](https://github.com/bp82125/hancook-server)
 - Storage: Firebase Authentication, Firestore, Firebase Storage
 - Other Libraries: Axios, Fuse.js, html2canvas, vue-toastification, vue-cookies, vue-select
 
+## Example Screenshots
+### Desktop View
+![](./example/1.jpeg)<br/>
+![](./example/2.png)<br/>
+![](./example/3.jpeg)<br/>
+### Mobile View
+<p align="center">
+  <img src="./example/4.png" />
+</p>
+<p align="center">
+  <img src="./example/5.png" />
+</p>
+<p align="center">
+  <img src="./example/6.png" />
+</p>
+
+
 ## Getting Started
 
 ### Prerequisites
