@@ -2,7 +2,7 @@
   <ul v-for="(detail, index) in details" :key="detail.dish.id" class="list-none my-3">
     <li class="p-4 border rounded-lg shadow-lg my-5 text-sm">
       <div class="grid grid-cols-2 items-center">
-        <h1 class="font-semibold text-lg">#{{ index }}</h1>
+        <h1 class="font-semibold text-lg">#{{ index + 1 }}</h1>
         <div class="flex justify-end">
           <button
             @click="saveDetail(detail)"
